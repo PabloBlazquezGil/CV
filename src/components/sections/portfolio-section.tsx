@@ -35,7 +35,7 @@ export default function PortfolioSection() {
         {portfolioProjects.map((project, index) => (
           <Card key={index} className="flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
             <CardHeader>
-              <CardTitle>{project.title}</CardTitle>
+              <CardTitle className="font-headline">{project.title}</CardTitle>
               <CardDescription>{project.description}</CardDescription>
             </CardHeader>
             <CardContent className="flex-1 space-y-4">
@@ -49,14 +49,14 @@ export default function PortfolioSection() {
                 />
               </div>
               <div className="flex flex-wrap gap-2">
-                {project.technologies.slice(0, 3).map(tech => (
-                  <Badge key={tech} variant="outline">{tech}</Badge>
+                {project.technologies.slice(0, 4).map(tech => (
+                  <Badge key={tech} variant="secondary">{tech}</Badge>
                 ))}
               </div>
             </CardContent>
             <CardFooter>
               <Button onClick={() => setSelectedProject(project)} className="w-full">
-                View Details
+                Ver Detalles
               </Button>
             </CardFooter>
           </Card>
@@ -69,9 +69,8 @@ export default function PortfolioSection() {
             <>
               <DialogHeader>
                 <DialogTitle className="text-3xl font-headline">{selectedProject.title}</DialogTitle>
-                <DialogDescription className="pt-2">{selectedProject.longDescription}</DialogDescription>
               </DialogHeader>
-              <div className="grid gap-4 py-4">
+              <div className="grid gap-6 py-4 prose dark:prose-invert max-w-none">
                 <div className="relative aspect-video">
                   <Image
                     src={selectedProject.image.imageUrl}
@@ -81,8 +80,9 @@ export default function PortfolioSection() {
                     data-ai-hint={selectedProject.image.imageHint}
                   />
                 </div>
+                <p>{selectedProject.longDescription}</p>
                 <div>
-                  <h3 className="font-semibold mb-2">Technologies Used:</h3>
+                  <h3 className="font-semibold mb-2 text-foreground not-prose">Tecnologías Usadas:</h3>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.technologies.map(tech => (
                       <Badge key={tech} variant="secondary">{tech}</Badge>
@@ -92,7 +92,7 @@ export default function PortfolioSection() {
               </div>
               <Button asChild>
                 <a href={selectedProject.link} target="_blank" rel="noopener noreferrer">
-                  Visit Project <ExternalLink className="ml-2 h-4 w-4" />
+                  Visitar Proyecto <ExternalLink className="ml-2 h-4 w-4" />
                 </a>
               </Button>
             </>

@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'Pablo Blazquez Gil | CV',
-  description: 'The personal CV of Pablo Blazquez Gil, a Creative Full-Stack Developer & AI Enthusiast.',
+  title: 'Pablo Blázquez Gil | Comunicador y Divulgador Científico',
+  description: 'CV de Pablo Blázquez Gil, Comunicador y Divulgador Científico especializado en conectar la ciencia con la sociedad.',
 };
 
 export default function RootLayout({
@@ -13,11 +13,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="es" className="dark">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
         {children}

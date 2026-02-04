@@ -16,15 +16,15 @@ export default function HeroSection() {
             {title}
           </p>
         </div>
-        <p className="text-lg text-muted-foreground max-w-2xl">
+        <div className="text-lg text-muted-foreground max-w-2xl prose dark:prose-invert">
           {summary}
-        </p>
-        <div className="flex gap-4">
+        </div>
+        <div className="flex gap-4 flex-wrap">
             <Button asChild size="lg">
-                <Link href="#contact">Get in Touch</Link>
+                <Link href="#contact">Contactar</Link>
             </Button>
             <Button asChild variant="outline" size="lg">
-                <Link href="#portfolio">View My Work <ArrowDown className="ml-2 h-4 w-4" /></Link>
+                <Link href="#portfolio">Ver Proyectos <ArrowDown className="ml-2 h-4 w-4" /></Link>
             </Button>
         </div>
       </div>

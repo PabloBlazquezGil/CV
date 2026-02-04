@@ -1,49 +1,99 @@
 import type { ImagePlaceholder } from './placeholder-images';
 import { PlaceHolderImages } from './placeholder-images';
 
-export const name = "Pablo Blazquez Gil";
-export const title = "Creative Full-Stack Developer & AI Enthusiast";
-export const summary = "Innovative developer with a passion for building beautiful, functional web applications and exploring the frontiers of artificial intelligence. Experienced in turning complex problems into elegant solutions, with a strong focus on user experience and modern technologies.";
+export const name = "Pablo Blázquez Gil";
+export const title = "Comunicador y Divulgador Científico";
+export const summary = "Comunicador y divulgador científico con sólida formación en Bioquímica y Neurociencia. Especializado en conectar la ciencia con la sociedad mediante contenidos creativos, formatos audiovisuales y experiencias interactivas. Mi pasión es la innovación educativa y la narrativa científica, usando pensamiento crítico, empatía y creatividad para generar impacto. Domino herramientas de diseño, vídeo y comunicación digital, y tengo experiencia en la coordinación de proyectos con centros de investigación y entidades públicas. Me caracterizo por mi capacidad de aprendizaje rápido y mi habilidad para transformar ideas complejas en mensajes accesibles.";
 
 export const experience = [
   {
-    company: "Future Systems Inc.",
-    role: "Senior Frontend Developer",
-    period: "2020 - Present",
-    description: "Led the development of a new design system, improving development velocity by 30%. Mentored junior developers and pioneered the integration of AI-powered features into the main product.",
+    category: "Divulgación y Comunicación",
+    items: [
+      {
+        company: "VermisLAB",
+        role: "Divulgador Científico",
+        period: "07/2025 – 01/2026",
+        description: "Creación de experiencias para traducir conceptos científicos al lenguaje social. Diseño de actividades interactivas para despertar curiosidad STEAM. Dinamización de grupos y promoción del pensamiento crítico. Coordinación de proyectos educativos para fomentar vocaciones científicas.",
+      },
+      {
+        company: "ANOVAciencia",
+        role: "Divulgador Científico",
+        period: "2023 – 12/2025",
+        description: "Diseño y ejecución de vídeos de divulgación para público general. Creación de contenidos para redes sociales especializadas en ciencia y tecnología.",
+      },
+      {
+        company: "Centro de Astrobiología",
+        role: "Comunicador Científico",
+        period: "03/2023 – 03/2025",
+        description: "Implementación de estrategias de comunicación y producción audiovisual corporativa. Coordinación de campañas de SEO y narrativa estratégica en medios digitales. Organización de eventos institucionales e internacionales con adaptación de mensajes.",
+      },
+    ]
   },
   {
-    company: "Innovate Solutions",
-    role: "Full-Stack Developer",
-    period: "2017 - 2020",
-    description: "Developed and maintained web applications for various clients using React, Node.js, and Python. Worked in an agile environment to deliver high-quality software on schedule.",
-  },
-  {
-    company: "Digital Creations",
-    role: "Junior Web Developer",
-    period: "2015 - 2017",
-    description: "Assisted in building responsive and accessible websites for small businesses. Gained foundational experience in HTML, CSS, JavaScript, and version control with Git.",
-  },
+    category: "Investigación",
+    items: [
+       {
+        company: "Grupo BioFarma (Neurociencia)",
+        role: "Investigador Científico",
+        period: "09/2020 – 06/2021",
+        description: "Ejecución de proyectos de investigación en Bioquímica y Neurociencia. Elaboración de informes técnicos y comunicaciones para congresos y publicaciones.",
+      },
+      {
+        company: "Universidad de Extremadura (Microbiología)",
+        role: "Investigador Científico",
+        period: "03/2019 – 06/2020",
+        description: "Ejecución de proyectos de investigación en Bioquímica y Neurociencia. Elaboración de informes técnicos y comunicaciones para congresos y publicaciones.",
+      },
+    ]
+  }
 ];
 
 export const education = [
   {
-    institution: "Tech University of Madrid",
-    degree: "Master's in Artificial Intelligence",
-    period: "2017 - 2019",
+    institution: "Universidad de Santiago de Compostela",
+    degree: "Máster en Neurociencia",
+    period: "2020 – 2021",
   },
   {
-    institution: "University of Salamanca",
-    degree: "Bachelor's in Computer Science",
-    period: "2013 - 2017",
+    institution: "Universidad de Extremadura",
+    degree: "Grado en Bioquímica",
+    period: "2016 – 2020",
   },
 ];
 
-export const skills = [
-  "React", "Next.js", "TypeScript", "Node.js", "Python",
-  "GraphQL", "PostgreSQL", "Docker", "Kubernetes", "UI/UX Design",
-  "Machine Learning", "GenAI", "Firebase", "Tailwind CSS", "Three.js",
-];
+export const complementaryEducation = [
+    {
+        title: "Tecnología y Emprendimiento",
+        details: "Santander X Explorer (2024) y LocalCreativeJam (2025)",
+    },
+    {
+        title: "Drones",
+        details: "Licencia de piloto A1/A2/A3 y STS (2024)",
+    },
+    {
+        title: "Audiovisual",
+        details: "Realización de documentales (Domestika), Photoshop (RBG Escuela)",
+    },
+    {
+        title: "Digital",
+        details: "Creación de páginas web (210h), Community Management y gestión de blogs",
+    }
+]
+
+export const skills = {
+  technical: [
+    "Adobe Premiere Pro", "Adobe After Effects", "Adobe Lightroom", "Adobe Photoshop",
+    "DaVinci Resolve", "Blender", "Canva", "SEO", "Comunicación Digital"
+  ],
+  personal: [
+    "Creatividad Aplicada", "Aprendizaje Autónomo", "Empatía", "Comunicación Efectiva", "Adaptabilidad", "Pensamiento Crítico"
+  ],
+  languages: [
+      { lang: "Castellano", level: "Lengua materna" },
+      { lang: "Inglés", level: "Nivel B2-C1 (Certificado B1)" },
+      { lang: "Gallego", level: "Nivel B1" },
+  ]
+};
 
 export type Project = {
   title: string;
@@ -62,58 +112,39 @@ const projectImages = {
 
 export const portfolioProjects: Project[] = [
   {
-    title: "Project Alpha",
-    description: "A comprehensive project management tool designed for agile teams.",
-    longDescription: "Project Alpha is a full-featured project management platform that enables agile teams to plan, track, and release great software. It includes features like real-time Kanban boards, sprint planning, burndown charts, and seamless integration with GitHub.",
-    technologies: ["Next.js", "TypeScript", "GraphQL", "PostgreSQL", "Tailwind CSS"],
+    title: "Proyecto de Divulgación",
+    description: "Campaña de comunicación para un centro de investigación.",
+    longDescription: "Diseño e implementación de una campaña integral de comunicación para el Centro de Astrobiología, incluyendo producción de videos, gestión de redes sociales y organización de eventos para aumentar la visibilidad y el impacto de la investigación.",
+    technologies: ["Producción Audiovisual", "SEO", "Redes Sociales", "Comunicación Estratégica"],
     link: "#",
     image: projectImages.p1,
   },
   {
-    title: "FitTrack Mobile",
-    description: "A cross-platform mobile app for tracking fitness goals, workouts, and nutrition.",
-    longDescription: "FitTrack helps users achieve their health and fitness goals by providing personalized workout plans, nutrition tracking, and progress analytics. It syncs with popular wearable devices and uses machine learning to offer tailored recommendations.",
-    technologies: ["React Native", "Firebase", "Python", "Machine Learning"],
+    title: "Canal de YouTube Científico",
+    description: "Creación y gestión de un canal de divulgación científica.",
+    longDescription: "Desarrollo de un canal de YouTube desde cero, enfocado en explicar conceptos complejos de neurociencia y bioquímica de manera accesible y entretenida para el público general. Responsable del guion, grabación, edición y promoción de los videos.",
+    technologies: ["Adobe Premiere", "After Effects", "Blender", "YouTube", "SEO"],
     link: "#",
     image: projectImages.p2,
   },
   {
-    title: "DataViz Dashboard",
-    description: "An interactive data visualization dashboard for financial analysis.",
-    longDescription: "This powerful tool allows financial analysts to explore complex datasets through interactive charts and graphs. It provides insights into market trends, portfolio performance, and risk assessment, all within a clean and intuitive interface.",
-    technologies: ["React", "D3.js", "Node.js", "Express"],
+    title: "Talleres STEAM",
+    description: "Diseño de talleres interactivos de ciencia para jóvenes.",
+    longDescription: "Creación de un programa de talleres prácticos para VermisLAB, diseñados para fomentar el interés por la ciencia y la tecnología en estudiantes de secundaria. Las actividades cubren temas desde la microbiología hasta la astrofísica, utilizando materiales de bajo coste.",
+    technologies: ["Diseño Instruccional", "Gamificación", "Dinamización de Grupos"],
     link: "#",
     image: projectImages.p3,
   },
 ];
 
 export const contact = {
-  email: "pablo.blazquez.gil@example.com",
-  linkedin: "https://linkedin.com/in/pabloblazquezgil",
-  github: "https://github.com/pabloblazquezgil",
+  email: "pabloblazquezgil@gmail.com",
+  phone: "+34 608-720-216",
+  linkedin: "https://linkedin.com/in/pabloblazquezgil-example", // placeholder
+  github: "https://github.com/pabloblazquezgil-example", // placeholder
   cvUrl: "/pablo-blazquez-gil-cv.pdf",
 };
 
 export const heroImage = PlaceHolderImages.find(img => img.id === 'hero-image')!;
 
-export const cvText = `
-${name}
-${title}
-
-SUMMARY
-${summary}
-
-EXPERIENCE
-${experience.map(e => `
-${e.role} at ${e.company} (${e.period})
-${e.description}
-`).join('\n')}
-
-EDUCATION
-${education.map(e => `
-${e.degree}, ${e.institution} (${e.period})
-`).join('\n')}
-
-SKILLS
-${skills.join(', ')}
-`;
+export const cvText = ``;
