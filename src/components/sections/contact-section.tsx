@@ -1,6 +1,6 @@
 import { contact } from "@/lib/data";
 import { Button } from "@/components/ui/button";
-import { Download, Github, Linkedin, Mail, Phone } from "lucide-react";
+import { Linkedin, Mail, Phone } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function ContactSection() {
@@ -12,7 +12,7 @@ export default function ContactSection() {
           Siempre estoy abierto a discutir nuevos proyectos, ideas creativas u oportunidades para formar parte de un equipo increíble. No dudes en contactarme.
         </p>
         <Card className="max-w-md mx-auto shadow-lg">
-            <CardContent className="p-6 space-y-4">
+            <CardContent className="p-6">
                 <div className="flex flex-wrap justify-center gap-4">
                     <Button asChild variant="outline" className="flex-1 min-w-[120px]">
                         <a href={`mailto:${contact.email}`}>
@@ -27,19 +27,6 @@ export default function ContactSection() {
                     <Button asChild variant="outline" className="flex-1 min-w-[120px]">
                         <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">
                             <Linkedin className="mr-2" /> LinkedIn
-                        </a>
-                    </Button>
-                    <Button asChild variant="outline" className="flex-1 min-w-[120px]">
-                        <a href={contact.github} target="_blank" rel="noopener noreferrer">
-                            <Github className="mr-2" /> GitHub
-                        </a>
-                    </Button>
-                </div>
-                <div className="pt-2">
-                     <Button asChild size="lg" className="w-full">
-                        <a href={contact.cvUrl} download>
-                            <Download className="mr-2" />
-                            Descargar CV
                         </a>
                     </Button>
                 </div>

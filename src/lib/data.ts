@@ -140,9 +140,7 @@ export const portfolioProjects: Project[] = [
 export const contact = {
   email: "pabloblazquezgil@gmail.com",
   phone: "+34 608-720-216",
-  linkedin: "https://linkedin.com/in/pabloblazquezgil-example", // placeholder
-  github: "https://github.com/pabloblazquezgil-example", // placeholder
-  cvUrl: "/pablo-blazquez-gil-cv.pdf",
+  linkedin: "https://www.linkedin.com/in/pabloblazquezgil/",
 };
 
 export const heroImage = PlaceHolderImages.find(img => img.id === 'hero-image')!;
