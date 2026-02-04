@@ -90,7 +90,7 @@ export const skills = {
   ],
   languages: [
       { lang: "Castellano", level: "Lengua materna" },
-      { lang: "Inglés", level: "Nivel B2-C1 (Certificado B1)" },
+      { lang: "Inglés", level: "Nivel B2-C1" },
       { lang: "Gallego", level: "Nivel B1" },
   ]
 };
