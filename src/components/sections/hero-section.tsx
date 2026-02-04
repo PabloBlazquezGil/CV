@@ -6,39 +6,41 @@ import { ArrowDown } from 'lucide-react';
 
 export default function HeroSection() {
   return (
-    <section id="hero" className="container grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-center min-h-[calc(100vh-4rem)] py-12 md:py-24">
-      <div className="md:col-span-2 space-y-6 animate-in fade-in slide-in-from-left-8 duration-1000">
-        <div className="space-y-2">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-headline font-bold text-foreground">
-            {name}
-          </h1>
-          <p className="text-xl md:text-2xl text-accent font-medium font-headline">
-            {title}
-          </p>
-        </div>
-        <div className="text-lg text-muted-foreground max-w-2xl">
-          {summary}
-        </div>
-        <div className="flex gap-4 flex-wrap">
-            <Button asChild size="lg">
-                <Link href="#contact">Contactar</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-                <Link href="#portfolio">Ver Proyectos <ArrowDown className="ml-2 h-4 w-4" /></Link>
-            </Button>
-        </div>
-      </div>
-      <div className="relative flex justify-center items-center animate-in fade-in zoom-in-90 duration-1000">
-        <div className="absolute -inset-2 bg-gradient-to-br from-primary to-accent rounded-full blur-xl opacity-30"></div>
+    <section id="hero" className="relative flex items-center min-h-[calc(100vh-4rem)] py-12 md:py-24 overflow-hidden">
+      <div className="absolute inset-0 z-0">
         <Image
           src={heroImage.imageUrl}
           alt={`Portrait of ${name}`}
-          width={400}
-          height={400}
+          fill
           priority
-          className="rounded-full aspect-square object-cover object-center border-4 border-card shadow-2xl z-10"
+          className="object-cover object-center md:object-right"
           data-ai-hint={heroImage.imageHint}
         />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+      </div>
+      <div className="container relative z-10">
+        <div className="md:w-3/5 lg:w-1/2 space-y-6 animate-in fade-in slide-in-from-left-8 duration-1000">
+          <div className="space-y-2">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-headline font-bold text-foreground">
+              {name}
+            </h1>
+            <p className="text-xl md:text-2xl text-accent font-medium font-headline">
+              {title}
+            </p>
+          </div>
+          <div className="text-lg text-muted-foreground max-w-2xl">
+            {summary}
+          </div>
+          <div className="flex gap-4 flex-wrap">
+              <Button asChild size="lg">
+                  <Link href="#contact">Contactar</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                  <Link href="#portfolio">Ver Proyectos <ArrowDown className="ml-2 h-4 w-4" /></Link>
+              </Button>
+          </div>
+        </div>
       </div>
     </section>
   );
