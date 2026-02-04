@@ -6,21 +6,9 @@ import { ArrowDown } from 'lucide-react';
 
 export default function HeroSection() {
   return (
-    <section id="hero" className="relative py-12 md:py-24 overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <Image
-          src={heroImage.imageUrl}
-          alt={`Portrait of ${name}`}
-          fill
-          priority
-          className="object-cover object-center"
-          data-ai-hint={heroImage.imageHint}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-      </div>
-      <div className="container relative z-10">
-        <div className="md:w-3/5 lg:w-1/2 space-y-6 animate-in fade-in slide-in-from-left-8 duration-1000">
+    <section id="hero" className="relative bg-background">
+      <div className="container grid md:grid-cols-2 min-h-screen items-center">
+        <div className="space-y-6 py-12 animate-in fade-in slide-in-from-left-8 duration-1000">
           <div className="space-y-2">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-headline font-bold text-foreground">
               {name}
@@ -40,6 +28,19 @@ export default function HeroSection() {
                   <Link href="#portfolio">Ver Proyectos <ArrowDown className="ml-2 h-4 w-4" /></Link>
               </Button>
           </div>
+        </div>
+
+        <div className="relative h-full w-full hidden md:block">
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-background/50 to-background" />
+           <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
+          <Image
+            src={heroImage.imageUrl}
+            alt={`Portrait of ${name}`}
+            fill
+            priority
+            className="object-contain object-bottom"
+            data-ai-hint={heroImage.imageHint}
+          />
         </div>
       </div>
     </section>
