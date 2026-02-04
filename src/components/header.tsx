@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, FlaskConical, X } from "lucide-react";
+import { Menu, FlaskConical, X, Camera } from "lucide-react";
 import { name } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -40,7 +40,11 @@ export default function Header() {
       >
         <div className="container flex h-16 items-center">
           <Link href="#" className="mr-6 flex items-center space-x-2">
-            <FlaskConical className="h-6 w-6 text-accent" />
+            <div className="flex items-center gap-2">
+              <FlaskConical className="h-6 w-6 text-accent" />
+              <div className="h-5 w-px bg-border" />
+              <Camera className="h-6 w-6 text-accent" />
+            </div>
             <span className="font-bold font-headline">{name}</span>
           </Link>
           <div className="flex flex-1 items-center justify-end space-x-2">
@@ -66,7 +70,11 @@ export default function Header() {
                 <div className="flex h-full flex-col">
                   <div className="flex items-center justify-between border-b pb-4">
                     <Link href="#" className="flex items-center space-x-2" onClick={closeMobileMenu}>
-                       <FlaskConical className="h-6 w-6 text-accent" />
+                      <div className="flex items-center gap-2">
+                        <FlaskConical className="h-6 w-6 text-accent" />
+                        <div className="h-5 w-px bg-border" />
+                        <Camera className="h-6 w-6 text-accent" />
+                      </div>
                       <span className="font-bold">{name}</span>
                     </Link>
                     <SheetTrigger asChild>
