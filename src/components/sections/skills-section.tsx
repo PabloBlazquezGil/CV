@@ -51,11 +51,11 @@ export default function SkillsSection() {
               Idiomas
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2">
+          <CardContent className="space-y-4">
             {skills.languages.map((lang, index) => (
-              <div key={index} className="flex justify-between">
-                <span className="font-medium">{lang.lang}</span>
-                <span className="text-muted-foreground">{lang.level}</span>
+              <div key={index} className="flex justify-between items-baseline gap-4">
+                <span className="font-medium shrink-0">{lang.lang}</span>
+                <span className="text-muted-foreground text-right">{lang.level}</span>
               </div>
             ))}
           </CardContent>
