@@ -70,7 +70,7 @@ export default function PortfolioSection() {
               <DialogHeader>
                 <DialogTitle className="text-3xl font-headline">{selectedProject.title}</DialogTitle>
               </DialogHeader>
-              <div className="grid gap-6 py-4 prose dark:prose-invert max-w-none">
+              <div className="grid gap-6 py-4 max-w-none">
                 <div className="relative aspect-video">
                   <Image
                     src={selectedProject.image.imageUrl}
@@ -82,7 +82,7 @@ export default function PortfolioSection() {
                 </div>
                 <p>{selectedProject.longDescription}</p>
                 <div>
-                  <h3 className="font-semibold mb-2 text-foreground not-prose">Tecnologías Usadas:</h3>
+                  <h3 className="font-semibold mb-2 text-foreground">Tecnologías Usadas:</h3>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.technologies.map(tech => (
                       <Badge key={tech} variant="secondary">{tech}</Badge>
