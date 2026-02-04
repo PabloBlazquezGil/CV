@@ -36,7 +36,7 @@ export default function HeroSection() {
           width={400}
           height={400}
           priority
-          className="rounded-full aspect-square object-cover object-top border-4 border-card shadow-2xl z-10"
+          className="rounded-full aspect-square object-cover object-center border-4 border-card shadow-2xl z-10"
           data-ai-hint={heroImage.imageHint}
         />
       </div>
