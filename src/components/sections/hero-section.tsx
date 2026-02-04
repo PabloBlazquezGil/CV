@@ -6,17 +6,17 @@ import { ArrowDown } from 'lucide-react';
 
 export default function HeroSection() {
   return (
-    <section id="hero" className="relative flex items-center min-h-[calc(100vh-4rem)] py-12 md:py-24 overflow-hidden">
+    <section id="hero" className="relative py-12 md:py-24 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
           src={heroImage.imageUrl}
           alt={`Portrait of ${name}`}
           fill
           priority
-          className="object-cover object-center md:object-right"
+          className="object-cover object-center"
           data-ai-hint={heroImage.imageHint}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
       </div>
       <div className="container relative z-10">
