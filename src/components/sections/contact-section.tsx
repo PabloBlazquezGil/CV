@@ -1,34 +1,40 @@
 import { contact } from "@/lib/data";
 import { Button } from "@/components/ui/button";
-import { Linkedin, Mail, Phone } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Linkedin, Mail, Phone, ArrowRight } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 export default function ContactSection() {
   return (
-    <footer id="contact" className="py-10 md:py-20 bg-secondary/30 mt-10 md:mt-20">
-      <div className="container text-center">
-        <h2 className="text-3xl font-headline font-bold mb-4">Contacto</h2>
-        <p className="text-muted-foreground max-w-xl mx-auto mb-8">
-          Siempre estoy abierto a discutir nuevos proyectos, ideas creativas u oportunidades para formar parte de un equipo increíble. No dudes en contactarme.
-        </p>
-        <Card className="max-w-md mx-auto shadow-lg bg-card/50 border-0">
-            <CardContent className="p-6">
-                <div className="flex flex-wrap justify-center gap-4">
-                    <Button asChild variant="outline" className="flex-1 min-w-[120px]">
+    <footer id="contact" className="py-16 md:py-24 bg-background/50 mt-10 md:mt-20">
+      <div className="container">
+        <Card className="max-w-3xl mx-auto shadow-2xl bg-card/80 border-primary/20 border hover:shadow-primary/20 transition-shadow duration-500 backdrop-blur-sm">
+            <CardHeader className="text-center p-8 md:p-12">
+                <CardTitle className="text-4xl md:text-5xl font-bold font-headline text-primary">¿Hablamos?</CardTitle>
+                <CardDescription className="text-lg text-muted-foreground max-w-xl mx-auto pt-4">
+                    Si tienes un proyecto en mente, una oportunidad de colaboración o simplemente quieres conectar, estaré encantado de escucharte.
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="p-8 md:p-12 pt-0">
+                <div className="flex flex-col items-center gap-6">
+                    <Button asChild size="lg" className="w-full max-w-sm group">
                         <a href={`mailto:${contact.email}`}>
-                            <Mail className="mr-2" /> Email
+                            <Mail className="mr-2" /> Envíame un email
+                            <ArrowRight className="ml-auto opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                         </a>
                     </Button>
-                     <Button asChild variant="outline" className="flex-1 min-w-[120px]">
-                        <a href={`tel:${contact.phone}`}>
-                            <Phone className="mr-2" /> Teléfono
-                        </a>
-                    </Button>
-                    <Button asChild variant="outline" className="flex-1 min-w-[120px]">
-                        <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">
-                            <Linkedin className="mr-2" /> LinkedIn
-                        </a>
-                    </Button>
+                    <div className="flex items-center gap-4">
+                        <Button asChild variant="ghost">
+                            <a href={`tel:${contact.phone}`}>
+                                <Phone className="mr-2" /> Llamar
+                            </a>
+                        </Button>
+                         <div className="w-px h-6 bg-border" />
+                        <Button asChild variant="ghost">
+                            <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">
+                                <Linkedin className="mr-2" /> LinkedIn
+                            </a>
+                        </Button>
+                    </div>
                 </div>
             </CardContent>
         </Card>
