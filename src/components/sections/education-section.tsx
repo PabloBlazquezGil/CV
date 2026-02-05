@@ -14,13 +14,13 @@ export default function EducationSection() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16">
         {education.map((item, index) => (
-          <Card key={index} className="shadow-lg hover:shadow-xl transition-shadow h-full bg-card/50">
+          <Card key={index} className="shadow-lg hover:shadow-xl transition-all duration-300 h-full bg-card/50 group hover:bg-primary cursor-pointer">
             <CardHeader>
-              <CardTitle>{item.degree}</CardTitle>
-              <CardDescription className="font-semibold text-accent">{item.institution}</CardDescription>
+              <CardTitle className="group-hover:text-primary-foreground">{item.degree}</CardTitle>
+              <CardDescription className="font-semibold text-accent group-hover:text-primary-foreground/80">{item.institution}</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">{item.period}</p>
+              <p className="text-sm text-muted-foreground group-hover:text-primary-foreground/70">{item.period}</p>
             </CardContent>
           </Card>
         ))}
@@ -35,10 +35,10 @@ export default function EducationSection() {
 
        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {complementaryEducation.map((item, index) => (
-          <Card key={index} className="text-center shadow-md hover:shadow-lg transition-shadow bg-card/50">
+          <Card key={index} className="text-center shadow-md hover:shadow-lg transition-all duration-300 bg-card/50 group hover:bg-primary cursor-pointer">
             <CardContent className="p-6">
-                <h4 className="font-bold font-headline text-lg mb-2">{item.title}</h4>
-                <p className="text-sm text-muted-foreground">{item.details}</p>
+                <h4 className="font-bold font-headline text-lg mb-2 group-hover:text-primary-foreground">{item.title}</h4>
+                <p className="text-sm text-muted-foreground group-hover:text-primary-foreground/70">{item.details}</p>
             </CardContent>
           </Card>
         ))}

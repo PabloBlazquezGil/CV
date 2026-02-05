@@ -20,14 +20,14 @@ export default function ExperienceSection() {
                    <div className="absolute left-0 top-1.5 w-7 h-7 bg-secondary rounded-full flex items-center justify-center ring-8 ring-background">
                     <div className="w-3 h-3 bg-primary rounded-full"></div>
                   </div>
-                  <Card className="shadow-lg hover:shadow-xl transition-shadow bg-card/50">
+                  <Card className="shadow-lg hover:shadow-xl transition-all duration-300 bg-card/50 group hover:bg-primary cursor-pointer">
                     <CardHeader>
-                      <CardTitle>{item.role}</CardTitle>
-                      <CardDescription className="text-accent font-semibold">{item.company}</CardDescription>
-                      <p className="text-sm text-muted-foreground">{item.period}</p>
+                      <CardTitle className="group-hover:text-primary-foreground">{item.role}</CardTitle>
+                      <CardDescription className="font-semibold text-accent group-hover:text-primary-foreground/80">{item.company}</CardDescription>
+                      <p className="text-sm text-muted-foreground group-hover:text-primary-foreground/70">{item.period}</p>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-sm text-muted-foreground">{item.description}</p>
+                      <p className="text-sm text-muted-foreground group-hover:text-primary-foreground/70">{item.description}</p>
                     </CardContent>
                   </Card>
                 </div>
