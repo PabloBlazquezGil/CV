@@ -33,7 +33,7 @@ export default function HeroSection() {
             alt={`Portrait of ${name}`}
             fill
             priority
-            className="object-cover object-center"
+            className="object-contain object-center md:object-right"
             data-ai-hint={heroImage.imageHint}
           />
           <div className="absolute inset-0 bg-gradient-to-l from-transparent via-background/60 to-background"></div>
