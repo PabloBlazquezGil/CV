@@ -5,13 +5,13 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function ContactSection() {
   return (
-    <footer id="contact" className="py-12 md:py-24 bg-secondary/50 mt-12 md:mt-24">
-      <div className="container text-center animate-in fade-in slide-in-from-bottom-8 duration-1000">
+    <footer id="contact" className="py-12 md:py-24 bg-secondary/30 mt-12 md:mt-24">
+      <div className="container text-center">
         <h2 className="text-3xl font-headline font-bold mb-4">Contacto</h2>
         <p className="text-muted-foreground max-w-xl mx-auto mb-8">
           Siempre estoy abierto a discutir nuevos proyectos, ideas creativas u oportunidades para formar parte de un equipo increíble. No dudes en contactarme.
         </p>
-        <Card className="max-w-md mx-auto shadow-lg">
+        <Card className="max-w-md mx-auto shadow-lg bg-card/50 border-0">
             <CardContent className="p-6">
                 <div className="flex flex-wrap justify-center gap-4">
                     <Button asChild variant="outline" className="flex-1 min-w-[120px]">

@@ -19,21 +19,20 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from "@/components/ui/dialog";
 
 export default function PortfolioSection() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <section id="portfolio" className="container py-12 md:py-24 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+    <section id="portfolio" className="container py-12 md:py-24">
       <h2 className="text-3xl font-headline font-bold text-center mb-12 flex items-center justify-center gap-2">
-        <GalleryVertical className="w-8 h-8 text-accent" />
+        <GalleryVertical className="w-8 h-8 text-primary" />
         Portfolio
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {portfolioProjects.map((project, index) => (
-          <Card key={index} className="flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <Card key={index} className="flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card/50">
             <CardHeader>
               <CardTitle className="font-headline">{project.title}</CardTitle>
               <CardDescription>{project.description}</CardDescription>
@@ -80,7 +79,7 @@ export default function PortfolioSection() {
                     data-ai-hint={selectedProject.image.imageHint}
                   />
                 </div>
-                <p>{selectedProject.longDescription}</p>
+                <p className="text-muted-foreground">{selectedProject.longDescription}</p>
                 <div>
                   <h3 className="font-semibold mb-2 text-foreground">Tecnologías Usadas:</h3>
                   <div className="flex flex-wrap gap-2">

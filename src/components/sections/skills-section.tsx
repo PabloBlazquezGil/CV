@@ -8,16 +8,16 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 export default function SkillsSection() {
 
   return (
-    <section id="skills" className="container py-12 md:py-24 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+    <section id="skills" className="container py-12 md:py-24">
       <h2 className="text-3xl font-headline font-bold text-center mb-12 flex items-center justify-center gap-2">
-        <Code className="w-8 h-8 text-accent" />
+        <Code className="w-8 h-8 text-primary" />
         Competencias y Aptitudes
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <Card className="shadow-lg">
+        <Card className="shadow-lg bg-card/50">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl font-headline">
-              <Code className="w-6 h-6 text-primary" />
+              <Code className="w-6 h-6 text-accent" />
               Técnicas
             </CardTitle>
           </CardHeader>
@@ -29,10 +29,10 @@ export default function SkillsSection() {
             ))}
           </CardContent>
         </Card>
-        <Card className="shadow-lg">
+        <Card className="shadow-lg bg-card/50">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl font-headline">
-              <User className="w-6 h-6 text-primary" />
+              <User className="w-6 h-6 text-accent" />
               Personales
             </CardTitle>
           </CardHeader>
@@ -44,10 +44,10 @@ export default function SkillsSection() {
             ))}
           </CardContent>
         </Card>
-        <Card className="shadow-lg">
+        <Card className="shadow-lg bg-card/50">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl font-headline">
-              <Languages className="w-6 h-6 text-primary" />
+              <Languages className="w-6 h-6 text-accent" />
               Idiomas
             </CardTitle>
           </CardHeader>

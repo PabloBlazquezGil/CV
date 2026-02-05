@@ -13,13 +13,13 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <HeroSection />
-        <ExperienceSection />
-        <Separator className="my-8 md:my-16" />
-        <EducationSection />
-        <Separator className="my-8 md:my-16" />
         <SkillsSection />
         <Separator className="my-8 md:my-16" />
+        <ExperienceSection />
+        <Separator className="my-8 md:my-16" />
         <PortfolioSection />
+        <Separator className="my-8 md:my-16" />
+        <EducationSection />
         <Separator className="my-8 md:my-16" />
         <ContactSection />
       </main>
