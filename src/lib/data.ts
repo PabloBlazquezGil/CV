@@ -95,48 +95,6 @@ export const skills = {
   ]
 };
 
-export type Project = {
-  title: string;
-  description: string;
-  longDescription: string;
-  technologies: string[];
-  link: string;
-  image: ImagePlaceholder;
-}
-
-const projectImages = {
-  p1: PlaceHolderImages.find(img => img.id === 'project-1')!,
-  p2: PlaceHolderImages.find(img => img.id === 'project-2')!,
-  p3: PlaceHolderImages.find(img => img.id === 'project-3')!,
-}
-
-export const portfolioProjects: Project[] = [
-  {
-    title: "Proyecto de Divulgación",
-    description: "Campaña de comunicación para un centro de investigación.",
-    longDescription: "Diseño e implementación de una campaña integral de comunicación para el Centro de Astrobiología, incluyendo producción de videos, gestión de redes sociales y organización de eventos para aumentar la visibilidad y el impacto de la investigación.",
-    technologies: ["Producción Audiovisual", "SEO", "Redes Sociales", "Comunicación Estratégica"],
-    link: "#",
-    image: projectImages.p1,
-  },
-  {
-    title: "Canal de YouTube Científico",
-    description: "Creación y gestión de un canal de divulgación científica.",
-    longDescription: "Desarrollo de un canal de YouTube desde cero, enfocado en explicar conceptos complejos de neurociencia y bioquímica de manera accesible y entretenida para el público general. Responsable del guion, grabación, edición y promoción de los videos.",
-    technologies: ["Adobe Premiere", "After Effects", "Blender", "YouTube", "SEO"],
-    link: "#",
-    image: projectImages.p2,
-  },
-  {
-    title: "Talleres STEAM",
-    description: "Diseño de talleres interactivos de ciencia para jóvenes.",
-    longDescription: "Creación de un programa de talleres prácticos para VermisLAB, diseñados para fomentar el interés por la ciencia y la tecnología en estudiantes de secundaria. Las actividades cubren temas desde la microbiología hasta la astrofísica, utilizando materiales de bajo coste.",
-    technologies: ["Diseño Instruccional", "Gamificación", "Dinamización de Grupos"],
-    link: "#",
-    image: projectImages.p3,
-  },
-];
-
 export const contact = {
   email: "pabloblazquezgil@gmail.com",
   phone: "+34 608-720-216",

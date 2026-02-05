@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { name, title, summary, heroImage } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowDown } from 'lucide-react';
 
 export default function HeroSection() {
   return (
@@ -23,11 +22,6 @@ export default function HeroSection() {
           <div className="flex gap-4 flex-wrap">
             <Button asChild size="lg">
               <Link href="#contact">Contactar</Link>
-            </Button>
-            <Button asChild variant="secondary" size="lg">
-              <Link href="#portfolio">
-                Ver Proyectos <ArrowDown className="ml-2 h-4 w-4" />
-              </Link>
             </Button>
           </div>
         </div>

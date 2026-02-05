@@ -1,24 +1,6 @@
 {
   "placeholderImages": [
     {
-      "id": "project-1",
-      "description": "A web application for project management.",
-      "imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3ZWIlMjBhcHB8ZW58MHx8fHwxNzcwMTQ1NDI1fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "web app"
-    },
-    {
-      "id": "project-2",
-      "description": "A mobile app for fitness tracking.",
-      "imageUrl": "https://images.unsplash.com/photo-1601972602237-8c79241e468b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtb2JpbGUlMjBhcHB8ZW58MHx8fHwxNzcwMTM0MjYzfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "mobile app"
-    },
-    {
-      "id": "project-3",
-      "description": "Data visualization dashboard for financial analysis.",
-      "imageUrl": "https://images.unsplash.com/photo-1542744173-05336fcc7ad4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxkYXRhJTIwZGFzaGJvYXJkfGVufDB8fHx8MTc3MDE2MTMyMnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "data dashboard"
-    },
-    {
       "id": "hero-image",
       "description": "A portrait of a person.",
       "imageUrl": "https://thundershoot.com/wp-content/uploads/2025/03/Pablo-Equipo-1-scaled.jpg",
