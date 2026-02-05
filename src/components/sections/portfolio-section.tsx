@@ -25,7 +25,7 @@ export default function PortfolioSection() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <section id="portfolio" className="container py-12 md:py-24">
+    <section id="portfolio" className="container py-10 md:py-20">
       <h2 className="text-3xl font-headline font-bold text-center mb-12 flex items-center justify-center gap-2">
         <GalleryVertical className="w-8 h-8 text-primary" />
         Portfolio

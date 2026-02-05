@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function ContactSection() {
   return (
-    <footer id="contact" className="py-12 md:py-24 bg-secondary/30 mt-12 md:mt-24">
+    <footer id="contact" className="py-10 md:py-20 bg-secondary/30 mt-10 md:mt-20">
       <div className="container text-center">
         <h2 className="text-3xl font-headline font-bold mb-4">Contacto</h2>
         <p className="text-muted-foreground max-w-xl mx-auto mb-8">

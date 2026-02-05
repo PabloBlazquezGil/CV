@@ -9,18 +9,18 @@ import { Separator } from "@/components/ui/separator";
 
 export default function Home() {
   return (
-    <div className="flex min-h-dvh flex-col bg-background">
+    <div className="flex min-h-dvh flex-col">
       <Header />
       <main className="flex-1">
         <HeroSection />
         <SkillsSection />
-        <Separator className="my-8 md:my-16" />
+        <Separator className="my-8 md:my-12" />
         <ExperienceSection />
-        <Separator className="my-8 md:my-16" />
+        <Separator className="my-8 md:my-12" />
         <PortfolioSection />
-        <Separator className="my-8 md:my-16" />
+        <Separator className="my-8 md:my-12" />
         <EducationSection />
-        <Separator className="my-8 md:my-16" />
+        <Separator className="my-8 md:my-12" />
         <ContactSection />
       </main>
     </div>

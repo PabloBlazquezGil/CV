@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/com
 
 export default function EducationSection() {
   return (
-    <section id="education" className="container py-12 md:py-24">
+    <section id="education" className="container py-10 md:py-20">
       <div className="text-center mb-12">
         <h2 className="text-3xl font-headline font-bold flex items-center justify-center gap-2">
           <GraduationCap className="w-8 h-8 text-primary" />

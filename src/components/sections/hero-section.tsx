@@ -6,8 +6,8 @@ import { ArrowDown } from 'lucide-react';
 
 export default function HeroSection() {
   return (
-    <section id="hero" className="bg-background">
-      <div className="container grid md:grid-cols-2 gap-12 items-center min-h-[80vh]">
+    <section id="hero" className="relative bg-background overflow-hidden">
+      <div className="container relative z-10 grid md:grid-cols-2 gap-8 items-center min-h-[85vh] py-16 md:py-0">
         <div className="space-y-6">
           <div className="space-y-3">
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-headline font-bold text-foreground">
@@ -17,28 +17,32 @@ export default function HeroSection() {
               {title}
             </p>
           </div>
-          <div className="text-lg text-muted-foreground max-w-xl">
+          <div className="text-lg text-muted-foreground max-w-2xl">
             {summary}
           </div>
           <div className="flex gap-4 flex-wrap">
-              <Button asChild size="lg">
-                  <Link href="#contact">Contactar</Link>
-              </Button>
-              <Button asChild variant="secondary" size="lg">
-                  <Link href="#portfolio">Ver Proyectos <ArrowDown className="ml-2 h-4 w-4" /></Link>
-              </Button>
+            <Button asChild size="lg">
+              <Link href="#contact">Contactar</Link>
+            </Button>
+            <Button asChild variant="secondary" size="lg">
+              <Link href="#portfolio">
+                Ver Proyectos <ArrowDown className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
-
-        <div className="relative h-96 w-96 justify-self-center hidden md:block">
+      </div>
+      <div className="absolute inset-0 z-0">
+        <div className="absolute right-0 top-0 bottom-0 w-full md:w-2/3">
           <Image
             src={heroImage.imageUrl}
             alt={`Portrait of ${name}`}
             fill
             priority
-            className="object-cover rounded-full shadow-2xl"
+            className="object-cover object-center"
             data-ai-hint={heroImage.imageHint}
           />
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-background/60 to-background"></div>
         </div>
       </div>
     </section>

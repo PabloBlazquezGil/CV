@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/com
 
 export default function ExperienceSection() {
   return (
-    <section id="experience" className="container py-12 md:py-24">
+    <section id="experience" className="container py-10 md:py-20">
       <h2 className="text-3xl font-headline font-bold text-center mb-12 flex items-center justify-center gap-2">
         <Briefcase className="w-8 h-8 text-primary" />
         Experiencia Profesional

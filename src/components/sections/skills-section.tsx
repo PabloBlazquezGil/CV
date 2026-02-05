@@ -8,7 +8,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 export default function SkillsSection() {
 
   return (
-    <section id="skills" className="container py-12 md:py-24">
+    <section id="skills" className="container py-10 md:py-20">
       <h2 className="text-3xl font-headline font-bold text-center mb-12 flex items-center justify-center gap-2">
         <Code className="w-8 h-8 text-primary" />
         Competencias y Aptitudes
