@@ -24,10 +24,10 @@ export default function ExperienceSection() {
                     <CardHeader>
                       <CardTitle className="group-hover:text-primary-foreground">{item.role}</CardTitle>
                       <CardDescription className="font-semibold text-accent group-hover:text-primary-foreground/80">{item.company}</CardDescription>
-                      <p className="text-sm text-muted-foreground group-hover:text-primary-foreground/70">{item.period}</p>
+                      <p className="text-sm text-foreground/70 group-hover:text-primary-foreground/80">{item.period}</p>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-sm text-muted-foreground group-hover:text-primary-foreground/70">{item.description}</p>
+                      <p className="text-base text-foreground/80 group-hover:text-primary-foreground/90">{item.description}</p>
                     </CardContent>
                   </Card>
                 </div>
