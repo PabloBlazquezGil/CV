@@ -9,7 +9,7 @@ export default function ExperienceSection() {
         <Briefcase className="w-8 h-8 text-primary" />
         Experiencia Profesional
       </h2>
-      <div className="max-w-3xl mx-auto space-y-12">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-x-12 gap-y-12">
         {experience.map((expCategory) => (
           <div key={expCategory.category}>
             <h3 className="text-2xl font-headline font-semibold text-accent mb-6">{expCategory.category}</h3>

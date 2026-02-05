@@ -2,15 +2,15 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Camera, Menu, X, Briefcase } from "lucide-react";
 import { name } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const navLinks = [
-  { href: "#skills", label: "Competencias" },
   { href: "#experience", label: "Experiencia" },
   { href: "#education", label: "Formación" },
+  { href: "#skills", label: "Competencias" },
   { href: "#contact", label: "Contacto" },
 ];
 
@@ -39,7 +39,11 @@ export default function Header() {
       >
         <div className="container flex h-16 items-center">
           <Link href="#" className="mr-6 flex items-center space-x-2">
-            <span className="text-lg font-bold font-headline">{name}</span>
+            <div className="flex items-center gap-2">
+              <Briefcase className="w-6 h-6 text-primary" />
+              <div className="w-px h-6 bg-border/80" />
+              <Camera className="w-6 h-6 text-primary" />
+            </div>
           </Link>
           <div className="flex flex-1 items-center justify-end space-x-2">
             <nav className="hidden md:flex md:items-center md:space-x-4 lg:space-x-6">

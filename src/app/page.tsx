@@ -12,11 +12,11 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <HeroSection />
-        <SkillsSection />
-        <Separator className="my-8 md:my-12" />
         <ExperienceSection />
         <Separator className="my-8 md:my-12" />
         <EducationSection />
+        <Separator className="my-8 md:my-12" />
+        <SkillsSection />
         <Separator className="my-8 md:my-12" />
         <ContactSection />
       </main>
