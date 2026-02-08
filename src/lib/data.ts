@@ -1,61 +1,74 @@
+
 import type { ImagePlaceholder } from './placeholder-images';
 import { PlaceHolderImages } from './placeholder-images';
 
 export const name = "Pablo Blázquez Gil";
-export const title = "Comunicador y Divulgador Científico";
-export const summary = "Comunicador y divulgador científico con sólida formación en Bioquímica y Neurociencia. Especializado en conectar la ciencia con la sociedad mediante contenidos creativos, formatos audiovisuales y experiencias interactivas. Mi pasión es la innovación educativa y la narrativa científica, usando pensamiento crítico, empatía y creatividad para generar impacto. Domino herramientas de diseño, vídeo y comunicación digital, y tengo experiencia en la coordinación de proyectos con centros de investigación y entidades públicas. Me caracterizo por mi capacidad de aprendizaje rápido y mi habilidad para transformar ideas complejas en mensajes accesibles.";
 
-export const experience = [
-  {
-    category: "Divulgación y Comunicación",
-    items: [
-      {
-        company: "VermisLAB",
-        role: "Divulgador Científico",
-        period: "07/2025 – 01/2026",
-        description: "Creación de experiencias para traducir conceptos científicos al lenguaje social. Diseño de actividades interactivas para despertar curiosidad STEAM. Dinamización de grupos y promoción del pensamiento crítico. Coordinación de proyectos educativos para fomentar vocaciones científicas.",
-      },
-      {
-        company: "ANOVAciencia",
-        role: "Divulgador Científico",
-        period: "2023 – 12/2025",
-        description: "Diseño y ejecución de vídeos de divulgación para público general. Creación de contenidos para redes sociales especializadas en ciencia y tecnología.",
-      },
-      {
-        company: "Centro de Astrobiología",
-        role: "Comunicador Científico",
-        period: "03/2023 – 03/2025",
-        description: "Implementación de estrategias de comunicación y producción audiovisual corporativa. Coordinación de campañas de SEO y narrativa estratégica en medios digitales. Organización de eventos institucionales e internacionales con adaptación de mensajes.",
-      },
-    ]
-  },
-  {
-    category: "Investigación",
-    items: [
-       {
-        company: "Universidad de Santiago de Compostela",
-        role: "Investigador",
-        period: "01/10/2020 - 02/06/2021",
-        details: "Grupo de Biofarma (CIMUS)",
-        description: "Realización de ensayos funcionales de un receptor asociado a la esquizofrenia y de nuevos ligandos farmacológicos.",
-      },
-      {
-        company: "Universidad de Extremadura",
-        role: "Investigador",
-        period: "10/09/2019 - 29/06/2020",
-        details: "Departamento de bioquímica y biología molecular",
-        description: "Realización de pruebas de resistencia de microorganismos a diferentes antibióticos (polimixinas) y aplicación de técnicas de ingeniería genética para la modificación de microorganismos.",
-      },
-      {
-        company: "CICYTEX",
-        role: "Investigador",
-        period: "Verano 2019",
-        details: "Finca la Orden",
-        description: "Realización de ensayos de toxicidad y resistencia de herbicidas en plantas de arroz y presentación oral del proyecto.",
-      },
-    ]
-  }
-];
+export const titles = {
+  comunicacion: "Comunicador y Divulgador Científico",
+  investigacion: "Bioquímico y Neurocientífico"
+};
+
+export const summaries = {
+  comunicacion: "Comunicador y divulgador científico con sólida formación en Bioquímica y Neurociencia. Especializado en conectar la ciencia con la sociedad mediante contenidos creativos, formatos audiovisuales y experiencias interactivas. Mi pasión es la innovación educativa y la narrativa científica, usando pensamiento crítico, empatía y creatividad para generar impacto. Domino herramientas de diseño, vídeo y comunicación digital, y tengo experiencia en la coordinación de proyectos con centros de investigación y entidades públicas. Me caracterizo por mi capacidad de aprendizaje rápido y mi habilidad para transformar ideas complejas en mensajes accesibles.",
+  investigacion: "Investigador con formación en Bioquímica y un Máster en Neurociencia. Mi experiencia se centra en la investigación fundamental y aplicada, desde ensayos funcionales de receptores neuronales hasta estudios de resistencia a antibióticos. Soy una persona analítica, con gran capacidad para la resolución de problemas y habituado al trabajo en equipo en entornos de laboratorio. Busco aplicar mis conocimientos científicos para contribuir a proyectos innovadores."
+};
+
+export const experience = {
+  comunicacion: [
+    {
+      category: "Divulgación y Comunicación",
+      items: [
+        {
+          company: "VermisLAB",
+          role: "Divulgador Científico",
+          period: "07/2025 – 01/2026",
+          description: "Creación de experiencias para traducir conceptos científicos al lenguaje social. Diseño de actividades interactivas para despertar curiosidad STEAM. Dinamización de grupos y promoción del pensamiento crítico. Coordinación de proyectos educativos para fomentar vocaciones científicas.",
+        },
+        {
+          company: "ANOVAciencia",
+          role: "Divulgador Científico",
+          period: "2023 – 12/2025",
+          description: "Diseño y ejecución de vídeos de divulgación para público general. Creación de contenidos para redes sociales especializadas en ciencia y tecnología.",
+        },
+        {
+          company: "Centro de Astrobiología",
+          role: "Comunicador Científico",
+          period: "03/2023 – 03/2025",
+          description: "Implementación de estrategias de comunicación y producción audiovisual corporativa. Coordinación de campañas de SEO y narrativa estratégica en medios digitales. Organización de eventos institucionales e internacionales con adaptación de mensajes.",
+        },
+      ]
+    }
+  ],
+  investigacion: [
+    {
+      category: "Investigación",
+      items: [
+         {
+          company: "Universidad de Santiago de Compostela",
+          role: "Investigador",
+          period: "01/10/2020 - 02/06/2021",
+          details: "Grupo de Biofarma (CIMUS)",
+          description: "Realización de ensayos funcionales de un receptor asociado a la esquizofrenia y de nuevos ligandos farmacológicos.",
+        },
+        {
+          company: "Universidad de Extremadura",
+          role: "Investigador",
+          period: "10/09/2019 - 29/06/2020",
+          details: "Departamento de bioquímica y biología molecular",
+          description: "Realización de pruebas de resistencia de microorganismos a diferentes antibióticos (polimixinas) y aplicación de técnicas de ingeniería genética para la modificación de microorganismos.",
+        },
+        {
+          company: "CICYTEX",
+          role: "Investigador",
+          period: "Verano 2019",
+          details: "Finca la Orden",
+          description: "Realización de ensayos de toxicidad y resistencia de herbicidas en plantas de arroz y presentación oral del proyecto.",
+        },
+      ]
+    }
+  ]
+};
 
 export const education = [
   {
@@ -90,10 +103,18 @@ export const complementaryEducation = [
 ]
 
 export const skills = {
-  technical: [
-    "Adobe Premiere Pro", "Adobe After Effects", "Adobe Lightroom", "Adobe Photoshop",
-    "DaVinci Resolve", "Blender", "Canva", "SEO", "Comunicación Digital"
-  ],
+  comunicacion: {
+    technical: [
+      "Adobe Premiere Pro", "Adobe After Effects", "Adobe Lightroom", "Adobe Photoshop",
+      "DaVinci Resolve", "Blender", "Canva", "SEO", "Comunicación Digital", "Guionización"
+    ],
+  },
+  investigacion: {
+    technical: [
+      "Ingeniería Genética", "Cultivo Celular", "Ensayos Funcionales", "Western Blot",
+      "ELISA", "PCR", "Diseño de experimentos", "Análisis de datos"
+    ],
+  },
   personal: [
     "Creatividad Aplicada", "Aprendizaje Autónomo", "Empatía", "Comunicación Efectiva", "Adaptabilidad", "Pensamiento Crítico"
   ],

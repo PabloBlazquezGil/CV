@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -6,6 +7,8 @@ import { Camera, Menu, X, Dna } from "lucide-react";
 import { name } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import type { Profile } from "@/app/page";
+import { cn } from "@/lib/utils";
 
 const navLinks = [
   { href: "#experience", label: "Experiencia" },
@@ -14,7 +17,12 @@ const navLinks = [
   { href: "#contact", label: "Contacto" },
 ];
 
-export default function Header() {
+interface HeaderProps {
+  activeProfile: Profile;
+  setActiveProfile: (profile: Profile) => void;
+}
+
+export default function Header({ activeProfile, setActiveProfile }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -38,13 +46,17 @@ export default function Header() {
         }`}
       >
         <div className="container flex h-16 items-center">
-          <Link href="#" className="mr-6 flex items-center space-x-2">
+          <div className="mr-6 flex items-center space-x-2">
             <div className="flex items-center gap-2">
-              <Dna className="w-6 h-6 text-primary" />
+              <button onClick={() => setActiveProfile("investigacion")} className={cn("p-2 rounded-full transition-colors", activeProfile === 'investigacion' && 'bg-primary/20 text-primary')}>
+                <Dna className="w-6 h-6" />
+              </button>
               <div className="w-px h-6 bg-border/80" />
-              <Camera className="w-6 h-6 text-primary" />
+              <button onClick={() => setActiveProfile("comunicacion")} className={cn("p-2 rounded-full transition-colors", activeProfile === 'comunicacion' && 'bg-primary/20 text-primary')}>
+                <Camera className="w-6 h-6" />
+              </button>
             </div>
-          </Link>
+          </div>
           <div className="flex flex-1 items-center justify-end space-x-2">
             <nav className="hidden md:flex md:items-center md:space-x-4 lg:space-x-6">
               {navLinks.map((link) => (

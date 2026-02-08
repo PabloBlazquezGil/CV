@@ -1,11 +1,18 @@
+
 "use client";
 
 import { skills } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 import { Code, User, Languages } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import type { Profile } from "@/app/page";
 
-export default function SkillsSection() {
+interface SkillsSectionProps {
+  profile: Profile;
+}
+
+export default function SkillsSection({ profile }: SkillsSectionProps) {
+  const skillsToShow = skills[profile];
 
   return (
     <section id="skills" className="container py-10 md:py-20">
@@ -22,7 +29,7 @@ export default function SkillsSection() {
             </CardTitle>
           </CardHeader>
           <CardContent className="flex flex-wrap gap-2">
-            {skills.technical.map((skill, index) => (
+            {skillsToShow.technical.map((skill, index) => (
               <Badge key={index} variant="secondary" className="text-base px-3 py-1">
                 {skill}
               </Badge>

@@ -1,9 +1,15 @@
+
 import Image from 'next/image';
-import { name, title, summary, heroImage } from '@/lib/data';
+import { name, titles, summaries, heroImage } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import type { Profile } from '@/app/page';
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  profile: Profile;
+}
+
+export default function HeroSection({ profile }: HeroSectionProps) {
   return (
     <section id="hero" className="relative bg-background overflow-hidden">
       <div className="container relative z-10 grid md:grid-cols-2 gap-8 items-center min-h-[85vh] py-16 md:py-0">
@@ -13,11 +19,11 @@ export default function HeroSection() {
               {name}
             </h1>
             <p className="text-3xl md:text-4xl text-primary font-medium font-headline">
-              {title}
+              {titles[profile]}
             </p>
           </div>
-          <div className="text-xl text-foreground/80 max-w-2xl">
-            {summary}
+          <div className="text-xl text-foreground max-w-2xl">
+            {summaries[profile]}
           </div>
           <div className="flex gap-4 flex-wrap">
             <Button asChild size="lg">

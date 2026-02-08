@@ -1,3 +1,7 @@
+
+"use client";
+
+import { useState } from "react";
 import Header from "@/components/header";
 import ContactSection from "@/components/sections/contact-section";
 import EducationSection from "@/components/sections/education-section";
@@ -6,17 +10,21 @@ import HeroSection from "@/components/sections/hero-section";
 import SkillsSection from "@/components/sections/skills-section";
 import { Separator } from "@/components/ui/separator";
 
+export type Profile = "comunicacion" | "investigacion";
+
 export default function Home() {
+  const [activeProfile, setActiveProfile] = useState<Profile>("comunicacion");
+
   return (
     <div className="flex min-h-dvh flex-col">
-      <Header />
+      <Header activeProfile={activeProfile} setActiveProfile={setActiveProfile} />
       <main className="flex-1">
-        <HeroSection />
-        <ExperienceSection />
+        <HeroSection profile={activeProfile} />
+        <ExperienceSection profile={activeProfile} />
         <Separator className="my-8 md:my-12" />
-        <EducationSection />
+        <EducationSection profile={activeProfile} />
         <Separator className="my-8 md:my-12" />
-        <SkillsSection />
+        <SkillsSection profile={activeProfile} />
         <Separator className="my-8 md:my-12" />
         <ContactSection />
       </main>

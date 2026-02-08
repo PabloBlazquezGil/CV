@@ -1,8 +1,16 @@
+
 import { experience } from "@/lib/data";
 import { Briefcase } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
+import type { Profile } from "@/app/page";
 
-export default function ExperienceSection() {
+interface ExperienceSectionProps {
+  profile: Profile;
+}
+
+export default function ExperienceSection({ profile }: ExperienceSectionProps) {
+  const experiencesToShow = experience[profile];
+
   return (
     <section id="experience" className="container py-10 md:py-20">
       <h2 className="text-4xl font-headline font-bold text-center mb-12 flex items-center justify-center gap-2">
@@ -10,7 +18,7 @@ export default function ExperienceSection() {
         Experiencia Profesional
       </h2>
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-x-12 gap-y-12">
-        {experience.map((expCategory) => (
+        {experiencesToShow.map((expCategory) => (
           <div key={expCategory.category}>
             <h3 className="text-3xl font-headline font-semibold text-accent mb-6">{expCategory.category}</h3>
             <div className="relative space-y-8">
@@ -21,15 +29,15 @@ export default function ExperienceSection() {
                     <div className="w-3 h-3 bg-primary rounded-full"></div>
                   </div>
                   <Card className="shadow-lg bg-card/50 border border-transparent hover:border-primary/20 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300">
-                    <CardHeader>
-                      <div className="flex justify-between items-baseline">
+                     <CardHeader>
+                      <div className="flex justify-between items-baseline gap-4">
                         <CardTitle>{item.role}</CardTitle>
                         <p className="text-lg text-foreground shrink-0">{item.period}</p>
                       </div>
                       <CardDescription className="font-semibold text-accent text-xl">
                         {item.company}
                         {item.details && (
-                          <span className="font-normal text-lg"> - {item.details}</span>
+                          <span className="font-normal text-lg italic"> - {item.details}</span>
                         )}
                       </CardDescription>
                       <p className="text-lg text-foreground">{item.description}</p>
