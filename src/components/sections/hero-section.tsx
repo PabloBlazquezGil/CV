@@ -22,7 +22,7 @@ export default function HeroSection({ profile }: HeroSectionProps) {
 
   return (
     <section id="hero" className="relative bg-background overflow-hidden">
-      <div className="container relative z-10 grid md:grid-cols-2 gap-8 items-center min-h-[85vh] py-16 md:py-0">
+      <div className="w-full px-8 lg:px-[10vw] relative z-10 grid md:grid-cols-2 gap-8 items-center min-h-[85vh] py-16 md:py-0">
         <div className="space-y-6">
           <div className={cn("space-y-3 transition-all duration-500 ease-out", isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-headline font-bold text-foreground">
@@ -32,7 +32,7 @@ export default function HeroSection({ profile }: HeroSectionProps) {
               {titles[profile]}
             </p>
           </div>
-          <div className={cn("text-xl text-foreground max-w-2xl transition-all duration-500 ease-out delay-200", isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
+          <div className={cn("text-xl xl:text-2xl text-foreground max-w-2xl transition-all duration-500 ease-out delay-200", isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
             {summaries[profile]}
           </div>
           <div className={cn("flex gap-4 flex-wrap transition-all duration-500 ease-out delay-300", isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>

@@ -100,13 +100,13 @@ export default function ContactSection({ profile }: ContactSectionProps) {
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       )}
     >
-      <div className="container">
+      <div className="w-full px-8 lg:px-[10vw]">
         <Card className="max-w-3xl mx-auto shadow-2xl bg-card/80 border-primary/20 border hover:shadow-primary/20 transition-shadow duration-500 backdrop-blur-sm">
             <CardContent className="p-8 md:p-12 text-center">
                 <div className="flex flex-col items-center gap-8">
                     <div className="space-y-2">
                         <CardTitle className="text-5xl md:text-6xl font-bold font-headline text-primary">¿Hablamos?</CardTitle>
-                        <CardDescription className="text-xl text-muted-foreground max-w-xl mx-auto">
+                        <CardDescription className="text-xl xl:text-2xl text-muted-foreground max-w-xl mx-auto">
                             Si tienes un proyecto en mente, una oportunidad de colaboración o simplemente quieres conectar, estaré encantado de escucharte.
                         </CardDescription>
                     </div>

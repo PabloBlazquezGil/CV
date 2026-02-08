@@ -41,7 +41,7 @@ export default function SkillsSection({ profile }: SkillsSectionProps) {
       id="skills" 
       ref={ref}
       className={cn(
-        "container py-10 md:py-20 transition-all duration-700 ease-out",
+        "w-full px-8 lg:px-[10vw] py-10 md:py-20 transition-all duration-700 ease-out",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       )}
     >

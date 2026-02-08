@@ -75,7 +75,7 @@ export default function ExperienceSection({ profile }: ExperienceSectionProps) {
                           <span className="font-normal text-lg italic"> - {item.details}</span>
                         )}
                       </CardDescription>
-                      <p className="text-lg pt-2">{item.description}</p>
+                      <p className="text-lg xl:text-xl pt-2">{item.description}</p>
                     </CardHeader>
                   </Card>
                 </div>

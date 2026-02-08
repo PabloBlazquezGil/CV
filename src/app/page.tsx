@@ -56,7 +56,7 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection profile={activeProfile} />
         
-        <div className="container grid grid-cols-1 md:grid-cols-2 gap-x-16 items-start py-10 md:py-20">
+        <div className="w-full px-8 lg:px-[10vw] grid grid-cols-1 md:grid-cols-2 gap-x-16 items-start py-10 md:py-20">
             <ExperienceSection profile={activeProfile} />
             <EducationSection profile={activeProfile} />
         </div>

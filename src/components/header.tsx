@@ -80,7 +80,7 @@ export default function Header({ activeProfile, setActiveProfile, activeCategory
             : "bg-background"
         }`}
       >
-        <div className="container flex h-16 items-center">
+        <div className="w-full px-8 lg:px-[10vw] flex h-16 items-center">
           <div className="mr-6 flex items-center space-x-4">
             <div className="flex items-center gap-2">
               <div className="flex flex-col items-center">
