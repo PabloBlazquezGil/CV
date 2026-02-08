@@ -20,7 +20,7 @@ const CVSection: React.FC<{
   children: React.ReactNode;
   className?: string;
 }> = ({ title, children, className = '' }) => (
-  <div className={`mb-4 ${className}`}>
+  <div className={`mb-4 ${className}`} style={{ breakInside: 'avoid' }}>
     <h2 className="text-xl font-bold text-primary border-b-2 border-primary/40 pb-1 mb-3">
       {title}
     </h2>
@@ -37,7 +37,7 @@ export default function CVTemplate({ profile }: CVTemplateProps) {
   return (
     <div
       id={`cv-template-${profile}`}
-      className="absolute -left-[9999px] top-auto w-[8.27in] bg-[#1d201d] text-gray-200 p-10 font-body"
+      className="absolute -left-[9999px] top-auto w-[8.27in] bg-[#1d201d] text-gray-200 p-10"
       style={{ fontFamily: 'var(--font-alegreya)', fontSize: '13px' }}
     >
       <div className="flex flex-col h-full">
@@ -74,7 +74,7 @@ export default function CVTemplate({ profile }: CVTemplateProps) {
             {experiencesToShow.map(expCategory => (
                 <div key={expCategory.category} className="space-y-3">
                 {expCategory.items.map((item, index) => (
-                    <div key={index}>
+                    <div key={index} style={{ breakInside: 'avoid' }}>
                     <div className="flex justify-between items-baseline">
                         <p className="text-base font-bold text-accent">
                         {item.role}
@@ -106,7 +106,7 @@ export default function CVTemplate({ profile }: CVTemplateProps) {
                     {!isCommunicator && (
                         <div className="space-y-3 mb-4">
                         {education.map((item, index) => (
-                            <div key={index} className="flex justify-between items-baseline">
+                            <div key={index} className="flex justify-between items-baseline" style={{ breakInside: 'avoid' }}>
                                 <div>
                                     <p className="font-bold text-base">{item.degree}</p>
                                     <p className="text-gray-400 text-sm">{item.institution}</p>
@@ -121,7 +121,7 @@ export default function CVTemplate({ profile }: CVTemplateProps) {
                     </h3>
                     <div className="space-y-2">
                         {complementaryToShow.map((item, index) => (
-                        <div key={index} className="flex justify-between items-start">
+                        <div key={index} className="flex justify-between items-start" style={{ breakInside: 'avoid' }}>
                             <p className="pr-4 text-sm">
                             {item.title}
                             {item.institution && (
@@ -142,16 +142,16 @@ export default function CVTemplate({ profile }: CVTemplateProps) {
             <CVSection title="Competencias y Aptitudes">
                 <div className='space-y-3 text-sm'>
                     {skillsToShow && (
-                        <div>
+                        <div style={{ breakInside: 'avoid' }}>
                             <h3 className="font-bold text-accent mb-1 text-base">Técnicas</h3>
                             <p className="text-gray-300">{skillsToShow.technical.join(' • ')}</p>
                         </div>
                     )}
-                    <div>
+                    <div style={{ breakInside: 'avoid' }}>
                         <h3 className="font-bold text-accent mb-1 text-base mt-2">Personales</h3>
                         <p className="text-gray-300">{skills.personal.join(' • ')}</p>
                     </div>
-                    <div>
+                    <div style={{ breakInside: 'avoid' }}>
                         <h3 className="font-bold text-accent mb-1 text-base mt-2">Idiomas</h3>
                         <div className="space-y-1">
                             {skills.languages.map((lang, i) => (

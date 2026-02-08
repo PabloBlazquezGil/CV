@@ -59,7 +59,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                     logging: false,
                     backgroundColor: null // Inherit background from element
                 },
-                autoPaging: 'text', // Avoid cutting text
+                autoPaging: 'text',
                 margin: [0, 0, 0, 0]
             });
             
@@ -68,9 +68,12 @@ export default function ContactSection({ profile }: ContactSectionProps) {
         } catch (error) {
             console.error("Error generating PDF:", error);
             // Consider adding a user-facing error notification (e.g., a toast)
+        } finally {
+            setIsDownloading(false);
         }
+    } else {
+        setIsDownloading(false);
     }
-    setIsDownloading(false);
   };
 
   return (
@@ -82,7 +85,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       )}
     >
-      <div className="w-full px-8 lg:px-[10vw]">
+      <div className="w-full px-[5vw]">
         <Card className="max-w-3xl mx-auto shadow-2xl bg-card/80 border-primary/20 border hover:shadow-primary/20 transition-shadow duration-500 backdrop-blur-sm">
             <CardContent className="p-8 md:p-12 text-center">
                 <div className="flex flex-col items-center gap-8">
