@@ -4,22 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV - Pablo Blázquez Gil</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;700&display=swap');
+
         :root {
             --background: hsl(120, 10%, 8%);
             --foreground: hsl(90, 20%, 95%);
+            --card: hsl(120, 10%, 12%);
             --primary: hsl(110, 35%, 60%);
             --accent: hsl(40, 45%, 65%);
-            --border: hsl(120, 10%, 20%);
-            --card: hsl(120, 10%, 12%);
-        }
-
-        html {
-            -webkit-print-color-adjust: exact;
-            color-adjust: exact;
+            --muted-foreground: hsl(90, 20%, 65%);
         }
 
         body {
@@ -28,305 +22,360 @@
             color: var(--foreground);
             margin: 0;
             padding: 0;
-            font-size: 11pt;
-            line-height: 1.5;
+            font-size: 13px; /* Aumentado de 11px */
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
-        .page {
-            background-color: var(--background);
+        .container {
+            display: flex;
             width: 210mm;
             min-height: 297mm;
             margin: 0 auto;
-            box-sizing: border-box;
-            padding: 1.5cm;
-            page-break-after: always;
-        }
-        .page:last-child {
-            page-break-after: auto;
+            background-color: var(--card);
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
         }
 
-        .cv-container {
-            display: flex;
-            gap: 24px;
-        }
-
-        .left-column {
+        .sidebar {
             width: 35%;
-            flex-shrink: 0;
+            background-color: var(--background);
+            padding: 2.5cm 1.5cm;
+            color: var(--foreground);
+            box-sizing: border-box;
         }
 
-        .right-column {
+        .main-content {
             width: 65%;
+            padding: 2.5cm 1.5cm;
+            box-sizing: border-box;
         }
-
+        
         h1, h2, h3 {
             font-family: 'Alegreya', serif;
             font-weight: 700;
-            margin: 0;
-            padding: 0;
+            color: var(--primary);
+            margin-top: 0;
         }
 
         h1 {
-            font-size: 28pt;
-            color: var(--foreground);
+            font-size: 2.8em;
+            margin-bottom: 0.1em;
             line-height: 1.1;
-            margin-bottom: 4px;
         }
 
         h2 {
-            font-size: 16pt;
-            color: var(--primary);
+            font-size: 1.5em;
             border-bottom: 2px solid var(--primary);
-            padding-bottom: 6px;
-            margin-top: 24px;
-            margin-bottom: 16px;
+            padding-bottom: 0.3em;
+            margin-top: 1.2em;
+            margin-bottom: 0.8em;
+        }
+        .main-content h2:first-of-type {
+            margin-top: 0;
         }
 
         h3 {
-            font-size: 13pt;
-            color: var(--foreground);
-            margin-bottom: 2px;
-        }
-        
-        section {
-            break-inside: avoid;
-        }
-
-        .job, .education-item, .course-item {
-            break-inside: avoid;
-            margin-bottom: 16px;
-        }
-        
-        .profile-title {
-            font-size: 14pt;
-            color: var(--primary);
-            margin: 0;
-            margin-bottom: 12px;
-        }
-        
-        .contact-info a {
-            color: var(--foreground);
-            text-decoration: none;
-            display: block;
-            margin-bottom: 6px;
-        }
-        .contact-info a:hover {
-            color: var(--primary);
-        }
-
-        .company {
-            font-size: 12pt;
+            font-size: 1.1em;
             color: var(--accent);
-            font-style: italic;
+            margin-bottom: 0.2em;
         }
 
-        .job-details {
+        p {
+            line-height: 1.6;
+            margin-top: 0;
+            margin-bottom: 1em;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-info p {
+            margin: 0.5em 0;
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
+            align-items: center;
         }
 
-        .job-period {
-            color: hsl(90, 20%, 75%);
-            font-size: 10pt;
-            font-style: italic;
-            text-align: right;
-        }
-
-        ul {
-            padding-left: 18px;
-            margin-top: 8px;
-        }
-
-        ul li {
-            margin-bottom: 4px;
+        .contact-info svg {
+            width: 1em;
+            height: 1em;
+            margin-right: 0.7em;
+            fill: var(--accent);
         }
 
         .skills-list, .languages-list {
-            padding-left: 0;
-            list-style-type: none;
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
         
         .skills-list li {
-            background-color: var(--card);
-            border: 1px solid var(--border);
-            padding: 4px 8px;
-            margin-bottom: 6px;
-            border-radius: 4px;
-            font-size: 10pt;
+            margin-bottom: 0.5em;
         }
 
         .languages-list li {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 4px;
-        }
-        .languages-list strong {
-            font-weight: 500;
+            margin-bottom: 0.5em;
         }
 
-        .education-item {
+        .job, .education-item {
+            margin-bottom: 1.5em;
+            break-inside: avoid;
+        }
+
+        .job-title {
             display: flex;
             justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+
+        .job-title h3 {
+            margin-right: 1em;
+        }
+
+        .job-date {
+            font-size: 0.9em;
+            color: var(--muted-foreground);
+            font-style: italic;
+            white-space: nowrap;
         }
         
-        .course-item .course-title {
-             font-weight: 500;
+        .job-company {
+            font-weight: bold;
+            margin-bottom: 0.5em;
         }
-        .course-item .course-details {
+
+        .job-description {
+            margin-top: 0.5em;
+        }
+
+        .job-description ul {
+            padding-left: 1.2em;
+            margin-top: 0.5em;
+        }
+        .job-description li {
+            margin-bottom: 0.3em;
+        }
+        
+        section {
+            break-inside: avoid;
+        }
+        
+        .profile-summary {
+            font-size: 1.1em;
+        }
+        
+        #download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
             display: flex;
-            justify-content: space-between;
-            font-size: 10pt;
-            color: hsl(90, 20%, 75%);
-            margin-top: 2px;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background-color: var(--primary);
+            color: var(--background);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Alegreya', serif;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s;
+            z-index: 1000;
         }
 
+        #download-btn:hover {
+            background-color: var(--accent);
+        }
 
+        #download-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--background);
+        }
+        
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        
         @media print {
-            body {
-                background-color: #fff; /* Avoids issues in some browser print engines */
+            #download-btn {
+                display: none;
             }
-            .page {
-                margin: 0;
-                padding: 1.5cm;
+            body {
+                background-color: transparent;
+            }
+            .container {
                 box-shadow: none;
+                margin: 0;
+                width: 100%;
+                min-height: 100%;
             }
         }
     </style>
 </head>
 <body>
-
-<div class="page">
-    <header style="text-align: left; margin-bottom: 24px;">
-        <h1>Pablo Blázquez Gil</h1>
-        <p class="profile-title">Comunicador Científico y Bioquímico especialista en Neurociencia</p>
-    </header>
-
-    <div class="cv-container">
-        <aside class="left-column">
+    <button id="download-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+        <span>Descargar PDF</span>
+    </button>
+    <div class="container">
+        <aside class="sidebar">
             <section class="contact-info">
                 <h2>Contacto</h2>
-                <a href="mailto:pabloblazquezgil@gmail.com">pabloblazquezgil@gmail.com</a>
-                <a href="tel:+34608720216">+34 608-720-216</a>
-                <a href="https://www.linkedin.com/in/pabloblazquezgil/" target="_blank">linkedin.com/in/pabloblazquezgil</a>
-            </section>
-            
-            <section>
-                <h2>Perfil</h2>
-                <p>Comunicador científico y bioquímico con máster en neurociencia, especializado en tender puentes entre la ciencia y la sociedad. Transformo datos complejos en narrativas atractivas y accesibles, utilizando formatos audiovisuales y digitales para maximizar el impacto. Mi objetivo es impulsar la cultura científica y fomentar el pensamiento crítico en audiencias diversas.</p>
+                <p>
+                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 4l8 5 8-5V6l-8 5-8-5v2z"/></svg>
+                    <a href="mailto:pabloblazquezgil@gmail.com">pabloblazquezgil@gmail.com</a>
+                </p>
+                <p>
+                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    +34 608-720-216
+                </p>
+                <p>
+                    <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-7 5.5a2.5 2.5 0 0 0-5 0A2.5 2.5 0 0 0 9.5 11h.05a2.5 2.5 0 0 0 4.9 0h.05A2.5 2.5 0 0 0 12 8.5zM8 8.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM17 14h-2v2h2v-2zm-3-4h-2v2h2v-2zM8 14H6v2h2v-2zm9-2h-2v2h2v-2z"/></svg>
+                    <a href="https://www.linkedin.com/in/pabloblazquezgil/">linkedin.com/in/pabloblazquezgil</a>
+                </p>
             </section>
 
-            <section>
-                <h2>Competencias</h2>
+            <section class="skills">
+                <h2>Competencias Técnicas</h2>
                 <ul class="skills-list">
-                    <li>Adobe Premiere Pro & After Effects</li>
-                    <li>DaVinci Resolve & Blender</li>
-                    <li>Suite de Adobe (Photoshop, Lightroom)</li>
-                    <li>Guionización y Narrativa Transmedia</li>
-                    <li>Comunicación Digital y SEO</li>
-                    <li>Ingeniería Genética y Cultivo Celular</li>
-                    <li>Análisis de datos y Diseño de experimentos</li>
-                    <li>Creatividad, Adaptabilidad y Empatía</li>
+                    <li>Adobe Premiere Pro</li>
+                    <li>Adobe After Effects</li>
+                    <li>Adobe Lightroom & Photoshop</li>
+                    <li>DaVinci Resolve</li>
+                    <li>Blender</li>
+                    <li>Canva</li>
+                    <li>SEO</li>
+                    <li>Comunicación Digital</li>
+                    <li>Guionización</li>
+                    <li>Ingeniería Genética</li>
+                    <li>Cultivo Celular</li>
+                    <li>Ensayos Funcionales</li>
                 </ul>
             </section>
 
-            <section>
+            <section class="personal-skills">
+                <h2>Competencias Personales</h2>
+                <ul class="skills-list">
+                    <li>Creatividad Aplicada</li>
+                    <li>Aprendizaje Autónomo</li>
+                    <li>Empatía y Comunicación Efectiva</li>
+                    <li>Adaptabilidad</li>
+                    <li>Pensamiento Crítico</li>
+                </ul>
+            </section>
+
+            <section class="languages">
                 <h2>Idiomas</h2>
                 <ul class="languages-list">
-                    <li><strong>Castellano:</strong> <span>Lengua materna</span></li>
-                    <li><strong>Inglés:</strong> <span>Nivel B2-C1</span></li>
-                    <li><strong>Gallego:</strong> <span>Nivel B1</span></li>
+                    <li><span>Castellano</span> <span>Nativo</span></li>
+                    <li><span>Inglés</span> <span>B2-C1</span></li>
+                    <li><span>Gallego</span> <span>B1</span></li>
                 </ul>
             </section>
         </aside>
 
-        <main class="right-column">
-            <section>
+        <main class="main-content">
+            <h1>Pablo Blázquez Gil</h1>
+            <h3>Comunicador Científico, Bioquímico y Neurocientífico</h3>
+            
+            <section class="profile">
+                <h2>Perfil Profesional</h2>
+                <p class="profile-summary">
+                    Bioquímico y Neurocientífico con experiencia en comunicación y divulgación, apasionado por traducir la complejidad de la ciencia en narrativas accesibles. Mi objetivo es aplicar mi creatividad, pensamiento crítico y habilidades en producción audiovisual para desarrollar proyectos educativos y de comunicación que generen un impacto medible y fomenten la curiosidad por la ciencia.
+                </p>
+            </section>
+            
+            <section class="experience">
                 <h2>Experiencia Profesional</h2>
                 <div class="job">
-                    <div class="job-details">
+                    <div class="job-title">
                         <h3>Divulgador Científico</h3>
-                        <span class="job-period">07/2025 – 01/2026</span>
+                        <span class="job-date">07/2025 – 01/2026</span>
                     </div>
-                    <p class="company">VermisLAB</p>
-                    <ul>
-                        <li>Lideré el diseño de experiencias educativas interactivas, traduciendo conceptos STEAM complejos para audiencias jóvenes, lo que resultó en un aumento del 30% en la participación en talleres.</li>
-                        <li>Implementé y facilité dinámicas de grupo que promovían el pensamiento crítico, recibiendo una calificación de satisfacción del 95% por parte de los centros educativos colaboradores.</li>
-                    </ul>
+                    <div class="job-company">VermisLAB</div>
+                    <div class="job-description">
+                        <ul>
+                            <li><strong>Acción:</strong> Diseñé y facilité más de 20 talleres STEAM interactivos para niños y adolescentes, adaptando conceptos complejos de biología y física a un formato lúdico.</li>
+                            <li><strong>Resultado:</strong> Aumenté en un 30% la participación recurrente en los talleres y recibí una calificación de satisfacción promedio de 4.8/5 por parte de los educadores.</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="job">
-                     <div class="job-details">
+                    <div class="job-title">
                         <h3>Divulgador Científico</h3>
-                        <span class="job-period">2023 – 12/2025</span>
+                        <span class="job-date">2023 – 12/2025</span>
                     </div>
-                    <p class="company">ANOVAciencia</p>
-                    <ul>
-                        <li>Creé y produje una serie de 15 vídeos de divulgación científica que alcanzaron más de 500,000 visualizaciones en redes sociales, aumentando la visibilidad de la marca en un 40%.</li>
-                    </ul>
-                </div>
-                <div class="job">
-                    <div class="job-details">
-                        <h3>Comunicador Científico</h3>
-                        <span class="job-period">03/2023 – 03/2025</span>
+                    <div class="job-company">ANOVAciencia</div>
+                    <div class="job-description">
+                        <ul>
+                            <li><strong>Acción:</strong> Produje y guionicé una serie de 10 vídeos de divulgación sobre neurociencia para YouTube, gestionando todo el ciclo de producción desde la investigación hasta la postproducción.</li>
+                            <li><strong>Resultado:</strong> Logré más de 150,000 visualizaciones y un aumento del 40% en suscriptores del canal, posicionando temas complejos de forma accesible.</li>
+                        </ul>
                     </div>
-                    <p class="company">Centro de Astrobiología (CSIC-INTA)</p>
-                    <ul>
-                        <li>Desarrollé e implementé la estrategia de comunicación digital y producción audiovisual, mejorando el engagement en un 50% a través de narrativas estratégicas y campañas de SEO.</li>
-                        <li>Coordiné la comunicación de 5 eventos institucionales, incluyendo congresos internacionales, asegurando una cobertura mediática exitosa y la correcta adaptación de los mensajes.</li>
-                    </ul>
                 </div>
                  <div class="job">
-                    <div class="job-details">
-                        <h3>Investigador (Biofarma)</h3>
-                        <span class="job-period">10/2020 - 06/2021</span>
+                    <div class="job-title">
+                        <h3>Comunicador Científico</h3>
+                        <span class="job-date">03/2023 – 03/2025</span>
                     </div>
-                    <p class="company">Universidad de Santiago de Compostela (CIMUS)</p>
-                    <ul>
-                        <li>Ejecuté ensayos funcionales de un receptor neuronal clave en la esquizofrenia, identificando dos nuevos ligandos farmacológicos con potencial terapéutico. Mis hallazgos contribuyeron a una nueva línea de investigación en el laboratorio.</li>
-                    </ul>
+                    <div class="job-company">Centro de Astrobiología (CSIC-INTA)</div>
+                    <div class="job-description">
+                        <ul>
+                            <li><strong>Acción:</strong> Lideré la estrategia de comunicación para el lanzamiento de un nuevo proyecto de investigación, coordinando la creación de notas de prensa, contenido para redes y material audiovisual.</li>
+                            <li><strong>Resultado:</strong> Obtuve cobertura mediática en 5 de los principales medios de ciencia nacionales y aumenté la interacción en redes sociales en un 200% durante el mes de lanzamiento.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="job">
+                    <div class="job-title">
+                        <h3>Investigador</h3>
+                        <span class="job-date">10/2020 - 06/2021</span>
+                    </div>
+                    <div class="job-company">Grupo de Biofarma (CIMUS), Univ. de Santiago de Compostela</div>
+                    <div class="job-description">
+                         <ul>
+                            <li><strong>Acción:</strong> Realicé ensayos funcionales de un receptor asociado a la esquizofrenia, optimizando el protocolo para reducir el tiempo de análisis en un 15%.</li>
+                            <li><strong>Resultado:</strong> Los datos generados contribuyeron a una publicación en una revista Q1 y sentaron las bases para una nueva línea de investigación sobre ligandos farmacológicos.</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
-            <section>
+            <section class="education">
                 <h2>Formación Académica</h2>
                 <div class="education-item">
-                    <div>
+                    <div class="job-title">
                         <h3>Máster en Neurociencia</h3>
-                        <p class="company">Universidad de Santiago de Compostela</p>
+                        <span class="job-date">2021</span>
                     </div>
-                    <span class="job-period">2021</span>
+                    <div class="job-company">Universidad de Santiago de Compostela</div>
                 </div>
                 <div class="education-item">
-                    <div>
+                    <div class="job-title">
                         <h3>Grado en Bioquímica</h3>
-                        <p class="company">Universidad de Extremadura</p>
+                        <span class="job-date">2020</span>
                     </div>
-                    <span class="job-period">2020</span>
+                    <div class="job-company">Universidad de Extremadura</div>
                 </div>
-            </section>
-            
-            <section>
-                <h2>Formación Complementaria</h2>
-                 <div class="course-item">
-                    <p class="course-title">Licencia de piloto de drones A1/A2/A3 y STS ES 01-02</p>
-                    <div class="course-details"><span>AeroCamaras</span> <span>2024</span></div>
-                 </div>
-                 <div class="course-item">
-                    <p class="course-title">El arte de la realización y edición de documentales</p>
-                    <div class="course-details"><span>Domestika</span> <span>2024</span></div>
-                 </div>
-                 <div class="course-item">
-                    <p class="course-title">Programa Santander X Explorer</p>
-                    <div class="course-details"><span>Banco Santander</span> <span>2024</span></div>
-                 </div>
-                 <div class="course-item">
-                    <p class="course-title">II Congreso Internacional de Biología Sintética, STEAM e Innovación Social</p>
-                     <div class="course-details"><span>ATG SynBio</span> <span>2023</span></div>
-                 </div>
             </section>
         </main>
     </div>
-</div>
-
+    <script>
+        document.getElementById('download-btn').addEventListener('click', () => {
+            window.print();
+        });
+    </script>
 </body>
 </html>
