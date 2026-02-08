@@ -14,11 +14,11 @@ export default function EducationSection() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16">
         {education.map((item, index) => (
-          <Card key={index} className="shadow-lg hover:shadow-xl transition-all duration-300 h-full bg-card/50 group hover:bg-primary cursor-pointer">
+          <Card key={index} className="shadow-lg h-full bg-card/50 border border-transparent hover:border-primary/20 hover:shadow-xl transition-all duration-300">
             <CardHeader>
-              <CardTitle className="group-hover:text-primary-foreground">{item.degree}</CardTitle>
-              <CardDescription className="font-semibold text-accent group-hover:text-primary-foreground text-lg">{item.institution}</CardDescription>
-              <p className="text-lg text-foreground group-hover:text-primary-foreground">{item.period}</p>
+              <CardTitle>{item.degree}</CardTitle>
+              <CardDescription className="font-semibold text-accent text-lg">{item.institution}</CardDescription>
+              <p className="text-lg text-foreground">{item.period}</p>
             </CardHeader>
           </Card>
         ))}
@@ -33,10 +33,10 @@ export default function EducationSection() {
 
        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {complementaryEducation.map((item, index) => (
-          <Card key={index} className="text-center shadow-md hover:shadow-lg transition-all duration-300 bg-card/50 group hover:bg-primary cursor-pointer h-full">
+          <Card key={index} className="text-center shadow-md hover:shadow-lg transition-all duration-300 bg-card/50 border border-transparent hover:border-primary/20 h-full">
             <CardContent className="p-6 flex flex-col items-center justify-center h-full">
-                <h4 className="font-bold font-headline text-xl mb-2 group-hover:text-primary-foreground">{item.title}</h4>
-                <p className="text-lg text-foreground group-hover:text-primary-foreground">{item.details}</p>
+                <h4 className="font-bold font-headline text-xl mb-2">{item.title}</h4>
+                <p className="text-lg text-foreground">{item.details}</p>
             </CardContent>
           </Card>
         ))}

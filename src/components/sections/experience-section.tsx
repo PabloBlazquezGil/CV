@@ -20,17 +20,17 @@ export default function ExperienceSection() {
                    <div className="absolute left-0 top-1.5 w-7 h-7 bg-secondary rounded-full flex items-center justify-center ring-8 ring-background">
                     <div className="w-3 h-3 bg-primary rounded-full"></div>
                   </div>
-                  <Card className="shadow-lg hover:shadow-xl transition-all duration-300 bg-card/50 group hover:bg-primary cursor-pointer">
+                  <Card className="shadow-lg bg-card/50 border border-transparent hover:border-primary/20 hover:shadow-xl transition-all duration-300">
                     <CardHeader>
-                      <CardTitle className="group-hover:text-primary-foreground">{item.role}</CardTitle>
-                      <CardDescription className="font-semibold text-accent group-hover:text-primary-foreground text-xl">
+                      <CardTitle>{item.role}</CardTitle>
+                      <CardDescription className="font-semibold text-accent text-xl">
                         {item.company}
                         {(item as any).details && (
                           <span className="font-normal text-lg"> - {(item as any).details}</span>
                         )}
                       </CardDescription>
-                      <p className="text-lg text-foreground group-hover:text-primary-foreground">{item.period}</p>
-                      <p className="text-lg text-foreground group-hover:text-primary-foreground">{item.description}</p>
+                      <p className="text-lg text-foreground">{item.period}</p>
+                      <p className="text-lg text-foreground">{item.description}</p>
                     </CardHeader>
                   </Card>
                 </div>
