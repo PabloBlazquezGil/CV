@@ -9,14 +9,14 @@ export default function HeroSection() {
       <div className="container relative z-10 grid md:grid-cols-2 gap-8 items-center min-h-[85vh] py-16 md:py-0">
         <div className="space-y-6">
           <div className="space-y-3">
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-headline font-bold text-foreground">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-headline font-bold text-foreground">
               {name}
             </h1>
-            <p className="text-2xl md:text-3xl text-primary font-medium font-headline">
+            <p className="text-3xl md:text-4xl text-primary font-medium font-headline">
               {title}
             </p>
           </div>
-          <div className="text-lg text-muted-foreground max-w-2xl">
+          <div className="text-xl text-muted-foreground max-w-2xl">
             {summary}
           </div>
           <div className="flex gap-4 flex-wrap">

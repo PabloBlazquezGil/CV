@@ -9,15 +9,15 @@ export default function ContactSection() {
       <div className="container">
         <Card className="max-w-3xl mx-auto shadow-2xl bg-card/80 border-primary/20 border hover:shadow-primary/20 transition-shadow duration-500 backdrop-blur-sm">
             <CardContent className="p-8 md:p-12 text-center">
-                <div className="flex flex-col items-center gap-4">
+                <div className="flex flex-col items-center gap-6">
                     <div className="space-y-2">
-                        <CardTitle className="text-4xl md:text-5xl font-bold font-headline text-primary">¿Hablamos?</CardTitle>
-                        <CardDescription className="text-lg text-muted-foreground max-w-xl mx-auto">
+                        <CardTitle className="text-5xl md:text-6xl font-bold font-headline text-primary">¿Hablamos?</CardTitle>
+                        <CardDescription className="text-xl text-muted-foreground max-w-xl mx-auto">
                             Si tienes un proyecto en mente, una oportunidad de colaboración o simplemente quieres conectar, estaré encantado de escucharte.
                         </CardDescription>
                     </div>
                     
-                    <div className="flex flex-col items-center gap-6 w-full pt-2">
+                    <div className="flex flex-col items-center gap-6 w-full">
                       <Button asChild size="lg" className="w-full max-w-sm group">
                           <a href={`mailto:${contact.email}`}>
                               <Mail className="mr-2" /> Envíame un email
@@ -25,13 +25,13 @@ export default function ContactSection() {
                           </a>
                       </Button>
                       <div className="flex items-center gap-4">
-                          <Button asChild variant="ghost">
+                          <Button asChild variant="ghost" className="text-base">
                               <a href={`tel:${contact.phone}`}>
                                   <Phone className="mr-2" /> Llamar
                               </a>
                           </Button>
                            <div className="w-px h-6 bg-border" />
-                          <Button asChild variant="ghost">
+                          <Button asChild variant="ghost" className="text-base">
                               <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">
                                   <Linkedin className="mr-2" /> LinkedIn
                               </a>
