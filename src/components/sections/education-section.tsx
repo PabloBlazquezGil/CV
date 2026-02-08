@@ -2,7 +2,8 @@
 import { education, complementaryEducation } from "@/lib/data";
 import { GraduationCap, Sparkles } from "lucide-react";
 import type { Profile } from "@/app/page";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 interface EducationSectionProps {
   profile: Profile;
@@ -11,25 +12,6 @@ interface EducationSectionProps {
 export default function EducationSection({ profile }: EducationSectionProps) {
   const complementaryToShow = complementaryEducation[profile] || [];
   const isCommunicator = profile === 'comunicacion';
-
-  const groupedComplementary = complementaryToShow.reduce((acc, item) => {
-    const year = item.year;
-    if (!acc[year]) {
-      acc[year] = [];
-    }
-    acc[year].push(item);
-    return acc;
-  }, {} as Record<string, typeof complementaryToShow>);
-
-  const groupedEducation = education.reduce((acc, item) => {
-    const year = item.year;
-    if (!acc[year]) {
-      acc[year] = [];
-    }
-    acc[year].push(item);
-    return acc;
-  }, {} as Record<string, typeof education>);
-
 
   return (
     <section id="education">
@@ -43,49 +25,45 @@ export default function EducationSection({ profile }: EducationSectionProps) {
       <div className="space-y-12">
         {!isCommunicator && (
           <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {Object.entries(groupedEducation).reverse().map(([year, items]) => (
-                <Card key={year} className="shadow-lg h-full bg-card/50 border border-transparent hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300 flex flex-col">
-                  <CardHeader>
-                    <CardTitle className="text-xl font-bold">{year}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex-grow space-y-4">
-                    {items.map((item, index) => (
-                       <div key={index}>
-                        <p className="font-bold">{item.degree}</p>
-                        <p className="text-accent">{item.institution}</p>
-                       </div>
-                    ))}
+            <h3 className="text-2xl font-headline font-semibold mb-6 flex items-center justify-center gap-2 text-accent">
+                Formación Reglada
+            </h3>
+            <div className="space-y-4">
+              {education.map((item, index) => (
+                <Card key={index} className="shadow-lg bg-card/50 border border-transparent hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300">
+                  <CardContent className="p-6 flex items-center justify-between gap-4">
+                    <div>
+                      <p className="font-bold text-lg">{item.degree}</p>
+                      <p className="text-accent">{item.institution}</p>
+                    </div>
+                    <Badge variant="secondary" className="text-base px-3 py-1 shrink-0">{item.year}</Badge>
                   </CardContent>
                 </Card>
               ))}
-            </div>
-             <div className="text-center my-12">
-              <h3 className="text-3xl font-headline font-semibold flex items-center justify-center gap-2 text-accent">
-                <Sparkles className="w-7 h-7" />
-                Formación Complementaria
-              </h3>
             </div>
           </div>
         )}
 
         {complementaryToShow.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-             {Object.entries(groupedComplementary).reverse().map(([year, items]) => (
-              <Card key={year} className="shadow-lg h-full bg-card/50 border border-transparent hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300 flex flex-col">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold">{year}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex-grow space-y-4">
-                  {items.map((item, index) => (
-                    <div key={index}>
-                      <p className="font-semibold">{item.title}</p>
-                      {item.institution && <p className="text-accent text-sm">{item.institution}</p>}
+          <div>
+            <h3 className="text-2xl font-headline font-semibold my-6 flex items-center justify-center gap-2 text-accent">
+              <Sparkles className="w-6 h-6" />
+              Formación Complementaria
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {complementaryToShow.map((item, index) => (
+                <Card key={index} className="h-full shadow-lg bg-card/50 border border-transparent hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300 flex flex-col">
+                  <CardContent className="p-4 flex flex-col flex-grow">
+                    <p className="font-semibold flex-grow">{item.title}</p>
+                    <div className="flex justify-between items-center mt-2 pt-2 border-t border-border/20">
+                      <p className="text-accent text-sm">{item.institution || ' '}</p>
+                      <Badge variant="secondary" className="text-xs px-2 py-0.5 shrink-0">{item.year}</Badge>
                     </div>
-                  ))}
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         )}
       </div>
