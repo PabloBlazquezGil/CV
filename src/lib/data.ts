@@ -44,6 +44,12 @@ export const experience = [
         period: "03/2019 – 06/2020",
         description: "Ejecución de proyectos de investigación en Bioquímica y Neurociencia. Elaboración de informes técnicos y comunicaciones para congresos y publicaciones.",
       },
+      {
+        company: "CYCITEX (Finca La Orden)",
+        role: "Personal Investigador",
+        period: "Verano 2019",
+        description: "Realización de ensayos de toxicidad y resistencia de herbicidas en plantas de arroz. Presentación oral para dar a conocer el proyecto al resto de grupos de investigación del centro.",
+      },
     ]
   }
 ];
