@@ -1,7 +1,5 @@
-
 import { education, complementaryEducation } from "@/lib/data";
 import { GraduationCap, Sparkles } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import type { Profile } from "@/app/page";
 
 interface EducationSectionProps {
@@ -12,6 +10,28 @@ export default function EducationSection({ profile }: EducationSectionProps) {
   const complementaryToShow = complementaryEducation[profile] || [];
   const isCommunicator = profile === 'comunicacion';
 
+  const complementaryList = (
+    <div className="space-y-6">
+      {complementaryToShow.map((item, index) => (
+        <div key={index} className="flex items-start gap-4">
+          <div className="flex h-10 w-16 flex-shrink-0 items-center justify-center rounded-md bg-accent/20 text-sm font-bold text-accent">
+            {item.year}
+          </div>
+          <div className="flex-grow">
+            <h4 className="font-bold leading-tight">{item.title}</h4>
+            {(item.institution || item.hours) && (
+              <p className="text-sm text-muted-foreground">
+                {item.institution}
+                {item.institution && item.hours ? " - " : ""}
+                {item.hours}
+              </p>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <section id="education">
       <div className="text-center mb-12">
@@ -21,58 +41,41 @@ export default function EducationSection({ profile }: EducationSectionProps) {
         </h2>
       </div>
 
-      {isCommunicator ? (
-        // For Comunicador, show complementary as main formation
-        <div className="flex flex-wrap justify-center gap-6">
-          {complementaryToShow.map((item, index) => (
-            <Card key={index} className="text-center shadow-lg bg-card/50 border border-transparent h-full transition-all duration-300 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] w-full max-w-sm">
-              <CardContent className="p-6 flex flex-col items-center justify-center h-full">
-                  <h4 className="font-bold font-headline text-xl mb-2">{item.title}</h4>
-                  <p className="text-lg text-foreground">{item.details}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        // For Investigador, show main + complementary
-        <>
-          <div className="grid grid-cols-1 gap-8 mb-16">
+      <div className="space-y-12">
+        {!isCommunicator && (
+          <div className="space-y-8">
             {education.map((item, index) => (
-              <Card key={index} className="shadow-lg h-full bg-card/50 border border-transparent hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300">
-                <CardHeader className="p-6">
-                  <div className="flex justify-between items-baseline gap-4">
-                    <CardTitle>{item.degree}</CardTitle>
-                    <p className="text-lg text-foreground shrink-0">{item.period}</p>
-                  </div>
-                  <CardDescription className="font-semibold text-accent text-lg">{item.institution}</CardDescription>
-                </CardHeader>
-              </Card>
+              <div key={index} className="flex items-start gap-4">
+                <div className="flex h-10 w-24 flex-shrink-0 items-center justify-center rounded-md bg-primary/10 text-center text-sm font-bold leading-tight text-primary">
+                  {item.period}
+                </div>
+                <div className="flex-grow">
+                  <h3 className="text-lg font-bold leading-tight">{item.degree}</h3>
+                  <p className="text-muted-foreground">{item.institution}</p>
+                </div>
+              </div>
             ))}
           </div>
-          
-          {complementaryToShow.length > 0 && (
-            <>
-              <div className="text-center mb-12">
+        )}
+
+        {complementaryToShow.length > 0 && (
+          <div>
+            {isCommunicator ? (
+              complementaryList
+            ) : (
+              <>
+                <div className="text-center mb-12 mt-16">
                   <h3 className="text-3xl font-headline font-semibold flex items-center justify-center gap-2 text-accent">
                     <Sparkles className="w-7 h-7" />
                     Formación Complementaria
                   </h3>
-              </div>
-    
-               <div className="flex flex-wrap justify-center gap-6">
-                {complementaryToShow.map((item, index) => (
-                  <Card key={index} className="text-center shadow-lg bg-card/50 border border-transparent h-full transition-all duration-300 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] w-full max-w-xs">
-                    <CardContent className="p-6 flex flex-col items-center justify-center h-full">
-                        <h4 className="font-bold font-headline text-xl mb-2">{item.title}</h4>
-                        <p className="text-lg text-foreground">{item.details}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </>
-          )}
-        </>
-      )}
+                </div>
+                {complementaryList}
+              </>
+            )}
+          </div>
+        )}
+      </div>
     </section>
   );
 }
