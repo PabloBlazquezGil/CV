@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -36,35 +35,38 @@ export default function Header({ activeProfile, setActiveProfile, activeCategory
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Show the profile switch tip on first visit
   React.useEffect(() => {
-    let showTimer: NodeJS.Timeout;
-    let hideTimer: NodeJS.Timeout;
-
     const tipShown = localStorage.getItem('profileTipShown');
-
-    const hideNow = () => {
-      setShowProfileTip(false);
-      localStorage.setItem('profileTipShown', 'true');
-      window.removeEventListener('scroll', hideNow);
-      window.removeEventListener('click', hideNow);
-      clearTimeout(showTimer);
-      clearTimeout(hideTimer);
-    };
-
     if (!tipShown) {
-      showTimer = setTimeout(() => setShowProfileTip(true), 1500);
-      hideTimer = setTimeout(hideNow, 8000);
+      const showTimer = setTimeout(() => {
+        setShowProfileTip(true);
+      }, 1500);
+
+      return () => clearTimeout(showTimer);
+    }
+  }, []);
+
+  // Handle hiding the profile switch tip
+  React.useEffect(() => {
+    if (showProfileTip) {
+      const hideNow = () => {
+        setShowProfileTip(false);
+        localStorage.setItem('profileTipShown', 'true');
+      };
+
+      const hideTimer = setTimeout(hideNow, 8000);
+      
       window.addEventListener('scroll', hideNow, { once: true });
       window.addEventListener('click', hideNow, { once: true });
-    }
 
-    return () => {
-      clearTimeout(showTimer);
-      clearTimeout(hideTimer);
-      window.removeEventListener('scroll', hideNow);
-      window.removeEventListener('click', hideNow);
-    };
-  }, []);
+      return () => {
+        clearTimeout(hideTimer);
+        window.removeEventListener('scroll', hideNow);
+        window.removeEventListener('click', hideNow);
+      };
+    }
+  }, [showProfileTip]);
 
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
