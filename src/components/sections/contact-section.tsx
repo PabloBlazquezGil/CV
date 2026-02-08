@@ -2,7 +2,7 @@
 
 import { contact } from "@/lib/data";
 import { Button } from "@/components/ui/button";
-import { Linkedin, Mail, Phone, ArrowRight } from "lucide-react";
+import { Linkedin, Mail, Phone, ArrowRight, Download } from "lucide-react";
 import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
 import { useRef, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -38,7 +38,7 @@ export default function ContactSection() {
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       )}
     >
-      <div className="w-full max-w-[90vw] mx-auto">
+      <div className="w-full max-w-[90vw] lg:max-w-7xl mx-auto">
         <Card className="max-w-3xl mx-auto shadow-2xl bg-card/80 border-primary/20 border hover:shadow-primary/20 transition-shadow duration-500 backdrop-blur-sm">
             <CardContent className="p-8 md:p-12 text-center">
                 <div className="flex flex-col items-center gap-8">
@@ -56,6 +56,13 @@ export default function ContactSection() {
                               <ArrowRight className="ml-auto opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                           </a>
                       </Button>
+                      
+                      <Button asChild size="lg" variant="secondary" className="w-full group">
+                        <a href="/cv.html" target="_blank" rel="noopener noreferrer">
+                            <Download className="mr-2" /> Ver CV para descargar
+                        </a>
+                      </Button>
+
                       <div className="flex items-center gap-4 pt-4">
                           <Button asChild variant="ghost" className="text-base">
                               <a href={`tel:${contact.phone}`}>
