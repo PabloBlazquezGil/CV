@@ -14,7 +14,7 @@ export default function SkillsSection() {
         Competencias y Aptitudes
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <Card className="shadow-lg bg-card/50 border border-transparent hover:border-primary/20 hover:shadow-xl transition-all duration-300">
+        <Card className="shadow-lg bg-card/50 border border-transparent hover:border-primary/20 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-2xl font-headline">
               <Code className="w-6 h-6 text-accent" />
@@ -29,7 +29,7 @@ export default function SkillsSection() {
             ))}
           </CardContent>
         </Card>
-        <Card className="shadow-lg bg-card/50 border border-transparent hover:border-primary/20 hover:shadow-xl transition-all duration-300">
+        <Card className="shadow-lg bg-card/50 border border-transparent hover:border-primary/20 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-2xl font-headline">
               <User className="w-6 h-6 text-accent" />
@@ -44,7 +44,7 @@ export default function SkillsSection() {
             ))}
           </CardContent>
         </Card>
-        <Card className="shadow-lg bg-card/50 border border-transparent hover:border-primary/20 hover:shadow-xl transition-all duration-300">
+        <Card className="shadow-lg bg-card/50 border border-transparent hover:border-primary/20 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-2xl font-headline">
               <Languages className="w-6 h-6 text-accent" />
@@ -55,7 +55,7 @@ export default function SkillsSection() {
             {skills.languages.map((lang, index) => (
               <div key={index} className="flex justify-between items-baseline gap-4">
                 <span className="font-medium shrink-0 text-lg">{lang.lang}</span>
-                <span className="text-muted-foreground text-right text-lg">{lang.level}</span>
+                <span className="text-foreground text-right text-lg">{lang.level}</span>
               </div>
             ))}
           </CardContent>

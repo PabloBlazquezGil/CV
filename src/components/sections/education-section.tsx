@@ -14,11 +14,13 @@ export default function EducationSection() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16">
         {education.map((item, index) => (
-          <Card key={index} className="shadow-lg h-full bg-card/50 border border-transparent hover:border-primary/20 hover:shadow-xl transition-all duration-300">
+          <Card key={index} className="shadow-lg h-full bg-card/50 border border-transparent hover:border-primary/20 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300">
             <CardHeader>
-              <CardTitle>{item.degree}</CardTitle>
+              <div className="flex justify-between items-baseline">
+                <CardTitle>{item.degree}</CardTitle>
+                <p className="text-lg text-foreground shrink-0">{item.period}</p>
+              </div>
               <CardDescription className="font-semibold text-accent text-lg">{item.institution}</CardDescription>
-              <p className="text-lg text-foreground">{item.period}</p>
             </CardHeader>
           </Card>
         ))}
@@ -33,7 +35,7 @@ export default function EducationSection() {
 
        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {complementaryEducation.map((item, index) => (
-          <Card key={index} className="text-center shadow-md hover:shadow-lg transition-all duration-300 bg-card/50 border border-transparent hover:border-primary/20 h-full">
+          <Card key={index} className="text-center shadow-md bg-card/50 border border-transparent h-full transition-all duration-300 hover:border-primary/20 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)]">
             <CardContent className="p-6 flex flex-col items-center justify-center h-full">
                 <h4 className="font-bold font-headline text-xl mb-2">{item.title}</h4>
                 <p className="text-lg text-foreground">{item.details}</p>
