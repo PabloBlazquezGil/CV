@@ -26,6 +26,7 @@ interface HeaderProps {
 export default function Header({ activeProfile, setActiveProfile, activeCategory }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const [showProfileTip, setShowProfileTip] = React.useState(false);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -34,6 +35,37 @@ export default function Header({ activeProfile, setActiveProfile, activeCategory
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  React.useEffect(() => {
+    let showTimer: NodeJS.Timeout;
+    let hideTimer: NodeJS.Timeout;
+
+    const tipShown = localStorage.getItem('profileTipShown');
+
+    const hideNow = () => {
+      setShowProfileTip(false);
+      localStorage.setItem('profileTipShown', 'true');
+      window.removeEventListener('scroll', hideNow);
+      window.removeEventListener('click', hideNow);
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+    };
+
+    if (!tipShown) {
+      showTimer = setTimeout(() => setShowProfileTip(true), 1500);
+      hideTimer = setTimeout(hideNow, 8000);
+      window.addEventListener('scroll', hideNow, { once: true });
+      window.addEventListener('click', hideNow, { once: true });
+    }
+
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+      window.removeEventListener('scroll', hideNow);
+      window.removeEventListener('click', hideNow);
+    };
+  }, []);
+
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
@@ -47,7 +79,15 @@ export default function Header({ activeProfile, setActiveProfile, activeCategory
         }`}
       >
         <div className="container flex h-16 items-center">
-          <div className="mr-6 flex items-center space-x-4">
+          <div className="relative mr-6 flex items-center space-x-4">
+            {showProfileTip && (
+              <div className="absolute -top-14 left-1/2 -translate-x-1/2 w-max animate-fade-in-up">
+                <div className="relative rounded-full bg-primary/90 px-4 py-1.5 text-sm text-primary-foreground shadow-lg">
+                  <p>Pulsa los iconos para cambiar de perfil</p>
+                  <div className="absolute bottom-[-7px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-t-[8px] border-t-primary/90 border-r-[8px] border-r-transparent"></div>
+                </div>
+              </div>
+            )}
             <div className="flex items-center gap-2">
               <button onClick={() => setActiveProfile("investigacion")} className={cn("p-2 rounded-full transition-colors", activeProfile === 'investigacion' && 'bg-primary/20 text-primary')}>
                 <Dna className="w-6 h-6" />
