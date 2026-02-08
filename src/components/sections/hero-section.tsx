@@ -16,7 +16,7 @@ export default function HeroSection() {
               {title}
             </p>
           </div>
-          <div className="text-xl text-muted-foreground max-w-2xl">
+          <div className="text-xl text-foreground/80 max-w-2xl">
             {summary}
           </div>
           <div className="flex gap-4 flex-wrap">
