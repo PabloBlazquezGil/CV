@@ -13,14 +13,18 @@ export default function ExperienceSection({ profile }: ExperienceSectionProps) {
 
   return (
     <section id="experience">
-      <h2 className="text-4xl font-headline font-bold text-center mb-12 flex items-center justify-center gap-2">
-        <Briefcase className="w-8 h-8 text-primary" />
-        Experiencia Profesional
-      </h2>
+      <div className="text-center mb-12 flex items-baseline justify-center gap-4">
+        <h2 className="text-4xl font-headline font-bold flex items-center justify-center gap-2">
+          <Briefcase className="w-8 h-8 text-primary" />
+          Experiencia Profesional
+        </h2>
+        {experiencesToShow.length > 0 && (
+          <h3 className="text-3xl font-headline font-semibold text-accent">{experiencesToShow[0].category}</h3>
+        )}
+      </div>
       <div className="flex flex-col items-center gap-y-12">
         {experiencesToShow.map((expCategory) => (
-          <div key={expCategory.category}>
-            <h3 className="text-3xl font-headline font-semibold text-accent mb-6 text-center">{expCategory.category}</h3>
+          <div key={expCategory.category} className="w-full">
             <div className="relative space-y-8">
               <div className="absolute left-3.5 h-full w-0.5 bg-border -z-10" aria-hidden="true"></div>
               {expCategory.items.map((item, index) => (
