@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Pablo Blázquez Gil</title>
+    <style>
+        @media print {
+            @page {
+                size: A4;
+                margin: 1.5cm;
+            }
+        }
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            background-color: #ffffff;
+            color: #2d3436;
+            margin: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+            width: 21cm;
+            min-height: 29.7cm;
+            padding: 1.5cm;
+            box-sizing: border-box;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 100%;
+        }
+        .sidebar {
+            width: 35%;
+            padding-right: 20px;
+            border-right: 1px solid #dfe6e9;
+        }
+        .main-content {
+            width: 65%;
+            padding-left: 20px;
+        }
+        h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        h2 {
+            font-size: 16px;
+            color: #2c3e50;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 5px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+        .job-title {
+            font-size: 18px;
+            color: #2d3436;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .profile-summary {
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .contact-item {
+            font-size: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .contact-item a {
+            color: #2d3436;
+            text-decoration: none;
+        }
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+        .skills-list, .languages-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .skills-list li {
+            background-color: #ecf0f1;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 6px;
+            font-size: 11px;
+        }
+        .languages-list li {
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+        .experience-item, .education-item {
+            margin-bottom: 20px;
+            break-inside: avoid;
+        }
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 5px;
+        }
+        .item-header h3 {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0;
+            color: #2c3e50;
+        }
+        .item-header span {
+            font-size: 12px;
+            font-style: italic;
+            color: #636e72;
+            white-space: nowrap;
+        }
+        .company {
+             font-size: 13px;
+             font-weight: bold;
+             margin-bottom: 5px;
+        }
+        .item-description {
+            font-size: 12px;
+            line-height: 1.5;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <section>
+                <h2>Contacto</h2>
+                <div class="contact-item"><a href="mailto:pabloblazquezgil@gmail.com">pabloblazquezgil@gmail.com</a></div>
+                <div class="contact-item"><a href="tel:+34608720216">+34 608-720-216</a></div>
+                <div class="contact-item"><a href="https://www.linkedin.com/in/pabloblazquezgil/" target="_blank">linkedin.com/in/pabloblazquezgil</a></div>
+            </section>
+
+            <section>
+                <h2>Habilidades Técnicas</h2>
+                <ul class="skills-list">
+                    <li>Adobe Premiere Pro</li>
+                    <li>Adobe After Effects</li>
+                    <li>DaVinci Resolve</li>
+                    <li>Adobe Photoshop & Lightroom</li>
+                    <li>Blender</li>
+                    <li>SEO & Estrategia Digital</li>
+                    <li>Guionización y Storytelling</li>
+                    <li>Canva</li>
+                </ul>
+            </section>
+
+             <section>
+                <h2>Habilidades Personales</h2>
+                <ul class="skills-list">
+                    <li>Creatividad Aplicada</li>
+                    <li>Aprendizaje Autónomo</li>
+                    <li>Comunicación Efectiva</li>
+                    <li>Pensamiento Crítico</li>
+                    <li>Adaptabilidad y Resiliencia</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Idiomas</h2>
+                <ul class="languages-list">
+                    <li><strong>Castellano:</strong> Lengua materna</li>
+                    <li><strong>Inglés:</strong> Profesional (B2-C1)</li>
+                    <li><strong>Gallego:</strong> Intermedio (B1)</li>
+                </ul>
+            </section>
+        </aside>
+        <main class="main-content">
+            <header>
+                <h1>Pablo Blázquez Gil</h1>
+                <p class="job-title">Comunicador y Divulgador Científico</p>
+            </header>
+            
+            <section>
+                <h2>Perfil Profesional</h2>
+                <p class="profile-summary">
+                    Divulgador científico orientado a resultados con 3+ años de experiencia transformando conceptos complejos de bioquímica y neurociencia en contenido digital atractivo. He liderado estrategias de comunicación que aumentaron la visibilidad online en un 30% y el engagement en redes sociales en un 40%. Comprometido con la creación de experiencias educativas de alto impacto que conectan la ciencia con la sociedad.
+                </p>
+            </section>
+
+            <section>
+                <h2>Experiencia Profesional</h2>
+                <div class="experience-item">
+                    <div class="item-header">
+                        <h3>Divulgador Científico</h3>
+                        <span>07/2025 – 01/2026</span>
+                    </div>
+                    <p class="company">VermisLAB</p>
+                    <p class="item-description">
+                        Diseñé y lideré talleres interactivos para traducir conceptos científicos a un público general, resultando en un aumento del 25% en la participación en programas STEAM y una calificación de satisfacción del 95% por parte de los asistentes.
+                    </p>
+                </div>
+                <div class="experience-item">
+                     <div class="item-header">
+                        <h3>Divulgador Científico</h3>
+                        <span>2023 – 12/2025</span>
+                    </div>
+                    <p class="company">ANOVAciencia</p>
+                    <p class="item-description">
+                        Creé y ejecuté una estrategia de contenido en vídeo para redes sociales, produciendo más de 15 piezas que alcanzaron 500,000+ visualizaciones y aumentaron el engagement de la comunidad en un 40%.
+                    </p>
+                </div>
+                 <div class="experience-item">
+                     <div class="item-header">
+                        <h3>Comunicador Científico</h3>
+                        <span>03/2023 – 03/2025</span>
+                    </div>
+                    <p class="company">Centro de Astrobiología (CSIC-INTA)</p>
+                    <p class="item-description">
+                        Implementé una estrategia de comunicación digital integral que incrementó la visibilidad online del centro en un 30% mediante la producción audiovisual y la optimización SEO, además de coordinar 5 eventos institucionales de alcance internacional.
+                    </p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Formación Académica</h2>
+                 <div class="education-item">
+                    <div class="item-header">
+                        <h3>Máster en Neurociencia</h3>
+                        <span>2021</span>
+                    </div>
+                    <p class="company">Universidad de Santiago de Compostela</p>
+                </div>
+                <div class="education-item">
+                    <div class="item-header">
+                        <h3>Grado en Bioquímica</h3>
+                        <span>2020</span>
+                    </div>
+                    <p class="company">Universidad de Extremadura</p>
+                </div>
+            </section>
+            
+            <section>
+                <h2>Formación Complementaria</h2>
+                 <div class="education-item">
+                    <div class="item-header">
+                        <h3>Licencia de piloto de drones A1/A2/A3 y STS ES 01-02</h3>
+                        <span>2024</span>
+                    </div>
+                     <p class="company">AeroCamaras</p>
+                </div>
+                 <div class="education-item">
+                    <div class="item-header">
+                        <h3>Programa Santander X Explorer</h3>
+                        <span>2024</span>
+                    </div>
+                     <p class="company">Banco Santander</p>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
