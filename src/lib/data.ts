@@ -87,10 +87,10 @@ export const complementaryEducation = {
   comunicacion: [
     { title: "LocalCreativeJam de Vedra", year: "2025", institution: "Programa ATLIC, Vedra" },
     { title: "Participación en el programa Santander X Explorer", year: "2024", institution: "Banco Santander" },
-    { title: "Licencia de piloto de drones A1/A2/A3 y STS ES 01-02", year: "2024", institution: "" },
+    { title: "Licencia de piloto de drones A1/A2/A3 y STS ES 01-02", year: "2024", institution: "AeroCamaras" },
     { title: "El arte de la realización y edición de documentales", year: "2024", institution: "Domestika" },
     { title: "Manipulación creativa con Photoshop", year: "2024", institution: "RBG Escuela" },
-    { title: "II Encuentro de Comunicación-CSIC", year: "2023", institution: "" },
+    { title: "II Encuentro de Comunicación", year: "2023", institution: "CSIC" },
     { title: "II Congreso Internacional de Biología Sintética, STEAM e Innovación Social", year: "2023", institution: "ATG SynBio" },
     { title: "Creación y gestión de blogs y redes sociales", year: "2023", institution: "Talentia Summit" },
     { title: "Community management", year: "2023", institution: "Talentia Summit" },
