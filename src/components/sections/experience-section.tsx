@@ -26,12 +26,12 @@ export default function ExperienceSection() {
                       <p className="text-lg text-foreground/70 group-hover:text-primary-foreground/80">{item.period}</p>
                     </CardHeader>
                     <CardContent>
-                      <CardDescription className="font-semibold text-accent group-hover:text-primary-foreground/80 text-xl mb-2">{item.company}</CardDescription>
-                      {(item as any).details && (
-                        <p className="text-lg text-foreground/70 group-hover:text-primary-foreground/80 mb-2 italic">
-                          {(item as any).details}
-                        </p>
-                      )}
+                      <CardDescription className="font-semibold text-accent group-hover:text-primary-foreground/80 text-xl mb-2">
+                        {item.company}
+                        {(item as any).details && (
+                          <span className="font-normal text-lg"> - {(item as any).details}</span>
+                        )}
+                      </CardDescription>
                       <p className="text-lg text-foreground/80 group-hover:text-primary-foreground/90">{item.description}</p>
                     </CardContent>
                   </Card>
