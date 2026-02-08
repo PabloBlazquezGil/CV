@@ -18,9 +18,8 @@ interface CVTemplateProps {
 const CVSection: React.FC<{
   title: string;
   children: React.ReactNode;
-  className?: string;
-}> = ({ title, children, className = '' }) => (
-  <div className={`mb-4 ${className}`} style={{ breakInside: 'avoid' }}>
+}> = ({ title, children }) => (
+  <div className="mb-4" style={{ breakInside: 'avoid' }}>
     <h2 className="text-xl font-bold text-primary border-b-2 border-primary/40 pb-1 mb-3">
       {title}
     </h2>
@@ -37,18 +36,17 @@ export default function CVTemplate({ profile }: CVTemplateProps) {
   return (
     <div
       id={`cv-template-${profile}`}
-      className="absolute -left-[9999px] top-auto w-[8.27in] bg-[#1d201d] text-gray-200 p-10"
-      style={{ fontFamily: 'var(--font-alegreya)', fontSize: '13px' }}
+      className="absolute -left-[9999px] top-auto w-[210mm] min-h-[297mm] bg-[#1d201d] text-gray-200 p-10 font-body"
+      style={{ fontSize: '13px' }}
     >
-      <div className="flex flex-col h-full">
         {/* Header */}
-        <header className="text-center mb-6">
+        <header className="text-center mb-6" style={{ breakInside: 'avoid' }}>
           <h1 className="text-4xl font-bold font-headline text-white">{name}</h1>
           <p className="text-xl text-primary mt-1">{titles[profile]}</p>
         </header>
 
         {/* Contact Info */}
-        <div className="flex justify-center items-center gap-x-6 gap-y-2 flex-wrap mb-6 text-sm">
+        <div className="flex justify-center items-center gap-x-6 gap-y-2 flex-wrap mb-6 text-sm" style={{ breakInside: 'avoid' }}>
           <div className="flex items-center gap-2">
             <Mail className="w-4 h-4 text-primary" />
             <span>{contact.email}</span>
@@ -104,9 +102,9 @@ export default function CVTemplate({ profile }: CVTemplateProps) {
             <CVSection title="Formación">
                 <div className="space-y-3">
                     {!isCommunicator && (
-                        <div className="space-y-3 mb-4">
+                        <div className="space-y-3 mb-4" style={{ breakInside: 'avoid' }}>
                         {education.map((item, index) => (
-                            <div key={index} className="flex justify-between items-baseline" style={{ breakInside: 'avoid' }}>
+                            <div key={index} className="flex justify-between items-baseline">
                                 <div>
                                     <p className="font-bold text-base">{item.degree}</p>
                                     <p className="text-gray-400 text-sm">{item.institution}</p>
@@ -116,25 +114,27 @@ export default function CVTemplate({ profile }: CVTemplateProps) {
                         ))}
                         </div>
                     )}
-                    <h3 className="text-base font-bold text-accent pt-2 border-t border-gray-700/50">
-                        Formación Complementaria
-                    </h3>
-                    <div className="space-y-2">
-                        {complementaryToShow.map((item, index) => (
-                        <div key={index} className="flex justify-between items-start" style={{ breakInside: 'avoid' }}>
-                            <p className="pr-4 text-sm">
-                            {item.title}
-                            {item.institution && (
-                                <span className="text-gray-400 text-sm">
-                                {' '}({item.institution})
-                                </span>
-                            )}
-                            </p>
-                            <p className="text-accent font-semibold text-sm shrink-0">
-                            {item.year}
-                            </p>
+                    <div style={{ breakInside: 'avoid' }}>
+                        <h3 className="text-base font-bold text-accent pt-2 border-t border-gray-700/50">
+                            Formación Complementaria
+                        </h3>
+                        <div className="space-y-2 mt-2">
+                            {complementaryToShow.map((item, index) => (
+                            <div key={index} className="flex justify-between items-start">
+                                <p className="pr-4 text-sm">
+                                {item.title}
+                                {item.institution && (
+                                    <span className="text-gray-400 text-sm">
+                                    {' '}({item.institution})
+                                    </span>
+                                )}
+                                </p>
+                                <p className="text-accent font-semibold text-sm shrink-0">
+                                {item.year}
+                                </p>
+                            </div>
+                            ))}
                         </div>
-                        ))}
                     </div>
                 </div>
             </CVSection>
@@ -165,7 +165,6 @@ export default function CVTemplate({ profile }: CVTemplateProps) {
                 </div>
             </CVSection>
         </div>
-      </div>
     </div>
   );
 }

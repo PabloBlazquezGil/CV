@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${alegreya.variable} dark`}>
-      <body className="font-body antialiased">
+      <body className="font-body antialiased text-lg">
         {children}
         <Toaster />
       </body>

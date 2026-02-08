@@ -77,10 +77,10 @@ export default function Header({ activeProfile, setActiveProfile, activeCategory
         className={`sticky top-0 z-50 w-full transition-all duration-300 ${
           isScrolled
             ? "border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
-            : "bg-background"
+            : "bg-transparent"
         }`}
       >
-        <div className="w-full px-8 lg:px-[10vw] flex h-16 items-center">
+        <div className="w-full max-w-[90vw] mx-auto flex h-16 items-center">
           <div className="mr-6 flex items-center space-x-4">
             <div className="flex items-center gap-2">
               <div className="flex flex-col items-center">
@@ -112,7 +112,7 @@ export default function Header({ activeProfile, setActiveProfile, activeCategory
               </div>
             </div>
             <div className="hidden md:block">
-              <span className="font-semibold text-accent text-lg">{activeCategory}</span>
+              <span className="font-semibold text-accent text-base">{activeCategory}</span>
             </div>
           </div>
           <div className="flex flex-1 items-center justify-end space-x-2">
@@ -121,7 +121,7 @@ export default function Header({ activeProfile, setActiveProfile, activeCategory
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                  className="text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {link.label}
                 </Link>

@@ -62,7 +62,6 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    font-size: 18px;
   }
   * {
     @apply border-border;
@@ -79,9 +78,10 @@
     }
   }
   body {
-    @apply text-foreground;
+    @apply text-foreground bg-background;
+    /* @apply text-foreground;
     background: linear-gradient(300deg, hsl(var(--background)), hsl(110, 15%, 15%), hsl(40, 20%, 15%));
     background-size: 200% 200%;
-    animation: animated-gradient 15s ease infinite;
+    animation: animated-gradient 15s ease infinite; */
   }
 }

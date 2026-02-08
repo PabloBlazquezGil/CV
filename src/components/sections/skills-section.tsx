@@ -41,7 +41,7 @@ export default function SkillsSection({ profile }: SkillsSectionProps) {
       id="skills" 
       ref={ref}
       className={cn(
-        "w-full px-8 lg:px-[10vw] py-10 md:py-20 transition-all duration-700 ease-out",
+        "w-full max-w-[90vw] mx-auto py-10 md:py-20 transition-all duration-700 ease-out",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       )}
     >
@@ -59,7 +59,7 @@ export default function SkillsSection({ profile }: SkillsSectionProps) {
           </CardHeader>
           <CardContent className="flex flex-wrap gap-2">
             {skillsToShow.technical.map((skill, index) => (
-              <Badge key={index} variant="secondary" className="text-base px-3 py-1">
+              <Badge key={index} variant="secondary" className="text-sm px-3 py-1">
                 {skill}
               </Badge>
             ))}
@@ -74,7 +74,7 @@ export default function SkillsSection({ profile }: SkillsSectionProps) {
           </CardHeader>
           <CardContent className="flex flex-wrap gap-2">
             {skills.personal.map((skill, index) => (
-              <Badge key={index} variant="secondary" className="text-base px-3 py-1">
+              <Badge key={index} variant="secondary" className="text-sm px-3 py-1">
                 {skill}
               </Badge>
             ))}
@@ -90,8 +90,8 @@ export default function SkillsSection({ profile }: SkillsSectionProps) {
           <CardContent className="space-y-4">
             {skills.languages.map((lang, index) => (
               <div key={index} className="flex justify-between items-baseline gap-4">
-                <span className="font-medium shrink-0 text-lg">{lang.lang}</span>
-                <span className="text-foreground text-right text-lg">{lang.level}</span>
+                <span className="font-medium shrink-0 text-base">{lang.lang}</span>
+                <span className="text-foreground text-right text-base">{lang.level}</span>
               </div>
             ))}
           </CardContent>

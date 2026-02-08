@@ -64,7 +64,7 @@ export default function EducationSection({ profile }: EducationSectionProps) {
                       <p className="font-bold text-lg">{item.degree}</p>
                       <p className="text-accent">{item.institution}</p>
                     </div>
-                    <Badge variant="secondary" className="text-base px-3 py-1 shrink-0">{item.year}</Badge>
+                    <Badge variant="secondary" className="text-sm px-3 py-1 shrink-0">{item.year}</Badge>
                   </CardContent>
                 </Card>
               ))}
@@ -83,7 +83,7 @@ export default function EducationSection({ profile }: EducationSectionProps) {
               {complementaryToShow.map((item, index) => (
                 <Card key={index} className="h-full shadow-lg bg-card/50 border border-transparent hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300 flex flex-col">
                   <CardContent className="p-4 flex flex-col flex-grow">
-                    <p className="font-semibold flex-grow">{item.title}</p>
+                    <p className="font-semibold flex-grow text-base">{item.title}</p>
                     <div className="flex justify-between items-center mt-2 pt-2 border-t border-border/20">
                       <p className="text-accent text-sm">{item.institution || ' '}</p>
                       <Badge variant="secondary" className="text-xs px-2 py-0.5 shrink-0">{item.year}</Badge>

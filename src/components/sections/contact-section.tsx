@@ -53,25 +53,26 @@ export default function ContactSection({ profile }: ContactSectionProps) {
             });
 
             await pdf.html(cvElement, {
+                callback: function (pdf) {
+                    pdf.save(`CV_Pablo_Blazquez_Gil_${profile}.pdf`);
+                    setIsDownloading(false);
+                },
                 html2canvas: {
-                    scale: 3, // Higher scale for better quality
+                    scale: 3,
                     useCORS: true,
                     logging: false,
-                    backgroundColor: null // Inherit background from element
+                    backgroundColor: '#1d201d'
                 },
                 autoPaging: 'text',
-                margin: [0, 0, 0, 0]
+                margin: [10, 10, 10, 10],
             });
-            
-            pdf.save(`CV_Pablo_Blazquez_Gil_${profile}.pdf`);
 
         } catch (error) {
             console.error("Error generating PDF:", error);
-            // Consider adding a user-facing error notification (e.g., a toast)
-        } finally {
             setIsDownloading(false);
         }
     } else {
+        console.error("CV template element not found.");
         setIsDownloading(false);
     }
   };
@@ -85,7 +86,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       )}
     >
-      <div className="w-full px-[5vw]">
+      <div className="w-full max-w-[90vw] mx-auto">
         <Card className="max-w-3xl mx-auto shadow-2xl bg-card/80 border-primary/20 border hover:shadow-primary/20 transition-shadow duration-500 backdrop-blur-sm">
             <CardContent className="p-8 md:p-12 text-center">
                 <div className="flex flex-col items-center gap-8">

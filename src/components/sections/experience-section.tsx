@@ -67,16 +67,18 @@ export default function ExperienceSection({ profile }: ExperienceSectionProps) {
                      <CardHeader className="p-6">
                       <div className="flex justify-between items-baseline gap-4 flex-wrap">
                         <CardTitle className="text-xl font-bold">{item.role}</CardTitle>
-                        <p className="text-lg shrink-0">{item.period}</p>
+                        <p className="text-muted-foreground shrink-0">{item.period}</p>
                       </div>
-                      <CardDescription className="font-semibold text-accent text-xl pt-2">
+                      <CardDescription className="font-semibold text-accent text-lg pt-2">
                         {item.company}
                         {item.details && (
-                          <span className="font-normal text-lg italic"> - {item.details}</span>
+                          <span className="font-normal text-base italic"> - {item.details}</span>
                         )}
                       </CardDescription>
-                      <p className="text-lg xl:text-xl pt-2">{item.description}</p>
                     </CardHeader>
+                    <CardContent>
+                      <p className="text-base xl:text-lg">{item.description}</p>
+                    </CardContent>
                   </Card>
                 </div>
               ))}
