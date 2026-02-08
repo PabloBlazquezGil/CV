@@ -36,19 +36,22 @@ export const experience = [
         company: "Universidad de Santiago de Compostela",
         role: "Investigador",
         period: "01/10/2020 - 02/06/2021",
-        description: "Trabajo desarrollado en el grupo de Biofarma del centro de investigación de medicina molecular y enfermedades crónicas (CIMUS). Realización de ensayos funcionales de un receptor asociado a la esquizofrenia y de nuevos ligandos farmacológicos.",
+        details: "Trabajo desarrollado en el grupo de Biofarma del centro de investigación de medicina molecular y enfermedades crónicas (CIMUS).",
+        description: "Realización de ensayos funcionales de un receptor asociado a la esquizofrenia y de nuevos ligandos farmacológicos.",
       },
       {
         company: "Universidad de Extremadura",
         role: "Investigador",
         period: "10/09/2019 - 29/06/2020",
-        description: "Trabajo desarrollado en el departamento de bioquímica y biología molecular. Realización de pruebas de resistencia de microorganismos a diferentes antibióticos (polimixinas) y aplicación de técnicas de ingeniería genética para la modificación de microorganismos.",
+        details: "Trabajo desarrollado en el departamento de bioquímica y biología molecular.",
+        description: "Realización de pruebas de resistencia de microorganismos a diferentes antibióticos (polimixinas) y aplicación de técnicas de ingeniería genética para la modificación de microorganismos.",
       },
       {
         company: "CICYTEX",
         role: "Investigador",
         period: "Verano 2019",
-        description: "Trabajo desarrollado en \"La finca la Orden\". Realización de ensayos de toxicidad y resistencia de herbicidas en plantas de arroz y presentación oral del proyecto.",
+        details: "Trabajo desarrollado en \"La finca la Orden\".",
+        description: "Realización de ensayos de toxicidad y resistencia de herbicidas en plantas de arroz y presentación oral del proyecto.",
       },
     ]
   }
