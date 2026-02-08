@@ -37,7 +37,7 @@ export default function CVTemplate({ profile }: CVTemplateProps) {
   return (
     <div
       id={`cv-template-${profile}`}
-      className="absolute -left-[9999px] top-auto w-[8.27in] bg-[#1d201d] text-gray-200 p-10 font-body text-[11pt]"
+      className="absolute -left-[9999px] top-auto w-[8.27in] bg-[#1d201d] text-gray-200 p-10 font-body"
       style={{ fontFamily: 'var(--font-alegreya)' }}
     >
       <div className="flex flex-col h-full">

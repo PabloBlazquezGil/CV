@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
-}
-
 @layer base {
   :root {
     --background: 90 25% 96%;
@@ -64,6 +60,10 @@ html {
 }
  
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    font-size: 18px;
+  }
   * {
     @apply border-border;
   }
