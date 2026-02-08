@@ -9,6 +9,8 @@ interface EducationSectionProps {
 }
 
 export default function EducationSection({ profile }: EducationSectionProps) {
+  const complementaryToShow = complementaryEducation[profile] || [];
+
   return (
     <section id="education" className="container py-10 md:py-20">
       <div className="text-center mb-12">
@@ -21,7 +23,7 @@ export default function EducationSection({ profile }: EducationSectionProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16">
         {education.map((item, index) => (
           <Card key={index} className="shadow-lg h-full bg-card/50 border border-transparent hover:border-primary/20 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300">
-            <CardHeader>
+            <CardHeader className="p-6">
               <div className="flex justify-between items-baseline gap-4">
                 <CardTitle>{item.degree}</CardTitle>
                 <p className="text-lg text-foreground shrink-0">{item.period}</p>
@@ -32,7 +34,7 @@ export default function EducationSection({ profile }: EducationSectionProps) {
         ))}
       </div>
       
-      {profile === "comunicacion" && (
+      {complementaryToShow.length > 0 && (
         <>
           <div className="text-center mb-12">
               <h3 className="text-3xl font-headline font-semibold flex items-center justify-center gap-2 text-accent">
@@ -41,9 +43,9 @@ export default function EducationSection({ profile }: EducationSectionProps) {
               </h3>
           </div>
 
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {complementaryEducation.map((item, index) => (
-              <Card key={index} className="text-center shadow-md bg-card/50 border border-transparent h-full transition-all duration-300 hover:border-primary/20 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)]">
+           <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
+            {complementaryToShow.map((item, index) => (
+              <Card key={index} className="text-center shadow-lg bg-card/50 border border-transparent h-full transition-all duration-300 hover:border-primary/20 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] w-full max-w-xs">
                 <CardContent className="p-6 flex flex-col items-center justify-center h-full">
                     <h4 className="font-bold font-headline text-xl mb-2">{item.title}</h4>
                     <p className="text-lg text-foreground">{item.details}</p>

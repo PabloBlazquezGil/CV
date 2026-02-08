@@ -83,24 +83,32 @@ export const education = [
   },
 ];
 
-export const complementaryEducation = [
+export const complementaryEducation = {
+  comunicacion: [
+      {
+          title: "Tecnología y Emprendimiento",
+          details: "Santander X Explorer (2024) y LocalCreativeJam (2025)",
+      },
+      {
+          title: "Drones",
+          details: "Licencia de piloto A1/A2/A3 y STS (2024)",
+      },
+      {
+          title: "Audiovisual",
+          details: "Realización de documentales (Domestika), Photoshop (RBG Escuela)",
+      },
+      {
+          title: "Digital",
+          details: "Creación de páginas web (210h), Community Management y gestión de blogs",
+      }
+  ],
+  investigacion: [
     {
-        title: "Tecnología y Emprendimiento",
-        details: "Santander X Explorer (2024) y LocalCreativeJam (2025)",
-    },
-    {
-        title: "Drones",
-        details: "Licencia de piloto A1/A2/A3 y STS (2024)",
-    },
-    {
-        title: "Audiovisual",
-        details: "Realización de documentales (Domestika), Photoshop (RBG Escuela)",
-    },
-    {
-        title: "Digital",
-        details: "Creación de páginas web (210h), Community Management y gestión de blogs",
+      title: "Tecnología y Emprendimiento",
+      details: "Santander X Explorer (2024) y LocalCreativeJam (2025)",
     }
-]
+  ]
+};
 
 export const skills = {
   comunicacion: {

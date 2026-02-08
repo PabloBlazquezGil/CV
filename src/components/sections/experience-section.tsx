@@ -17,7 +17,7 @@ export default function ExperienceSection({ profile }: ExperienceSectionProps) {
         <Briefcase className="w-8 h-8 text-primary" />
         Experiencia Profesional
       </h2>
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-x-12 gap-y-12">
+      <div className="max-w-6xl mx-auto flex justify-center gap-x-12 gap-y-12">
         {experiencesToShow.map((expCategory) => (
           <div key={expCategory.category}>
             <h3 className="text-3xl font-headline font-semibold text-accent mb-6">{expCategory.category}</h3>
@@ -29,8 +29,8 @@ export default function ExperienceSection({ profile }: ExperienceSectionProps) {
                     <div className="w-3 h-3 bg-primary rounded-full"></div>
                   </div>
                   <Card className="shadow-lg bg-card/50 border border-transparent hover:border-primary/20 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300">
-                     <CardHeader>
-                      <div className="flex justify-between items-baseline gap-4">
+                     <CardHeader className="p-6">
+                      <div className="flex justify-between items-baseline gap-4 flex-wrap">
                         <CardTitle>{item.role}</CardTitle>
                         <p className="text-lg text-foreground shrink-0">{item.period}</p>
                       </div>
