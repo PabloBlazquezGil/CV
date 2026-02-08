@@ -86,7 +86,7 @@ export const education = [
 export const complementaryEducation = {
   comunicacion: [
       {
-          title: "Tecnología y Emprendimiento",
+          title: "Emprendimiento",
           details: "Santander X Explorer (2024) y LocalCreativeJam (2025)",
       },
       {
@@ -104,7 +104,7 @@ export const complementaryEducation = {
   ],
   investigacion: [
     {
-      title: "Tecnología y Emprendimiento",
+      title: "Emprendimiento",
       details: "Santander X Explorer (2024) y LocalCreativeJam (2025)",
     }
   ]
