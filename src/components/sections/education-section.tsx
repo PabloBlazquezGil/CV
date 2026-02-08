@@ -1,6 +1,8 @@
+
 import { education, complementaryEducation } from "@/lib/data";
 import { GraduationCap, Sparkles } from "lucide-react";
 import type { Profile } from "@/app/page";
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 interface EducationSectionProps {
   profile: Profile;
@@ -9,28 +11,6 @@ interface EducationSectionProps {
 export default function EducationSection({ profile }: EducationSectionProps) {
   const complementaryToShow = complementaryEducation[profile] || [];
   const isCommunicator = profile === 'comunicacion';
-
-  const complementaryList = (
-    <div className="space-y-6">
-      {complementaryToShow.map((item, index) => (
-        <div key={index} className="flex items-start gap-4">
-          <div className="flex h-10 w-16 flex-shrink-0 items-center justify-center rounded-md bg-accent/20 text-sm font-bold text-accent">
-            {item.year}
-          </div>
-          <div className="flex-grow">
-            <h4 className="font-bold leading-tight">{item.title}</h4>
-            {(item.institution || item.hours) && (
-              <p className="text-sm text-muted-foreground">
-                {item.institution}
-                {item.institution && item.hours ? " - " : ""}
-                {item.hours}
-              </p>
-            )}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
 
   return (
     <section id="education">
@@ -43,36 +23,64 @@ export default function EducationSection({ profile }: EducationSectionProps) {
 
       <div className="space-y-12">
         {!isCommunicator && (
-          <div className="space-y-8">
-            {education.map((item, index) => (
-              <div key={index} className="flex items-start gap-4">
-                <div className="flex h-10 w-24 flex-shrink-0 items-center justify-center rounded-md bg-primary/10 text-center text-sm font-bold leading-tight text-primary">
-                  {item.period}
+            <div className="relative space-y-8">
+              <div className="absolute left-3.5 h-full w-0.5 bg-border -z-10" aria-hidden="true"></div>
+              {education.map((item, index) => (
+                <div key={index} className="relative pl-12">
+                  <div className="absolute left-0 top-1.5 w-7 h-7 bg-secondary rounded-full flex items-center justify-center ring-8 ring-background">
+                    <div className="w-3 h-3 bg-primary rounded-full"></div>
+                  </div>
+                  <Card className="shadow-lg h-full bg-card/50 border border-transparent hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300">
+                    <CardHeader className="p-6">
+                      <div className="flex justify-between items-baseline gap-4 flex-wrap">
+                        <CardTitle className="text-xl font-bold">{item.degree}</CardTitle>
+                        <p className="text-lg shrink-0">{item.period}</p>
+                      </div>
+                      <CardDescription className="font-semibold text-accent text-xl pt-2">
+                        {item.institution}
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
                 </div>
-                <div className="flex-grow">
-                  <h3 className="text-lg font-bold leading-tight">{item.degree}</h3>
-                  <p className="text-muted-foreground">{item.institution}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
         )}
 
         {complementaryToShow.length > 0 && (
           <div>
-            {isCommunicator ? (
-              complementaryList
-            ) : (
-              <>
-                <div className="text-center mb-12 mt-16">
+            {!isCommunicator && (
+              <div className="text-center mb-12 mt-16">
                   <h3 className="text-3xl font-headline font-semibold flex items-center justify-center gap-2 text-accent">
                     <Sparkles className="w-7 h-7" />
                     Formación Complementaria
                   </h3>
-                </div>
-                {complementaryList}
-              </>
+              </div>
             )}
+            <div className="relative space-y-8">
+              <div className="absolute left-3.5 h-full w-0.5 bg-border -z-10" aria-hidden="true"></div>
+              {complementaryToShow.map((item, index) => (
+                <div key={index} className="relative pl-12">
+                   <div className="absolute left-0 top-1.5 w-7 h-7 bg-secondary rounded-full flex items-center justify-center ring-8 ring-background">
+                    <div className="w-3 h-3 bg-primary rounded-full"></div>
+                  </div>
+                  <Card className="shadow-lg h-full bg-card/50 border border-transparent hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300">
+                     <CardHeader className="p-6">
+                      <div className="flex justify-between items-baseline gap-4 flex-wrap">
+                        <CardTitle className="text-xl font-bold">{item.title}</CardTitle>
+                         <p className="text-lg shrink-0">{item.year}</p>
+                      </div>
+                       {(item.institution || item.hours) && (
+                        <CardDescription className="font-semibold text-accent text-xl pt-2">
+                          {item.institution}
+                          {item.institution && item.hours ? " - " : ""}
+                          {item.hours}
+                        </CardDescription>
+                      )}
+                    </CardHeader>
+                  </Card>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

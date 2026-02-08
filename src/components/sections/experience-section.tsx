@@ -32,16 +32,16 @@ export default function ExperienceSection({ profile }: ExperienceSectionProps) {
                   <Card className="shadow-lg h-full bg-card/50 border border-transparent hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300">
                      <CardHeader className="p-6">
                       <div className="flex justify-between items-baseline gap-4 flex-wrap">
-                        <CardTitle>{item.role}</CardTitle>
+                        <CardTitle className="text-xl font-bold">{item.role}</CardTitle>
                         <p className="text-lg shrink-0">{item.period}</p>
                       </div>
-                      <CardDescription className="font-semibold text-accent text-xl">
+                      <CardDescription className="font-semibold text-accent text-xl pt-2">
                         {item.company}
                         {item.details && (
                           <span className="font-normal text-lg italic"> - {item.details}</span>
                         )}
                       </CardDescription>
-                      <p className="text-lg">{item.description}</p>
+                      <p className="text-lg pt-2">{item.description}</p>
                     </CardHeader>
                   </Card>
                 </div>
