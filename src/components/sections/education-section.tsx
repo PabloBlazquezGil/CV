@@ -2,7 +2,7 @@
 import { education, complementaryEducation } from "@/lib/data";
 import { GraduationCap, Sparkles } from "lucide-react";
 import type { Profile } from "@/app/page";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 interface EducationSectionProps {
   profile: Profile;
@@ -11,6 +11,25 @@ interface EducationSectionProps {
 export default function EducationSection({ profile }: EducationSectionProps) {
   const complementaryToShow = complementaryEducation[profile] || [];
   const isCommunicator = profile === 'comunicacion';
+
+  const groupedComplementary = complementaryToShow.reduce((acc, item) => {
+    const year = item.year;
+    if (!acc[year]) {
+      acc[year] = [];
+    }
+    acc[year].push(item);
+    return acc;
+  }, {} as Record<string, typeof complementaryToShow>);
+
+  const groupedEducation = education.reduce((acc, item) => {
+    const year = item.year;
+    if (!acc[year]) {
+      acc[year] = [];
+    }
+    acc[year].push(item);
+    return acc;
+  }, {} as Record<string, typeof education>);
+
 
   return (
     <section id="education">
@@ -25,17 +44,19 @@ export default function EducationSection({ profile }: EducationSectionProps) {
         {!isCommunicator && (
           <div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {education.map((item, index) => (
-                <Card key={index} className="shadow-lg h-full bg-card/50 border border-transparent hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300">
-                  <CardHeader className="p-6">
-                    <div className="flex justify-between items-baseline gap-4 flex-wrap">
-                      <CardTitle className="text-lg font-bold">{item.degree}</CardTitle>
-                      <p className="text-base shrink-0 bg-primary/20 text-primary px-2 py-0.5 rounded-full">{item.period}</p>
-                    </div>
-                    <CardDescription className="font-semibold text-accent text-base pt-2">
-                      {item.institution}
-                    </CardDescription>
+              {Object.entries(groupedEducation).reverse().map(([year, items]) => (
+                <Card key={year} className="shadow-lg h-full bg-card/50 border border-transparent hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300 flex flex-col">
+                  <CardHeader>
+                    <CardTitle className="text-xl font-bold">{year}</CardTitle>
                   </CardHeader>
+                  <CardContent className="flex-grow space-y-4">
+                    {items.map((item, index) => (
+                       <div key={index}>
+                        <p className="font-bold">{item.degree}</p>
+                        <p className="text-accent">{item.institution}</p>
+                       </div>
+                    ))}
+                  </CardContent>
                 </Card>
               ))}
             </div>
@@ -50,21 +71,19 @@ export default function EducationSection({ profile }: EducationSectionProps) {
 
         {complementaryToShow.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {complementaryToShow.map((item, index) => (
-              <Card key={index} className="shadow-lg h-full bg-card/50 border border-transparent hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300">
-                 <CardHeader className="p-6">
-                  <div className="flex justify-between items-baseline gap-4 flex-wrap">
-                    <CardTitle className="text-lg font-bold">{item.title}</CardTitle>
-                     <p className="text-base shrink-0 bg-primary/20 text-primary px-2 py-0.5 rounded-full">{item.year}</p>
-                  </div>
-                   {(item.institution || item.hours) && (
-                    <CardDescription className="font-semibold text-accent text-base pt-2">
-                      {item.institution}
-                      {item.institution && item.hours ? " - " : ""}
-                      {item.hours}
-                    </CardDescription>
-                  )}
+             {Object.entries(groupedComplementary).reverse().map(([year, items]) => (
+              <Card key={year} className="shadow-lg h-full bg-card/50 border border-transparent hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300 flex flex-col">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold">{year}</CardTitle>
                 </CardHeader>
+                <CardContent className="flex-grow space-y-4">
+                  {items.map((item, index) => (
+                    <div key={index}>
+                      <p className="font-semibold">{item.title}</p>
+                      {item.institution && <p className="text-accent text-sm">{item.institution}</p>}
+                    </div>
+                  ))}
+                </CardContent>
               </Card>
             ))}
           </div>

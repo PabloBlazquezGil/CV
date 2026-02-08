@@ -74,32 +74,32 @@ export const education = [
   {
     institution: "Universidad de Santiago de Compostela",
     degree: "Máster en Neurociencia",
-    period: "2020 – 2021",
+    year: "2021",
   },
   {
     institution: "Universidad de Extremadura",
     degree: "Grado en Bioquímica",
-    period: "2016 – 2020",
+    year: "2020",
   },
 ];
 
 export const complementaryEducation = {
   comunicacion: [
-    { title: "LocalCreativeJam de Vedra", year: "2025", hours: "", institution: "" },
-    { title: "Programa Santander X Explorer", year: "2024", hours: "96h", institution: "" },
-    { title: "Licencia de piloto de drones A1/A2/A3 y STS ES 01-02", year: "2024", hours: "", institution: "" },
-    { title: "II Encuentro de Comunicación-CSIC", year: "2023", hours: "16h", institution: "" },
-    { title: "II Congreso Internacional de Biología Sintética, STEAM e Innovación Social", year: "2023", hours: "16h", institution: "" },
-    { title: "El arte de la realización y edición de documentales", year: "2024", hours: "40h", institution: "Domestika" },
-    { title: "Manipulación creativa con Photoshop", year: "2024", hours: "8h", institution: "RBG Escuela" },
-    { title: "Creación y gestión de blogs y redes sociales", year: "2023", hours: "60h", institution: "Talentia Summit" },
-    { title: "Community management", year: "2023", hours: "20h", institution: "Talentia Summit" },
-    { title: "Creación, programación y diseño de páginas web", year: "2023", hours: "210h", institution: "Talentia Summit" },
+    { title: "LocalCreativeJam de Vedra", year: "2025", institution: "" },
+    { title: "Participación en el programa Santander X Explorer", year: "2024", institution: "" },
+    { title: "Licencia de piloto de drones A1/A2/A3 y STS ES 01-02", year: "2024", institution: "" },
+    { title: "El arte de la realización y edición de documentales", year: "2024", institution: "Domestika" },
+    { title: "Manipulación creativa con Photoshop", year: "2024", institution: "RBG Escuela" },
+    { title: "II Encuentro de Comunicación-CSIC", year: "2023", institution: "" },
+    { title: "II Congreso Internacional de Biología Sintética, STEAM e Innovación Social", year: "2023", institution: "" },
+    { title: "Creación y gestión de blogs y redes sociales", year: "2023", institution: "Talentia Summit" },
+    { title: "Community management", year: "2023", institution: "Talentia Summit" },
+    { title: "Creación, programación y diseño de páginas web", year: "2023", institution: "Talentia Summit" },
   ],
   investigacion: [
-    { title: "LocalCreativeJam de Vedra", year: "2025", hours: "", institution: "" },
-    { title: "Programa Santander X Explorer", year: "2024", hours: "96h", institution: "" },
-    { title: "II Congreso Internacional de Biología Sintética, STEAM e Innovación Social", year: "2023", hours: "16h", institution: "" },
+    { title: "LocalCreativeJam de Vedra", year: "2025", institution: "" },
+    { title: "Participación en el programa Santander X Explorer", year: "2024", institution: "" },
+    { title: "II Congreso Internacional de Biología Sintética, STEAM e Innovación Social", year: "2023", institution: "" },
   ]
 };
 
