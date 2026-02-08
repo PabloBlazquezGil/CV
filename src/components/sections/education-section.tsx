@@ -13,7 +13,7 @@ export default function EducationSection({ profile }: EducationSectionProps) {
   const isCommunicator = profile === 'comunicacion';
 
   return (
-    <section id="education" className="container py-10 md:py-20">
+    <section id="education">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-headline font-bold flex items-center justify-center gap-2">
           <GraduationCap className="w-8 h-8 text-primary" />
@@ -23,7 +23,7 @@ export default function EducationSection({ profile }: EducationSectionProps) {
 
       {isCommunicator ? (
         // For Comunicador, show complementary as main formation
-        <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
+        <div className="flex flex-wrap justify-center gap-6">
           {complementaryToShow.map((item, index) => (
             <Card key={index} className="text-center shadow-lg bg-card/50 border border-transparent h-full transition-all duration-300 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] w-full max-w-sm">
               <CardContent className="p-6 flex flex-col items-center justify-center h-full">
@@ -36,7 +36,7 @@ export default function EducationSection({ profile }: EducationSectionProps) {
       ) : (
         // For Investigador, show main + complementary
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16">
+          <div className="grid grid-cols-1 gap-8 mb-16">
             {education.map((item, index) => (
               <Card key={index} className="shadow-lg h-full bg-card/50 border border-transparent hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300">
                 <CardHeader className="p-6">
@@ -59,7 +59,7 @@ export default function EducationSection({ profile }: EducationSectionProps) {
                   </h3>
               </div>
     
-               <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
+               <div className="flex flex-wrap justify-center gap-6">
                 {complementaryToShow.map((item, index) => (
                   <Card key={index} className="text-center shadow-lg bg-card/50 border border-transparent h-full transition-all duration-300 hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] w-full max-w-xs">
                     <CardContent className="p-6 flex flex-col items-center justify-center h-full">
