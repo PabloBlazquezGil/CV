@@ -26,7 +26,7 @@ export default function EducationSection({ profile }: EducationSectionProps) {
         {!isCommunicator && (
           <div>
             <h3 className="text-2xl font-headline font-semibold mb-6 flex items-center justify-center gap-2 text-accent">
-                Formación Reglada
+                Formación
             </h3>
             <div className="space-y-4">
               {education.map((item, index) => (
