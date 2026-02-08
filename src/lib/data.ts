@@ -45,7 +45,7 @@ export const experience = [
         description: "Trabajo desarrollado en el departamento de bioquímica y biología molecular. Realización de pruebas de resistencia de microorganismos a diferentes antibióticos (polimixinas) y aplicación de técnicas de ingeniería genética para la modificación de microorganismos.",
       },
       {
-        company: "CYCITEX",
+        company: "CICYTEX",
         role: "Investigador",
         period: "Verano 2019",
         description: "Trabajo desarrollado en \"La finca la Orden\". Realización de ensayos de toxicidad y resistencia de herbicidas en plantas de arroz y presentación oral del proyecto.",
