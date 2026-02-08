@@ -33,22 +33,22 @@ export const experience = [
     category: "Investigación",
     items: [
        {
-        company: "Grupo BioFarma (Neurociencia)",
-        role: "Investigador Científico",
-        period: "09/2020 – 06/2021",
-        description: "Ejecución de proyectos de investigación en Bioquímica y Neurociencia. Elaboración de informes técnicos y comunicaciones para congresos y publicaciones.",
+        company: "Universidad de Santiago de Compostela",
+        role: "Investigador",
+        period: "01/10/2020 - 02/06/2021",
+        description: "Trabajé en el grupo de Biofarma del centro de investigación de medicina molecular y enfermedades crónicas (CIMUS). Realizamos ensayos funcionales de un receptor asociado a la esquizofrenia y ensayos funcionales de nuevos ligandos farmacológicos.",
       },
       {
-        company: "Universidad de Extremadura (Microbiología)",
-        role: "Investigador Científico",
-        period: "03/2019 – 06/2020",
-        description: "Ejecución de proyectos de investigación en Bioquímica y Neurociencia. Elaboración de informes técnicos y comunicaciones para congresos y publicaciones.",
+        company: "Universidad de Extremadura",
+        role: "Investigador",
+        period: "10/09/2019 - 29/06/2020",
+        description: "Trabajé en el departamento de bioquímica y biología molecular. Realizamos pruebas de resistencia de microorganismos a diferentes antibióticos (polimixinas) y técnicas de ingeniería genética para modificar microorganismos.",
       },
       {
-        company: "CYCITEX (Finca La Orden)",
-        role: "Personal Investigador",
+        company: "CYCITEX",
+        role: "Investigador",
         period: "Verano 2019",
-        description: "Realización de ensayos de toxicidad y resistencia de herbicidas en plantas de arroz. Presentación oral para dar a conocer el proyecto al resto de grupos de investigación del centro.",
+        description: "Trabajé en \"La finca la Orden\". Realizamos ensayos de toxicidad y resistencia de herbicidas en plantas de arroz. Realicé una presentación oral del proyecto.",
       },
     ]
   }
