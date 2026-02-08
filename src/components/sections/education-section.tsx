@@ -1,9 +1,12 @@
+"use client";
 
 import { education, complementaryEducation } from "@/lib/data";
 import { GraduationCap, Sparkles } from "lucide-react";
 import type { Profile } from "@/app/page";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useRef, useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface EducationSectionProps {
   profile: Profile;
@@ -13,8 +16,36 @@ export default function EducationSection({ profile }: EducationSectionProps) {
   const complementaryToShow = complementaryEducation[profile] || [];
   const isCommunicator = profile === 'comunicacion';
 
+  const ref = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(element);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="education">
+    <section 
+      id="education"
+      ref={ref}
+      className={cn(
+        "transition-all duration-700 ease-out",
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      )}
+    >
       <div className="text-center mb-12">
         <h2 className="text-4xl font-headline font-bold flex items-center justify-center gap-2">
           <GraduationCap className="w-8 h-8 text-primary" />
@@ -25,9 +56,6 @@ export default function EducationSection({ profile }: EducationSectionProps) {
       <div className="space-y-12">
         {!isCommunicator && (
           <div>
-            <h3 className="text-2xl font-headline font-semibold mb-6 flex items-center justify-center gap-2 text-accent">
-                Formación
-            </h3>
             <div className="space-y-4">
               {education.map((item, index) => (
                 <Card key={index} className="shadow-lg bg-card/50 border border-transparent hover:shadow-[0_0_15px_hsl(var(--primary)/0.4)] transition-all duration-300">

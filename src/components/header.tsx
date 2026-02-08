@@ -25,7 +25,7 @@ interface HeaderProps {
 export default function Header({ activeProfile, setActiveProfile, activeCategory }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
-  const [showProfileTip, setShowProfileTip] = React.useState(false);
+  const [hasInteracted, setHasInteracted] = React.useState(true); // Default to true for SSR
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -35,38 +35,38 @@ export default function Header({ activeProfile, setActiveProfile, activeCategory
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Show the profile switch tip on first visit
+  // Check on mount if user has interacted before
   React.useEffect(() => {
-    const tipShown = localStorage.getItem('profileTipShown');
-    if (!tipShown) {
-      const showTimer = setTimeout(() => {
-        setShowProfileTip(true);
-      }, 1500);
-
-      return () => clearTimeout(showTimer);
+    if (localStorage.getItem('profileInteracted') !== 'true') {
+      setHasInteracted(false);
     }
   }, []);
-
-  // Handle hiding the profile switch tip
-  React.useEffect(() => {
-    if (showProfileTip) {
-      const hideNow = () => {
-        setShowProfileTip(false);
-        localStorage.setItem('profileTipShown', 'true');
-      };
-
-      const hideTimer = setTimeout(hideNow, 8000);
-      
-      window.addEventListener('scroll', hideNow, { once: true });
-      window.addEventListener('click', hideNow, { once: true });
-
-      return () => {
-        clearTimeout(hideTimer);
-        window.removeEventListener('scroll', hideNow);
-        window.removeEventListener('click', hideNow);
-      };
+  
+  const markAsInteracted = React.useCallback(() => {
+    if (!hasInteracted) {
+      setHasInteracted(true);
+      localStorage.setItem('profileInteracted', 'true');
     }
-  }, [showProfileTip]);
+  }, [hasInteracted]);
+
+  // Handle profile change and mark as interacted
+  const handleProfileChange = (profile: Profile) => {
+    setActiveProfile(profile);
+    markAsInteracted();
+  };
+
+  // Mark as interacted on first scroll or click
+  React.useEffect(() => {
+    if (hasInteracted) return;
+    
+    window.addEventListener('scroll', markAsInteracted, { once: true });
+    window.addEventListener('click', markAsInteracted, { once: true });
+
+    return () => {
+      window.removeEventListener('scroll', markAsInteracted);
+      window.removeEventListener('click', markAsInteracted);
+    };
+  }, [hasInteracted, markAsInteracted]);
 
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
@@ -81,23 +81,35 @@ export default function Header({ activeProfile, setActiveProfile, activeCategory
         }`}
       >
         <div className="container flex h-16 items-center">
-          <div className="relative mr-6 flex items-center space-x-4">
-            {showProfileTip && (
-              <div className="absolute -top-14 left-1/2 -translate-x-1/2 w-max animate-fade-in-up">
-                <div className="relative rounded-full bg-primary/90 px-4 py-1.5 text-sm text-primary-foreground shadow-lg">
-                  <p>Pulsa los iconos para cambiar de perfil</p>
-                  <div className="absolute bottom-[-7px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-t-[8px] border-t-primary/90 border-r-[8px] border-r-transparent"></div>
+          <div className="mr-6 flex items-center space-x-4">
+            <div className="flex items-center gap-2">
+              <div className="flex flex-col items-center">
+                <button onClick={() => handleProfileChange("investigacion")} className={cn("p-2 rounded-full transition-colors", activeProfile === 'investigacion' && 'bg-primary/20 text-primary')}>
+                  <Dna className="w-6 h-6" />
+                </button>
+                <div className="h-4 flex items-center justify-center">
+                  {!hasInteracted ? (
+                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                  ) : (
+                    activeProfile === 'investigacion' && <div className="w-2 h-2 rounded-full bg-primary" />
+                  )}
                 </div>
               </div>
-            )}
-            <div className="flex items-center gap-2">
-              <button onClick={() => setActiveProfile("investigacion")} className={cn("p-2 rounded-full transition-colors", activeProfile === 'investigacion' && 'bg-primary/20 text-primary')}>
-                <Dna className="w-6 h-6" />
-              </button>
+
               <div className="w-px h-6 bg-border/80" />
-              <button onClick={() => setActiveProfile("comunicacion")} className={cn("p-2 rounded-full transition-colors", activeProfile === 'comunicacion' && 'bg-primary/20 text-primary')}>
-                <Camera className="w-6 h-6" />
-              </button>
+
+              <div className="flex flex-col items-center">
+                <button onClick={() => handleProfileChange("comunicacion")} className={cn("p-2 rounded-full transition-colors", activeProfile === 'comunicacion' && 'bg-primary/20 text-primary')}>
+                  <Camera className="w-6 h-6" />
+                </button>
+                <div className="h-4 flex items-center justify-center">
+                  {!hasInteracted ? (
+                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                  ) : (
+                    activeProfile === 'comunicacion' && <div className="w-2 h-2 rounded-full bg-primary" />
+                  )}
+                </div>
+              </div>
             </div>
             <div className="hidden md:block">
               <span className="font-semibold text-accent text-lg">{activeCategory}</span>

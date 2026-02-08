@@ -1,11 +1,44 @@
+"use client";
+
 import { contact } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Linkedin, Mail, Phone, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useRef, useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
+
 
 export default function ContactSection() {
+  const ref = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(element);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <footer id="contact" className="py-16 md:py-24 bg-background/50 mt-10 md:mt-20">
+    <footer 
+      id="contact" 
+      ref={ref}
+      className={cn(
+        "py-16 md:py-24 bg-background/50 mt-10 md:mt-20 transition-all duration-700 ease-out",
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      )}
+    >
       <div className="container">
         <Card className="max-w-3xl mx-auto shadow-2xl bg-card/80 border-primary/20 border hover:shadow-primary/20 transition-shadow duration-500 backdrop-blur-sm">
             <CardContent className="p-8 md:p-12 text-center">

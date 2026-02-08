@@ -1,4 +1,3 @@
-
 "use client";
 
 import { skills } from "@/lib/data";
@@ -6,6 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Code, User, Languages } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import type { Profile } from "@/app/page";
+import { useRef, useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface SkillsSectionProps {
   profile: Profile;
@@ -14,8 +15,36 @@ interface SkillsSectionProps {
 export default function SkillsSection({ profile }: SkillsSectionProps) {
   const skillsToShow = skills[profile];
 
+  const ref = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(element);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="skills" className="container py-10 md:py-20">
+    <section 
+      id="skills" 
+      ref={ref}
+      className={cn(
+        "container py-10 md:py-20 transition-all duration-700 ease-out",
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      )}
+    >
       <h2 className="text-4xl font-headline font-bold text-center mb-12 flex items-center justify-center gap-2">
         <Code className="w-8 h-8 text-primary" />
         Competencias y Aptitudes
