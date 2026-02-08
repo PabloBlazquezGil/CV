@@ -80,8 +80,8 @@ html {
   }
   body {
     @apply text-foreground;
-    background: linear-gradient(300deg, hsl(var(--background)), hsl(120 10% 12%), hsl(var(--background)));
-    background-size: 180% 180%;
-    animation: animated-gradient 18s ease infinite;
+    background: linear-gradient(300deg, hsl(var(--background)), hsl(110, 15%, 15%), hsl(40, 20%, 15%));
+    background-size: 200% 200%;
+    animation: animated-gradient 15s ease infinite;
   }
 }
