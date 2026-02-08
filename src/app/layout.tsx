@@ -1,6 +1,14 @@
 import type {Metadata} from 'next';
+import { Alegreya } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
+
+const alegreya = Alegreya({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  display: 'swap',
+  variable: '--font-alegreya',
+});
 
 export const metadata: Metadata = {
   title: 'Pablo Blázquez Gil | Comunicador y Divulgador Científico',
@@ -13,12 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="dark">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;700&display=swap" rel="stylesheet" />
-      </head>
+    <html lang="es" className={`${alegreya.variable} dark`}>
       <body className="font-body antialiased">
         {children}
         <Toaster />
