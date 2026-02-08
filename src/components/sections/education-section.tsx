@@ -17,10 +17,10 @@ export default function EducationSection() {
           <Card key={index} className="shadow-lg hover:shadow-xl transition-all duration-300 h-full bg-card/50 group hover:bg-primary cursor-pointer">
             <CardHeader>
               <CardTitle className="group-hover:text-primary-foreground">{item.degree}</CardTitle>
-              <CardDescription className="font-semibold text-accent group-hover:text-primary-foreground/80 text-lg">{item.institution}</CardDescription>
+              <CardDescription className="font-semibold text-accent group-hover:text-primary-foreground text-lg">{item.institution}</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-base text-foreground/70 group-hover:text-primary-foreground/80">{item.period}</p>
+              <p className="text-base text-foreground group-hover:text-primary-foreground">{item.period}</p>
             </CardContent>
           </Card>
         ))}
@@ -38,7 +38,7 @@ export default function EducationSection() {
           <Card key={index} className="text-center shadow-md hover:shadow-lg transition-all duration-300 bg-card/50 group hover:bg-primary cursor-pointer h-full">
             <CardContent className="p-6 flex flex-col items-center justify-center h-full">
                 <h4 className="font-bold font-headline text-xl mb-2 group-hover:text-primary-foreground">{item.title}</h4>
-                <p className="text-lg text-foreground/80 group-hover:text-primary-foreground/90">{item.details}</p>
+                <p className="text-lg text-foreground group-hover:text-primary-foreground">{item.details}</p>
             </CardContent>
           </Card>
         ))}

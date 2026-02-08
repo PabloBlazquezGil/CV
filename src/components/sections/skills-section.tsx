@@ -55,7 +55,7 @@ export default function SkillsSection() {
             {skills.languages.map((lang, index) => (
               <div key={index} className="flex justify-between items-baseline gap-4 group-hover:text-primary-foreground">
                 <span className="font-medium shrink-0 text-lg">{lang.lang}</span>
-                <span className="text-foreground/70 text-right group-hover:text-primary-foreground/80 text-lg">{lang.level}</span>
+                <span className="text-foreground text-right text-lg">{lang.level}</span>
               </div>
             ))}
           </CardContent>
