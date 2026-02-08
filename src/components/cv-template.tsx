@@ -145,28 +145,20 @@ export default function CVTemplate({ profile }: CVTemplateProps) {
               {skillsToShow && (
                   <div>
                       <h3 className="font-bold text-accent mb-2 text-base">Técnicas</h3>
-                      <div className="flex flex-wrap gap-2">
-                          {skillsToShow.technical.map((skill, i) => (
-                          <span key={i} className="text-xs rounded-md border border-primary/60 px-2 py-1 text-primary-foreground/90">{skill}</span>
-                          ))}
-                      </div>
+                      <p className="text-gray-300">{skillsToShow.technical.join(' • ')}</p>
                   </div>
               )}
               <div>
                   <h3 className="font-bold text-accent mb-2 text-base mt-2">Personales</h3>
-                  <div className="flex flex-wrap gap-2">
-                      {skills.personal.map((skill, i) => (
-                      <span key={i} className="text-xs rounded-md border border-secondary/50 px-2 py-1 text-gray-300">{skill}</span>
-                      ))}
-                  </div>
+                   <p className="text-gray-300">{skills.personal.join(' • ')}</p>
               </div>
               <div>
                   <h3 className="font-bold text-accent mb-2 text-base mt-2">Idiomas</h3>
                   <div className="space-y-1">
                     {skills.languages.map((lang, i) => (
                         <div key={i} className="flex items-baseline">
-                          <p className="font-semibold w-28">{lang.lang}:</p>
-                          <p>{lang.level}</p>
+                          <p className="font-semibold w-28 text-gray-300">{lang.lang}:</p>
+                          <p className="text-gray-300">{lang.level}</p>
                         </div>
                     ))}
                   </div>

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -65,7 +64,7 @@ export default function Home() {
         <Separator className="my-8 md:my-12" />
         <SkillsSection profile={activeProfile} />
         <Separator className="my-8 md:my-12" />
-        <ContactSection />
+        <ContactSection profile={activeProfile} />
       </main>
     </div>
   );
