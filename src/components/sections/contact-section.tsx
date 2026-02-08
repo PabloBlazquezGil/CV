@@ -48,7 +48,6 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                 scale: 3, // Higher scale for better quality
                 useCORS: true,
                 logging: false,
-                backgroundColor: '#1d201d',
             });
 
             const imgData = canvas.toDataURL('image/png');
@@ -61,19 +60,24 @@ export default function ContactSection({ profile }: ContactSectionProps) {
 
             const imgProps = pdf.getImageProperties(imgData);
             const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-            
-            let heightLeft = pdfHeight;
-            let position = 0;
             const pageHeight = pdf.internal.pageSize.getHeight();
-
-            pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, pdfHeight);
+            const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            
+            let heightLeft = imgHeight;
+            let position = 0;
+            
+            // Add first page
+            pdf.setFillColor('#1d201d');
+            pdf.rect(0, 0, pdfWidth, pageHeight, 'F');
+            pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
             heightLeft -= pageHeight;
 
-            while (heightLeft >= 0) {
-              position = heightLeft - pdfHeight;
+            while (heightLeft > 0) {
+              position -= pageHeight;
               pdf.addPage();
-              pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, pdfHeight);
+              pdf.setFillColor('#1d201d');
+              pdf.rect(0, 0, pdfWidth, pageHeight, 'F');
+              pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
               heightLeft -= pageHeight;
             }
 
