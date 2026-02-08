@@ -44,43 +44,25 @@ export default function ContactSection({ profile }: ContactSectionProps) {
 
     if (cvElement) {
         try {
-            const canvas = await html2canvas(cvElement, {
-                scale: 3, // Higher scale for better quality
-                useCORS: true,
-                logging: false,
-            });
-
-            const imgData = canvas.toDataURL('image/png');
-            
             const pdf = new jsPDF({
                 orientation: 'portrait',
                 unit: 'mm',
                 format: 'a4',
+                putOnlyUsedFonts: true,
+                compress: true
             });
 
-            const imgProps = pdf.getImageProperties(imgData);
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pageHeight = pdf.internal.pageSize.getHeight();
-            const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            await pdf.html(cvElement, {
+                html2canvas: {
+                    scale: 3, // Higher scale for better quality
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: null // Inherit background from element
+                },
+                autoPaging: 'text', // Avoid cutting text
+                margin: [0, 0, 0, 0]
+            });
             
-            let heightLeft = imgHeight;
-            let position = 0;
-            
-            // Add first page
-            pdf.setFillColor('#1d201d');
-            pdf.rect(0, 0, pdfWidth, pageHeight, 'F');
-            pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
-            heightLeft -= pageHeight;
-
-            while (heightLeft > 0) {
-              position -= pageHeight;
-              pdf.addPage();
-              pdf.setFillColor('#1d201d');
-              pdf.rect(0, 0, pdfWidth, pageHeight, 'F');
-              pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
-              heightLeft -= pageHeight;
-            }
-
             pdf.save(`CV_Pablo_Blazquez_Gil_${profile}.pdf`);
 
         } catch (error) {

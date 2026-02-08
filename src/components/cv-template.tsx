@@ -20,7 +20,7 @@ const CVSection: React.FC<{
   children: React.ReactNode;
   className?: string;
 }> = ({ title, children, className = '' }) => (
-  <div className={`mb-4 break-inside-avoid ${className}`}>
+  <div className={`mb-4 ${className}`}>
     <h2 className="text-xl font-bold text-primary border-b-2 border-primary/40 pb-1 mb-3">
       {title}
     </h2>
@@ -38,7 +38,7 @@ export default function CVTemplate({ profile }: CVTemplateProps) {
     <div
       id={`cv-template-${profile}`}
       className="absolute -left-[9999px] top-auto w-[8.27in] bg-[#1d201d] text-gray-200 p-10 font-body"
-      style={{ fontFamily: 'var(--font-alegreya)' }}
+      style={{ fontFamily: 'var(--font-alegreya)', fontSize: '13px' }}
     >
       <div className="flex flex-col h-full">
         {/* Header */}
@@ -74,7 +74,7 @@ export default function CVTemplate({ profile }: CVTemplateProps) {
             {experiencesToShow.map(expCategory => (
                 <div key={expCategory.category} className="space-y-3">
                 {expCategory.items.map((item, index) => (
-                    <div key={index} className="break-inside-avoid">
+                    <div key={index}>
                     <div className="flex justify-between items-baseline">
                         <p className="text-base font-bold text-accent">
                         {item.role}
@@ -106,7 +106,7 @@ export default function CVTemplate({ profile }: CVTemplateProps) {
                     {!isCommunicator && (
                         <div className="space-y-3 mb-4">
                         {education.map((item, index) => (
-                            <div key={index} className="flex justify-between items-baseline break-inside-avoid">
+                            <div key={index} className="flex justify-between items-baseline">
                                 <div>
                                     <p className="font-bold text-base">{item.degree}</p>
                                     <p className="text-gray-400 text-sm">{item.institution}</p>
@@ -121,7 +121,7 @@ export default function CVTemplate({ profile }: CVTemplateProps) {
                     </h3>
                     <div className="space-y-2">
                         {complementaryToShow.map((item, index) => (
-                        <div key={index} className="flex justify-between items-start break-inside-avoid">
+                        <div key={index} className="flex justify-between items-start">
                             <p className="pr-4 text-sm">
                             {item.title}
                             {item.institution && (
@@ -142,20 +142,20 @@ export default function CVTemplate({ profile }: CVTemplateProps) {
             <CVSection title="Competencias y Aptitudes">
                 <div className='space-y-3 text-sm'>
                     {skillsToShow && (
-                        <div className="break-inside-avoid">
+                        <div>
                             <h3 className="font-bold text-accent mb-1 text-base">Técnicas</h3>
                             <p className="text-gray-300">{skillsToShow.technical.join(' • ')}</p>
                         </div>
                     )}
-                    <div className="break-inside-avoid">
+                    <div>
                         <h3 className="font-bold text-accent mb-1 text-base mt-2">Personales</h3>
                         <p className="text-gray-300">{skills.personal.join(' • ')}</p>
                     </div>
-                    <div className="break-inside-avoid">
+                    <div>
                         <h3 className="font-bold text-accent mb-1 text-base mt-2">Idiomas</h3>
                         <div className="space-y-1">
                             {skills.languages.map((lang, i) => (
-                                <div key={i} className="flex items-baseline break-inside-avoid">
+                                <div key={i} className="flex items-baseline">
                                 <p className="font-semibold w-28 text-gray-300">{lang.lang}:</p>
                                 <p className="text-gray-300">{lang.level}</p>
                                 </div>
