@@ -9,7 +9,6 @@ import HeroSection from "@/components/sections/hero-section";
 import SkillsSection from "@/components/sections/skills-section";
 import { Separator } from "@/components/ui/separator";
 import { experience } from "@/lib/data";
-import CVTemplate from "@/components/cv-template";
 
 export type Profile = "comunicacion" | "investigacion";
 
@@ -44,10 +43,6 @@ export default function Home() {
 
   return (
     <div className="flex min-h-dvh flex-col">
-       {/* Templates are positioned off-screen by their own CSS for PDF generation */}
-       <CVTemplate profile="comunicacion" />
-       <CVTemplate profile="investigacion" />
-
       <Header
         activeProfile={activeProfile}
         setActiveProfile={setActiveProfile}
@@ -64,7 +59,7 @@ export default function Home() {
         <Separator className="my-8 md:my-12" />
         <SkillsSection profile={activeProfile} />
         <Separator className="my-8 md:my-12" />
-        <ContactSection profile={activeProfile} />
+        <ContactSection />
       </main>
     </div>
   );

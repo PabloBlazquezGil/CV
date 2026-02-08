@@ -2,22 +2,14 @@
 
 import { contact } from "@/lib/data";
 import { Button } from "@/components/ui/button";
-import { Linkedin, Mail, Phone, ArrowRight, Download, Loader2 } from "lucide-react";
+import { Linkedin, Mail, Phone, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
 import { useRef, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
-import type { Profile } from '@/app/page';
 
-interface ContactSectionProps {
-  profile: Profile;
-}
-
-export default function ContactSection({ profile }: ContactSectionProps) {
+export default function ContactSection() {
   const ref = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     const element = ref.current;
@@ -36,46 +28,6 @@ export default function ContactSection({ profile }: ContactSectionProps) {
     observer.observe(element);
     return () => observer.disconnect();
   }, []);
-
-  const handleDownload = async () => {
-    setIsDownloading(true);
-
-    const cvElement = document.getElementById(`cv-template-${profile}`);
-
-    if (cvElement) {
-        try {
-            const pdf = new jsPDF({
-                orientation: 'portrait',
-                unit: 'mm',
-                format: 'a4',
-                putOnlyUsedFonts: true,
-                compress: true
-            });
-
-            await pdf.html(cvElement, {
-                callback: function (pdf) {
-                    pdf.save(`CV_Pablo_Blazquez_Gil_${profile}.pdf`);
-                    setIsDownloading(false);
-                },
-                html2canvas: {
-                    scale: 3,
-                    useCORS: true,
-                    logging: false,
-                    backgroundColor: '#1d201d'
-                },
-                autoPaging: 'text',
-                margin: [10, 10, 10, 10],
-            });
-
-        } catch (error) {
-            console.error("Error generating PDF:", error);
-            setIsDownloading(false);
-        }
-    } else {
-        console.error("CV template element not found.");
-        setIsDownloading(false);
-    }
-  };
 
   return (
     <footer 
@@ -103,14 +55,6 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                               <Mail className="mr-2" /> Envíame un email
                               <ArrowRight className="ml-auto opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                           </a>
-                      </Button>
-                      <Button onClick={handleDownload} disabled={isDownloading} variant="outline" size="lg" className="w-full">
-                          {isDownloading ? (
-                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          ) : (
-                              <Download className="mr-2 h-4 w-4" />
-                          )}
-                          Descargar CV
                       </Button>
                       <div className="flex items-center gap-4 pt-4">
                           <Button asChild variant="ghost" className="text-base">

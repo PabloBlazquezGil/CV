@@ -134,5 +134,3 @@ export const contact = {
 };
 
 export const heroImage = PlaceHolderImages.find(img => img.id === 'hero-image')!;
-
-export const cvText = ``;
