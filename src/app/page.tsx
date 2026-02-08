@@ -9,15 +9,22 @@ import ExperienceSection from "@/components/sections/experience-section";
 import HeroSection from "@/components/sections/hero-section";
 import SkillsSection from "@/components/sections/skills-section";
 import { Separator } from "@/components/ui/separator";
+import { experience } from "@/lib/data";
 
 export type Profile = "comunicacion" | "investigacion";
 
 export default function Home() {
   const [activeProfile, setActiveProfile] = useState<Profile>("comunicacion");
 
+  const activeCategory = experience[activeProfile][0].category;
+
   return (
     <div className="flex min-h-dvh flex-col">
-      <Header activeProfile={activeProfile} setActiveProfile={setActiveProfile} />
+      <Header
+        activeProfile={activeProfile}
+        setActiveProfile={setActiveProfile}
+        activeCategory={activeCategory}
+      />
       <main className="flex-1">
         <HeroSection profile={activeProfile} />
         

@@ -20,9 +20,10 @@ const navLinks = [
 interface HeaderProps {
   activeProfile: Profile;
   setActiveProfile: (profile: Profile) => void;
+  activeCategory: string;
 }
 
-export default function Header({ activeProfile, setActiveProfile }: HeaderProps) {
+export default function Header({ activeProfile, setActiveProfile, activeCategory }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -46,7 +47,7 @@ export default function Header({ activeProfile, setActiveProfile }: HeaderProps)
         }`}
       >
         <div className="container flex h-16 items-center">
-          <div className="mr-6 flex items-center space-x-2">
+          <div className="mr-6 flex items-center space-x-4">
             <div className="flex items-center gap-2">
               <button onClick={() => setActiveProfile("investigacion")} className={cn("p-2 rounded-full transition-colors", activeProfile === 'investigacion' && 'bg-primary/20 text-primary')}>
                 <Dna className="w-6 h-6" />
@@ -55,6 +56,9 @@ export default function Header({ activeProfile, setActiveProfile }: HeaderProps)
               <button onClick={() => setActiveProfile("comunicacion")} className={cn("p-2 rounded-full transition-colors", activeProfile === 'comunicacion' && 'bg-primary/20 text-primary')}>
                 <Camera className="w-6 h-6" />
               </button>
+            </div>
+            <div className="hidden md:block">
+              <span className="font-semibold text-accent text-lg">{activeCategory}</span>
             </div>
           </div>
           <div className="flex flex-1 items-center justify-end space-x-2">
