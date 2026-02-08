@@ -18,10 +18,8 @@ export default function EducationSection() {
             <CardHeader>
               <CardTitle className="group-hover:text-primary-foreground">{item.degree}</CardTitle>
               <CardDescription className="font-semibold text-accent group-hover:text-primary-foreground text-lg">{item.institution}</CardDescription>
+              <p className="text-lg text-foreground group-hover:text-primary-foreground">{item.period}</p>
             </CardHeader>
-            <CardContent>
-              <p className="text-base text-foreground group-hover:text-primary-foreground">{item.period}</p>
-            </CardContent>
           </Card>
         ))}
       </div>

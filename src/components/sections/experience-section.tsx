@@ -23,17 +23,15 @@ export default function ExperienceSection() {
                   <Card className="shadow-lg hover:shadow-xl transition-all duration-300 bg-card/50 group hover:bg-primary cursor-pointer">
                     <CardHeader>
                       <CardTitle className="group-hover:text-primary-foreground">{item.role}</CardTitle>
-                      <p className="text-lg text-foreground group-hover:text-primary-foreground">{item.period}</p>
-                    </CardHeader>
-                    <CardContent>
-                      <CardDescription className="font-semibold text-accent group-hover:text-primary-foreground text-xl mb-2">
+                      <CardDescription className="font-semibold text-accent group-hover:text-primary-foreground text-xl">
                         {item.company}
                         {(item as any).details && (
                           <span className="font-normal text-lg"> - {(item as any).details}</span>
                         )}
                       </CardDescription>
+                      <p className="text-lg text-foreground group-hover:text-primary-foreground">{item.period}</p>
                       <p className="text-lg text-foreground group-hover:text-primary-foreground">{item.description}</p>
-                    </CardContent>
+                    </CardHeader>
                   </Card>
                 </div>
               ))}
