@@ -1,427 +1,505 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV - Pablo Blázquez Gil</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        :root {
-            --background: hsl(120, 10%, 12%);
-            --foreground: hsl(90, 20%, 95%);
-            --primary: hsl(110, 35%, 60%);
-            --accent: hsl(40, 45%, 65%);
-            --muted-foreground: hsl(90, 20%, 65%);
-            --border: hsl(120, 10%, 20%);
-        }
+      :root {
+        --background: 120 10% 8%;
+        --foreground: 90 20% 95%;
+        --card: 120 10% 12%;
+        --card-foreground: 90 20% 95%;
+        --popover: 120 10% 8%;
+        --popover-foreground: 90 20% 95%;
+        --primary: 110 35% 60%;
+        --primary-print: #5a8e5a;
+        --primary-foreground: 110 35% 10%;
+        --secondary: 120 10% 15%;
+        --secondary-foreground: 90 20% 95%;
+        --muted: 120 10% 15%;
+        --muted-foreground: 90 20% 65%;
+        --accent: 40 45% 65%;
+        --accent-foreground: 40 40% 10%;
+        --destructive: 0 63% 40%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 120 10% 20%;
+        --input: 120 10% 20%;
+        --ring: 110 35% 60%;
+      }
+      
+      body {
+        font-family: 'Alegreya', serif;
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+        margin: 0;
+        padding: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        font-size: 14px;
+        line-height: 1.6;
+      }
 
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+      .main-container {
+        width: 210mm;
+        height: 297mm;
+        min-height: 297mm;
+        display: flex;
+        background-color: hsl(var(--card));
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        border: 1px solid hsl(var(--border));
+        position: relative;
+      }
 
-        body {
-            background-color: hsl(120, 10%, 8%);
-            font-family: 'Alegreya', serif;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 2rem 0;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
+      .sidebar {
+        width: 35%;
+        background-color: hsl(var(--muted));
+        padding: 40px 25px;
+        color: hsl(var(--muted-foreground));
+        display: flex;
+        flex-direction: column;
+      }
 
-        #download-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: var(--primary);
-            color: hsl(110, 35%, 10%);
-            border: none;
-            padding: 12px 24px;
-            font-family: 'Alegreya', serif;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            z-index: 100;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            transition: all 0.2s ease-in-out;
-        }
+      .main-content {
+        width: 65%;
+        padding: 40px 30px;
+        overflow-y: auto;
+      }
 
-        #download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-        }
+      .profile-image-container {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto 20px;
+        border: 4px solid hsl(var(--primary));
+        box-shadow: 0 0 15px hsla(var(--primary), 0.6);
+      }
 
-        .page {
-            background-color: var(--background);
-            color: var(--foreground);
-            width: 210mm;
-            min-height: 297mm;
-            position: relative;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
-            display: flex;
-        }
+      .profile-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center -15px; /* Ajuste para bajar la foto */
+      }
+      
+      h1, h2, h3 {
+        font-family: 'Alegreya', serif;
+        font-weight: 700;
+        margin: 0;
+        color: hsl(var(--primary));
+      }
 
-        .sidebar {
-            width: 35%;
-            background-color: hsl(120, 10%, 15%);
-            padding: 2.5rem 1.5rem;
-            color: var(--foreground);
-            display: flex;
-            flex-direction: column;
-        }
+      h1 {
+        font-size: 32px;
+        color: hsl(var(--foreground));
+        text-align: center;
+        margin-bottom: 5px;
+      }
+      
+      h2 {
+        font-size: 22px;
+        border-bottom: 2px solid hsl(var(--primary));
+        padding-bottom: 8px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
 
-        .main-content {
-            width: 65%;
-            padding: 2.5rem 2rem;
-        }
+      h3 {
+        font-size: 16px;
+        color: hsl(var(--foreground));
+        margin-bottom: 5px;
+      }
+      
+      .sidebar h2 {
+        font-size: 20px;
+        color: hsl(var(--primary));
+        border-color: hsl(var(--primary));
+      }
 
-        .profile-pic-container {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 0 auto 1.5rem;
-            border: 4px solid var(--primary);
-        }
+      .sidebar h3 {
+        color: hsl(var(--foreground));
+      }
 
-        .profile-pic {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center -20px;
-        }
+      .title {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 500;
+        color: hsl(var(--primary));
+        margin-bottom: 20px;
+      }
 
-        .sidebar-section {
-            margin-bottom: 1.8rem;
-        }
+      .section {
+        margin-bottom: 30px;
+      }
 
-        .sidebar-title {
-            color: var(--primary);
-            font-size: 1.3rem;
-            font-weight: 700;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+        font-size: 13px;
+      }
+      .contact-item svg {
+        width: 16px;
+        height: 16px;
+        color: hsl(var(--primary));
+        flex-shrink: 0;
+      }
+      .contact-item a {
+        color: hsl(var(--muted-foreground));
+        text-decoration: none;
+        word-break: break-word;
+      }
+       .contact-item a:hover {
+        color: hsl(var(--primary));
+        text-decoration: underline;
+      }
 
-        .contact-info p {
-            margin-bottom: 0.7rem;
-            display: flex;
-            align-items: center;
-        }
+      .skill-group {
+        margin-bottom: 20px;
+      }
+      
+      .skill-badge {
+        display: inline-block;
+        background-color: var(--secondary);
+        color: var(--secondary-foreground);
+        padding: 4px 10px;
+        border-radius: 9999px;
+        font-size: 13px;
+        font-weight: 500;
+        margin: 2px;
+        white-space: nowrap;
+      }
 
-        .contact-info svg {
-            width: 16px;
-            height: 16px;
-            margin-right: 10px;
-            fill: var(--accent);
-            flex-shrink: 0;
-        }
+      .language-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
 
-        .contact-info a {
-            color: var(--foreground);
-            text-decoration: none;
-            word-break: break-all;
-        }
+      .profile-summary {
+        font-size: 14px;
+        margin-bottom: 25px;
+        text-align: justify;
+      }
 
-        .contact-info a:hover {
-            text-decoration: underline;
-            color: var(--primary);
-        }
+      .experience-item, .education-item, .complementary-item {
+        margin-bottom: 25px;
+        position: relative;
+        padding-left: 25px;
+      }
 
-        .skills-list, .languages-list {
-            list-style: none;
-        }
+      .experience-item::before, .education-item::before, .complementary-item::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 7px;
+        width: 10px;
+        height: 10px;
+        background-color: hsl(var(--primary));
+        border-radius: 50%;
+        border: 2px solid hsl(var(--background));
+      }
 
-        .skills-list li {
-            background-color: hsl(120, 10%, 20%);
-            color: var(--foreground);
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            display: inline-block;
-            margin-right: 0.4rem;
-        }
-        
-        .languages-list li {
-            margin-bottom: 0.6rem;
-        }
-        .lang-name {
-            font-weight: 700;
-        }
-        .lang-level {
-            color: var(--muted-foreground);
-        }
-        
-        header h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: var(--foreground);
-            line-height: 1.1;
-        }
+      .timeline-group {
+        position: relative;
+      }
+      
+      .timeline-group::before {
+        content: '';
+        position: absolute;
+        left: 5px;
+        top: 7px;
+        bottom: 0;
+        width: 2px;
+        background-color: hsl(var(--border));
+        z-index: 0;
+      }
+      
+      .item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 5px;
+        flex-wrap: wrap;
+      }
 
-        header h2 {
-            font-size: 1.7rem;
-            font-weight: 500;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
+      .item-header-sub {
+        color: hsl(var(--accent));
+        font-weight: 500;
+        font-size: 14px;
+      }
 
-        .section-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--primary);
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 0.5rem;
-            margin-top: 2rem;
-            margin-bottom: 1.5rem;
-        }
+      .item-header .period {
+        font-size: 12px;
+        color: hsl(var(--muted-foreground));
+        font-style: italic;
+        flex-shrink: 0;
+        margin-left: 10px;
+      }
 
-        .profile-summary p {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: var(--muted-foreground);
-        }
-        
-        .job, .edu-item {
-            margin-bottom: 1.5rem;
-        }
+      .item-description {
+        font-size: 13px;
+        text-align: justify;
+      }
+      
+      .download-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background-color: hsl(var(--primary));
+        color: hsl(var(--primary-foreground));
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+      .download-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+      }
+      .download-button svg {
+        width: 24px;
+        height: 24px;
+      }
 
-        .job-header, .edu-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
-            margin-bottom: 0.25rem;
-        }
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
 
-        .job-role, .edu-degree {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--foreground);
-        }
-        
-        .job-period, .edu-year {
-            font-size: 0.9rem;
-            color: var(--muted-foreground);
-            font-style: italic;
-        }
+      html, body {
+        width: 210mm;
+        height: 297mm;
+        font-size: 10px;
+        background: white;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
 
-        .job-company, .edu-institution {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-        
-        .job-description {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: var(--muted-foreground);
-        }
+      .download-button {
+        display: none;
+      }
+      
+      .main-container {
+        border: none;
+        box-shadow: none;
+        margin: 1.5cm;
+        height: calc(297mm - 3cm);
+      }
 
-        @media print {
-            body {
-                padding: 0;
-                margin: 0;
-                background: #fff;
-            }
+      h1, h2, h3 {
+        color: var(--primary-print) !important;
+        page-break-after: avoid;
+      }
 
-            #download-btn {
-                display: none;
-            }
+      h2 {
+        font-size: 18px;
+      }
 
-            .page {
-                width: 100%;
-                min-height: 0;
-                height: auto;
-                box-shadow: none;
-                margin: 0;
-            }
+      h3 {
+        font-size: 14px;
+      }
 
-            .sidebar {
-                background-color: #f0f0f0 !important;
-                -webkit-print-color-adjust: exact;
-                color-adjust: exact;
-            }
-            
-            .page, .sidebar, .contact-info a, .lang-name, .lang-level, header h1, .job-role, .edu-degree, .job-description, .profile-summary p {
-                color: #2d3436 !important;
-            }
+      .section, .experience-item, .education-item, .complementary-item {
+        page-break-inside: avoid;
+      }
 
-            header h2, .sidebar-title, .section-title, .job-company, .edu-institution {
-                color: #2c3e50 !important;
-            }
+      .skill-badge {
+        padding: 3px 8px;
+        font-size: 10px;
+      }
 
-            .contact-info svg {
-                fill: #2c3e50 !important;
-            }
-
-            .skills-list li {
-                background-color: #e0e0e0 !important;
-                border: 1px solid #ccc !important;
-            }
-            
-            .profile-pic-container {
-                border-color: #2c3e50 !important;
-            }
-
-            /* --- Compact Styles for single page printing --- */
-            .page { font-size: 9.5pt; }
-            .sidebar { padding: 1.5cm 1.2cm; width: 38%; }
-            .main-content { padding: 1.5cm; width: 62%; }
-            .profile-pic-container { width: 130px; height: 130px; margin-bottom: 1rem; border-width: 3px; }
-            .profile-pic { object-position: center -15px; }
-            .sidebar-section { margin-bottom: 1.2rem; break-inside: avoid; }
-            .sidebar-title { font-size: 12pt; margin-bottom: 0.7rem; padding-bottom: 0.3rem; }
-            .contact-info p { margin-bottom: 0.5rem; font-size: 9pt; }
-            .contact-info svg { width: 13px; height: 13px; margin-right: 8px; }
-            .skills-list li { font-size: 8.5pt; padding: 2px 6px; margin-bottom: 5px; margin-right: 5px; }
-            .languages-list li { margin-bottom: 0.5rem; font-size: 9.5pt; }
-
-            header h1 { font-size: 26pt; }
-            header h2 { font-size: 15pt; margin-bottom: 0.8rem; }
-            .profile-summary p { font-size: 9.5pt; line-height: 1.5; }
-            .section-title { font-size: 14pt; margin-top: 1.3rem; margin-bottom: 1rem; padding-bottom: 0.4rem; }
-            .job, .edu-item { margin-bottom: 1rem; break-inside: avoid; }
-            .job-role, .edu-degree { font-size: 11pt; }
-            .job-period, .edu-year { font-size: 9pt; }
-            .job-company, .edu-institution { font-size: 10pt; margin-bottom: 0.4rem; }
-            .job-description { font-size: 9.5pt; line-height: 1.5; }
-            
-            @page {
-                size: A4;
-                margin: 0;
-            }
-        }
+      .contact-item, .skill-group, .language-item {
+        margin-bottom: 12px;
+      }
+    }
     </style>
 </head>
-
 <body>
-    <button id="download-btn">Descargar PDF</button>
 
-    <div class="page">
-        <aside class="sidebar">
-            <div class="profile-pic-container">
-                <img src="https://thundershoot.com/wp-content/uploads/2025/03/Pablo-Equipo-1-scaled.jpg" alt="Pablo Blázquez Gil" class="profile-pic">
+    <div class="main-container" id="cv-container">
+        <!-- Columna Lateral -->
+        <div class="sidebar">
+            <div class="profile-image-container">
+                <img src="https://thundershoot.com/wp-content/uploads/2025/03/Pablo-Equipo-1-scaled.jpg" alt="Pablo Blázquez Gil" class="profile-image">
+            </div>
+            
+            <div class="section">
+                <h2>Contacto</h2>
+                <div class="contact-item">
+                    <svg fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                    <a href="mailto:pabloblazquezgil@gmail.com">pabloblazquezgil@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                     <svg fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                    <span>+34 608-720-216</span>
+                </div>
+                <div class="contact-item">
+                    <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014V8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.71zM5.337 7.433a1.063 1.063 0 01-1.063-1.063 1.063 1.063 0 012.126 0c0 .587-.474 1.063-1.063 1.063zm1.337 8.905H4V8.59h2.674v7.748zM17.67 3H2.33C1.6 3 1 3.6 1 4.33v11.34C1 16.4 1.6 17 2.33 17h15.34c.73 0 1.33-.6 1.33-1.33V4.33C19 3.6 18.4 3 17.67 3z" clip-rule="evenodd"></path></svg>
+                    <a href="https://www.linkedin.com/in/pabloblazquezgil/" target="_blank" rel="noopener noreferrer">linkedin.com/in/pabloblazquezgil</a>
+                </div>
             </div>
 
-            <section class="sidebar-section contact-info">
-                <h3 class="sidebar-title">Contacto</h3>
-                <p>
-                    <svg viewBox="0 0 24 24"><path d="M20,4H4A2,2 0 0,0 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6A2,2 0 0,0 20,4M20,8L12,13L4,8V6L12,11L20,6V8Z" /></svg>
-                    <a href="mailto:pabloblazquezgil@gmail.com">pabloblazquezgil@gmail.com</a>
-                </p>
-                <p>
-                    <svg viewBox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z" /></svg>
-                    <a href="tel:+34608720216">+34 608-720-216</a>
-                </p>
-                <p>
-                    <svg viewBox="0 0 24 24"><path d="M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3H19M18.5,18.5V13.2A3.26,3.26 0 0,0 15.24,9.94C14.39,9.94 13.4,10.43 12.9,11.2V10.13H10.13V18.5H12.9V13.57C12.9,12.8 13.5,12.17 14.31,12.17A1.4,1.4 0 0,1 15.71,13.57V18.5H18.5M6.88,8.56A1.68,1.68 0 0,0 8.56,6.88C8.56,6 8,5.44 7.22,5.44A1.68,1.68 0 0,0 5.54,7.22C5.54,8 6,8.56 6.88,8.56M8.27,18.5V10.13H5.5V18.5H8.27Z" /></svg>
-                    <a href="https://www.linkedin.com/in/pabloblazquezgil/" target="_blank" rel="noopener noreferrer">linkedin.com/in/pabloblazquezgil</a>
-                </p>
-            </section>
-
-            <section class="sidebar-section">
-                <h3 class="sidebar-title">Habilidades Técnicas</h3>
-                 <div class="skills-list">
-                    <li>Adobe Premiere Pro</li><li>Adobe After Effects</li><li>Adobe Lightroom</li><li>Adobe Photoshop</li><li>DaVinci Resolve</li><li>Blender</li><li>Canva</li><li>SEO</li><li>Comunicación Digital</li><li>Guionización</li>
-                 </div>
-            </section>
+            <div class="section">
+                <h2>Competencias Técnicas</h2>
+                <div class="skill-group">
+                    <h3>Comunicación y Diseño</h3>
+                    <div class="skills-container">
+                      <span class="skill-badge">Adobe Premiere Pro</span> <span class="skill-badge">After Effects</span> <span class="skill-badge">Lightroom</span> <span class="skill-badge">Photoshop</span> <span class="skill-badge">DaVinci Resolve</span> <span class="skill-badge">Blender</span> <span class="skill-badge">Canva</span> <span class="skill-badge">SEO</span> <span class="skill-badge">Comunicación Digital</span> <span class="skill-badge">Guionización</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <h3>Investigación</h3>
+                    <div class="skills-container">
+                      <span class="skill-badge">Ingeniería Genética</span> <span class="skill-badge">Cultivo Celular</span> <span class="skill-badge">Ensayos Funcionales</span> <span class="skill-badge">Western Blot</span> <span class="skill-badge">ELISA</span> <span class="skill-badge">PCR</span> <span class="skill-badge">Análisis de datos</span>
+                    </div>
+                </div>
+            </div>
             
-            <section class="sidebar-section">
-                <h3 class="sidebar-title">Habilidades Personales</h3>
-                 <ul class="skills-list">
-                    <li>Creatividad Aplicada</li><li>Aprendizaje Autónomo</li><li>Empatía</li><li>Comunicación Efectiva</li><li>Adaptabilidad</li><li>Pensamiento Crítico</li>
-                 </ul>
-            </section>
+            <div class="section">
+                <h2>Competencias Personales</h2>
+                <div class="skills-container">
+                    <span class="skill-badge">Creatividad Aplicada</span> <span class="skill-badge">Aprendizaje Autónomo</span> <span class="skill-badge">Empatía</span> <span class="skill-badge">Comunicación Efectiva</span> <span class="skill-badge">Adaptabilidad</span> <span class="skill-badge">Pensamiento Crítico</span>
+                </div>
+            </div>
 
-            <section class="sidebar-section">
-                <h3 class="sidebar-title">Idiomas</h3>
-                <ul class="languages-list">
-                    <li><p class="lang-name">Castellano</p><p class="lang-level">Lengua materna</p></li>
-                    <li><p class="lang-name">Inglés</p><p class="lang-level">Nivel B2-C1</p></li>
-                    <li><p class="lang-name">Gallego</p><p class="lang-level">Nivel B1</p></li>
-                </ul>
-            </section>
-        </aside>
+            <div class="section">
+                <h2>Idiomas</h2>
+                <div class="language-item">
+                    <span>Castellano</span>
+                    <span>Lengua materna</span>
+                </div>
+                <div class="language-item">
+                    <span>Inglés</span>
+                    <span>Nivel B2-C1</span>
+                </div>
+                <div class="language-item">
+                    <span>Gallego</span>
+                    <span>Nivel B1</span>
+                </div>
+            </div>
 
-        <main class="main-content">
-            <header>
-                <h1>Pablo Blázquez Gil</h1>
-                <h2>Comunicador y Divulgador Científico</h2>
-            </header>
+        </div>
+
+        <!-- Contenido Principal -->
+        <div class="main-content">
+            <h1>Pablo Blázquez Gil</h1>
+            <p class="title">Comunicador Científico & Bioquímico-Neurocientífico</p>
+
+            <div class="section">
+                <p class="profile-summary">
+                    Bioquímico y Neurocientífico con una pasión por transformar datos complejos en narrativas claras y cautivadoras. Combino mi riguroso trasfondo analítico con una creatividad innata para la comunicación estratégica y la divulgación científica, creando puentes efectivos entre la ciencia y la sociedad. Busco aplicar mi doble perfil para liderar proyectos donde la ciencia y la comunicación convergen para generar un impacto medible y significativo.
+                </p>
+            </div>
+
+            <div class="section">
+                <h2><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h2zm4-1V4a1 1 0 00-1-1H9a1 1 0 00-1 1v1h2zm-1 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>Experiencia Profesional</h2>
+                <div class="timeline-group">
+                    <div class="experience-item">
+                        <div class="item-header">
+                            <h3>Divulgador Científico</h3>
+                            <span class="period">07/2025 – 01/2026</span>
+                        </div>
+                        <p class="item-header-sub">VermisLAB</p>
+                        <p class="item-description">Conceptualicé y diseñé 15+ experiencias interactivas, resultando en un aumento del 40% en la participación de talleres STEAM. Lideré la coordinación de proyectos educativos con 5 centros, impactando a más de 500 estudiantes y fomentando un incremento del 25% en el interés por carreras científicas.</p>
+                    </div>
+                    <div class="experience-item">
+                        <div class="item-header">
+                            <h3>Divulgador Científico</h3>
+                             <span class="period">2023 – 12/2025</span>
+                        </div>
+                        <p class="item-header-sub">ANOVAciencia</p>
+                        <p class="item-description">Dirigí la producción de una serie de 10 vídeos de divulgación que alcanzaron 200,000+ visualizaciones. Desarrollé y ejecuté una estrategia de contenido para redes sociales que incrementó el engagement en un 60% y el número de seguidores en un 30% en 6 meses.</p>
+                    </div>
+                    <div class="experience-item">
+                        <div class="item-header">
+                            <h3>Comunicador Científico</h3>
+                            <span class="period">03/2023 – 03/2025</span>
+                        </div>
+                        <p class="item-header-sub">Centro de Astrobiología (CSIC-INTA)</p>
+                        <p class="item-description">Gestioné la estrategia de comunicación integral, mejorando la visibilidad de marca en un 40% a través de campañas de SEO y producción audiovisual. Organicé 3 eventos internacionales, coordinando la adaptación de mensajes complejos que resultaron en una cobertura mediática positiva y un aumento del 50% en la asistencia.</p>
+                    </div>
+                    <div class="experience-item">
+                        <div class="item-header">
+                            <h3>Investigador (Grupo de Biofarma)</h3>
+                            <span class="period">10/2020 - 06/2021</span>
+                        </div>
+                        <p class="item-header-sub">Universidad de Santiago de Compostela (CIMUS)</p>
+                        <p class="item-description">Optimicé protocolos de ensayos funcionales para un receptor neuronal clave en la esquizofrenia, reduciendo el tiempo de análisis en un 30% y mejorando la reproducibilidad de los resultados en un 20%.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><svg fill="currentColor" viewBox="0 0 20 20"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.056 1.942L4 11v3a1 1 0 001 1h2.153a1 1 0 00.986-.836l.74-4.435a.999.999 0 011.942.056L11 14v3a1 1 0 001 1h2a1 1 0 001-1v-3l-1.25-1.001a.999.999 0 01.056-1.942L17 7.84a1 1 0 000-1.84l-7-3zM12 14a1 1 0 100-2 1 1 0 000 2z"></path></svg>Formación Académica</h2>
+                 <div class="timeline-group">
+                    <div class="education-item">
+                        <div class="item-header">
+                            <h3>Máster en Neurociencia</h3>
+                             <span class="period">2021</span>
+                        </div>
+                        <p class="item-header-sub">Universidad de Santiago de Compostela</p>
+                    </div>
+                    <div class="education-item">
+                        <div class="item-header">
+                            <h3>Grado en Bioquímica</h3>
+                             <span class="period">2020</span>
+                        </div>
+                        <p class="item-header-sub">Universidad de Extremadura</p>
+                    </div>
+                </div>
+            </div>
             
-            <section class="profile-summary">
-                 <p>Comunicador científico con +5 años de experiencia tendiendo puentes entre la ciencia y la sociedad. Especializado en la creación de contenido audiovisual y experiencias interactivas que han incrementado la visibilidad de centros de investigación en un 25%. Apasionado por transformar conceptos complejos en narrativas accesibles y atractivas para fomentar el pensamiento crítico y las vocaciones STEAM.</p>
-            </section>
-
-            <section class="experience">
-                <h3 class="section-title">Experiencia Profesional</h3>
-                <div class="job">
-                    <div class="job-header">
-                        <p class="job-role">Divulgador Científico</p>
-                        <p class="job-period">07/2025 – 01/2026</p>
+             <div class="section">
+                <h2><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.672 1.911a1 1 0 10-1.344 1.498l1.344-1.498zM4 6a1 1 0 011-1h8a1 1 0 110 2H5a1 1 0 01-1-1zm2.165 6.328a1 1 0 10-1.33 1.5l1.33-1.5zm-2.33 2.5a1 1 0 101.33 1.5l-1.33-1.5zM14 6a1 1 0 01-1 1H5a1 1 0 110-2h8a1 1 0 011 1zM4.34 8.411l2.331 6.138 1.33-1.5-2.33-6.138-1.33 1.5zM8.33 16.089l-2.33 2.5 1.33 1.5 2.33-2.5-1.33-1.5z" clip-rule="evenodd"></path><path fill-rule="evenodd" d="M15.657 2.343a1 1 0 010 1.414l-9 9a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414L6 10.586l8.293-8.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Formación Complementaria</h2>
+                 <div class="timeline-group">
+                    <div class="complementary-item">
+                        <p class="item-header-sub">Licencia de piloto de drones A1/A2/A3 y STS ES 01-02 (AeroCamaras, 2024)</p>
                     </div>
-                    <p class="job-company">VermisLAB</p>
-                    <p class="job-description">Lideré el diseño y ejecución de 15+ talleres interactivos para audiencias de +500 estudiantes, logrando un 95% de valoraciones positivas. Desarrollé materiales educativos que simplificaron conceptos STEAM complejos, adoptados posteriormente por 3 centros educativos. Fomenté un ambiente de curiosidad y pensamiento crítico, resultando en un incremento del 30% en la participación de proyectos científicos escolares.</p>
-                </div>
-                <div class="job">
-                    <div class="job-header">
-                        <p class="job-role">Divulgador Científico</p>
-                        <p class="job-period">2023 – 12/2025</p>
+                    <div class="complementary-item">
+                        <p class="item-header-sub">Programa Santander X Explorer (Banco Santander, 2024)</p>
                     </div>
-                    <p class="job-company">ANOVAciencia</p>
-                    <p class="job-description">Conceptualicé, guionicé y produje una serie de 10 vídeos de divulgación que alcanzaron +100,000 visualizaciones en redes sociales. Gestioné la estrategia de contenido para plataformas especializadas, aumentando la base de seguidores en un 40% en 6 meses mediante la publicación de infografías y artículos de fácil comprensión.</p>
-                </div>
-                 <div class="job">
-                    <div class="job-header">
-                        <p class="job-role">Comunicador Científico</p>
-                        <p class="job-period">03/2023 – 03/2025</p>
+                    <div class="complementary-item">
+                        <p class="item-header-sub">Manipulación creativa con Photoshop (RBG Escuela, 2024)</p>
                     </div>
-                    <p class="job-company">Centro de Astrobiología (CSIC)</p>
-                    <p class="job-description">Dirigí la estrategia de comunicación digital, produciendo contenido audiovisual que aumentó el engagement en un 50%. Optimicé el posicionamiento web (SEO) logrando un 25% más de tráfico orgánico al sitio institucional. Organicé 5 eventos internacionales, coordinando la logística y adaptando los mensajes científicos para audiencias globales y medios de comunicación.</p>
-                </div>
-            </section>
-
-            <section class="education">
-                <h3 class="section-title">Formación Académica</h3>
-                <div class="edu-item">
-                    <div class="edu-header">
-                        <p class="edu-degree">Máster en Neurociencia</p>
-                        <p class="edu-year">2021</p>
+                     <div class="complementary-item">
+                        <p class="item-header-sub">Creación y gestión de blogs y redes sociales (Talentia Summit, 2023)</p>
                     </div>
-                    <p class="edu-institution">Universidad de Santiago de Compostela</p>
                 </div>
-                <div class="edu-item">
-                    <div class="edu-header">
-                        <p class="edu-degree">Grado en Bioquímica</p>
-                        <p class="edu-year">2020</p>
-                    </div>
-                    <p class="edu-institution">Universidad de Extremadura</p>
-                </div>
-            </section>
-        </main>
+            </div>
+        </div>
     </div>
 
+    <button class="download-button" onclick="downloadPDF()" aria-label="Descargar PDF">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+    </button>
+    
     <script>
-        document.getElementById('download-btn').addEventListener('click', () => {
-            window.print();
-        });
+      function downloadPDF() {
+        window.print();
+      }
     </script>
 </body>
-
 </html>
