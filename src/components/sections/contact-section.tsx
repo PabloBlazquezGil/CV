@@ -58,7 +58,7 @@ export default function ContactSection() {
                       </Button>
                       
                       <Button asChild size="lg" variant="secondary" className="w-full group">
-                        <a href="/cv.html" target="_blank" rel="noopener noreferrer">
+                        <a href="/cv.html">
                             <Download className="mr-2" /> Ver CV para descargar
                         </a>
                       </Button>
