@@ -54,7 +54,7 @@ export default function SkillsSection({ profile }: SkillsSectionProps) {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-2xl font-headline">
               <Code className="w-6 h-6 text-accent" />
-              Técnicas
+              {profile === 'comunicacion' ? 'Audiovisuales' : 'Técnicas'}
             </CardTitle>
           </CardHeader>
           <CardContent className="flex flex-wrap gap-2">
