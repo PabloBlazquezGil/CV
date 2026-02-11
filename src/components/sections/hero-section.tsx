@@ -32,9 +32,11 @@ export default function HeroSection({ profile }: HeroSectionProps) {
               {titles[profile]}
             </p>
           </div>
-          <p className={cn("text-lg xl:text-xl text-foreground max-w-2xl transition-all duration-500 ease-out delay-200", isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
-            {summaries[profile]}
-          </p>
+          <div className={cn("space-y-4 text-lg xl:text-xl text-foreground max-w-2xl transition-all duration-500 ease-out delay-200", isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
+            {summaries[profile].map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </div>
           <div className={cn("flex gap-4 flex-wrap transition-all duration-500 ease-out delay-300", isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
             <Button asChild size="lg">
               <Link href="#contact">Contactar</Link>

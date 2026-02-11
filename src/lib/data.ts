@@ -10,8 +10,16 @@ export const titles = {
 };
 
 export const summaries = {
-  comunicacion: "Comunicador y divulgador científico con formación en Bioquímica y Neurociencia, especializado en conectar ciencia y sociedad a través de contenidos creativos, formatos audiovisuales y experiencias interactivas. Apasionado por la innovación educativa y la narración científica, combino pensamiento crítico, empatía y creatividad para generar impacto real en distintos públicos. Domino herramientas de diseño, vídeo y comunicación digital, y tengo experiencia coordinando proyectos colaborativos con centros de investigación, colegios y entidades públicas. Me defino por mi capacidad para aprender rápido, adaptarme a nuevos retos, contagiar entusiasmo y transformar ideas complejas en mensajes accesibles.",
-  investigacion: "Investigador bioquímico con un Máster en Neurociencia, enfocado en la aplicación de la ciencia para abordar desafíos medioambientales. Mi pasión es la investigación aplicada a la sostenibilidad y la economía circular, buscando soluciones innovadoras y respetuosas con el entorno. Mi experiencia abarca desde la biotecnología y la ingeniería genética de microorganismos hasta ensayos de toxicidad, siempre con un enfoque analítico y resolutivo. Busco contribuir con mi conocimiento a proyectos que impulsen un futuro más sostenible."
+  comunicacion: [
+    "Comunicador y divulgador científico con formación en Bioquímica y Neurociencia, especializado en conectar ciencia y sociedad a través de contenidos creativos, formatos audiovisuales y experiencias interactivas.",
+    "Apasionado por la innovación educativa y la narración científica, combino pensamiento crítico, empatía y creatividad para generar impacto real en distintos públicos. Domino herramientas de diseño, vídeo y comunicación digital, y tengo experiencia coordinando proyectos colaborativos con centros de investigación, colegios y entidades públicas.",
+    "Me defino por mi capacidad para aprender rápido, adaptarme a nuevos retos, contagiar entusiasmo y transformar ideas complejas en mensajes accesibles."
+  ],
+  investigacion: [
+    "Investigador bioquímico con un Máster en Neurociencia, enfocado en la aplicación de la ciencia para abordar desafíos medioambientales, la sostenibilidad y la economía circular.",
+    "Mi experiencia abarca desde la biotecnología y la ingeniería genética de microorganismos hasta ensayos de toxicidad, siempre con un enfoque analítico, resolutivo y buscando soluciones innovadoras y respetuosas con el entorno.",
+    "Apasionado por la investigación aplicada, busco contribuir con mi conocimiento a proyectos que impulsen un futuro más sostenible."
+  ]
 };
 
 export const experience = {
