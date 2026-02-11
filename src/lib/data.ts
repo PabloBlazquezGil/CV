@@ -121,8 +121,8 @@ export const skills = {
   },
   investigacion: {
     technical: [
-      "Ingeniería Genética", "Cultivo Celular", "Ensayos Funcionales", "Western Blot",
-      "ELISA", "PCR", "Diseño de experimentos", "Análisis de datos"
+      "Ensayos de Toxicidad", "Análisis Medioambiental", "Biorremediación", "Ingeniería Genética", 
+      "Microbiología Aplicada", "Biotecnología Vegetal", "Diseño de experimentos", "Análisis de datos"
     ],
   },
   personal: [
