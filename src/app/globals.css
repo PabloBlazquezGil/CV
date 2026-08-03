@@ -1,61 +1,109 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   ESTILOS GLOBALES - globals.css
+   Este archivo se importa en layout.tsx y aplica a toda la aplicación.
+   ─────────────────────────────────────────────────────────────────────────────
+   ESTRUCTURA:
+   1. Importación de Tailwind CSS (SIEMPRE primero en Tailwind v4)
+   2. Fuente tipográfica de Google Fonts
+   3. Variables CSS de color y tipografía del tema
+   4. Estilos base (html, body, scrollbar)
+   5. Animaciones y utilidades personalizadas
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── 1. FUENTE TIPOGRÁFICA ───────────────────────────────────────────────────
+   Los @import de URLs externas DEBEN ir ANTES de @import "tailwindcss".
+   Esta es la regla estándar de CSS: los @import siempre van al principio.
+   Plus Jakarta Sans: tipografía moderna con excelente legibilidad.
+   display=swap: el texto se muestra con la fuente del sistema mientras carga,
+   evitando el "flash of invisible text" (FOIT).
+   Si quieres cambiar la fuente: busca otra en fonts.google.com, copia la URL
+   con los pesos que necesites y actualiza también la variable --font-primary. */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+/* ── 2. TAILWIND CSS ─────────────────────────────────────────────────────────
+   Incluye todas las utilidades de Tailwind CSS v4.
+   Para personalizar el tema (colores, breakpoints, fuentes) usa @theme dentro
+   de este mismo archivo, justo después de esta línea. */
 @import "tailwindcss";
 
+/* ── 3. VARIABLES CSS DEL TEMA ────────────────────────────────────────────────
+   :root define variables globales accesibles en toda la app con var(--nombre).
+   Para cambiar los colores del tema, modifica estos valores.
+   Los colores también se usan directamente en className con valores arbitrarios
+   de Tailwind (ej: text-[#2C5E43]). */
 :root {
   --font-primary: 'Plus Jakarta Sans', sans-serif;
-  
-  /* Green & Cream Theme Variables */
-  --bg-cream: #FAF8F5;
-  --bg-cream-dark: #F3EFEB;
-  --bg-green-light: #E2ECE5;
-  --text-dark: #1E2D24;
-  --text-muted: #53645A;
-  
-  --brand-green: #2C5E43;
-  --brand-green-hover: #1F4430;
-  --brand-green-glow: rgba(44, 94, 67, 0.08);
+
+  /* ── Paleta de colores: Verde bosque + crema ── */
+  --bg-cream: #FAF8F5;          /* Fondo principal: crema cálido */
+  --bg-cream-dark: #F3EFEB;     /* Fondo secundario: crema oscuro */
+  --bg-green-light: #E2ECE5;    /* Borde y fondo suave: verde muy claro */
+  --text-dark: #1E2D24;         /* Texto principal: verde muy oscuro (casi negro) */
+  --text-muted: #53645A;        /* Texto secundario: gris-verde apagado */
+
+  --brand-green: #2C5E43;       /* Color de acento principal: verde bosque */
+  --brand-green-hover: #1F4430; /* Variante hover del verde (más oscuro) */
+  --brand-green-glow: rgba(44, 94, 67, 0.08); /* Sombra sutil para el efecto glow */
 }
 
+/* ── 4. ESTILOS BASE ─────────────────────────────────────────────────────────
+   Estilos aplicados a elementos HTML raíz. */
+
 html {
-  scroll-behavior: smooth;
-  font-family: var(--font-primary);
+  scroll-behavior: smooth;          /* Desplazamiento suave al hacer clic en anclas (#section) */
+  font-family: var(--font-primary); /* Fuente base para toda la app */
   background-color: var(--bg-cream);
   color: var(--text-dark);
 }
 
-/* Custom Scrollbar */
+/* ── Scrollbar personalizada (solo en navegadores WebKit: Chrome, Safari, Edge) ─
+   Para Firefox, la scrollbar usa el estilo nativo del sistema operativo.
+   Cambia los colores aquí para adaptar la scrollbar a tu tema. */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 6px; /* Ancho de la barra de scroll */
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-cream-dark);
+  background: var(--bg-cream-dark); /* Color del carril (fondo) */
 }
 ::-webkit-scrollbar-thumb {
-  background: #C4D3C8;
+  background: #C4D3C8;              /* Color del "pulgar" (la parte arrastrable) */
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--brand-green);
+  background: var(--brand-green);   /* Color al pasar el ratón por encima */
 }
 
-/* Animated Gradient Background */
+/* ── Fondo animado del body ───────────────────────────────────────────────────
+   Crea un gradiente que se mueve lentamente en diagonal con la animación gradientBG.
+   background-size: 400% 400% es necesario para que la animación tenga espacio para moverse.
+   Si quieres un fondo estático, borra estas reglas y pon solo background: var(--bg-cream). */
 body {
   background: linear-gradient(-45deg, #FAF8F5, #E5EFE7, #FAF8F5, #EAE5DC);
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
 }
 
+/* Keyframe de la animación del gradiente del fondo */
 @keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-/* Scroll reveal helper transitions */
+/* ── 5. ANIMACIONES Y UTILIDADES PERSONALIZADAS ──────────────────────────────
+   Clases adicionales que no existen en Tailwind por defecto. */
+
+/* ── Scroll Reveal: animación de entrada al hacer scroll ─────────────────────
+   Los elementos con clase "reveal-entry" empiezan invisibles (opacity: 0) y
+   ligeramente desplazados hacia abajo (translateY: 20px).
+   Cuando el IntersectionObserver en page.tsx añade la clase "active",
+   la transición de CSS anima el elemento hasta su posición final. */
 .reveal-entry {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal-entry.active {
@@ -63,7 +111,10 @@ body {
   transform: translateY(0);
 }
 
-/* Custom Glow effects for Green/Cream theme */
+/* ── Efecto Glow (brillo) para botones ───────────────────────────────────────
+   El pseudo-elemento ::after crea un "halo" de color detrás del botón.
+   La opacidad pasa de 0 a 0.2 al hacer hover, creando el efecto de brillo.
+   Se usa en el botón "Descargar CV". */
 .glow-effect {
   position: relative;
 }
@@ -81,17 +132,20 @@ body {
   opacity: 0.2;
 }
 
-/* Lightbox Modal Animations */
+/* ── Animaciones del Lightbox (Modal) ────────────────────────────────────────
+   fadeIn: el fondo oscuro aparece con desvanecimiento.
+   zoomIn: el contenido del modal aparece con un ligero zoom + desvanecimiento. */
 @keyframes fadeIn {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
 @keyframes zoomIn {
   from { transform: scale(0.95); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  to   { transform: scale(1);    opacity: 1; }
 }
 
+/* Las clases .animate-fade-in y .animate-zoom-in se aplican en page.tsx */
 .animate-fade-in {
   animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
