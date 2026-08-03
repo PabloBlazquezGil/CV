@@ -225,12 +225,13 @@ export default function Home() {
 
           {/* ── Columna izquierda: Foto de perfil ──────────────────────────────
               md:col-span-5 = ocupa 5 de 12 columnas en pantallas medianas y grandes.
-              Para cambiar la foto: sustituye /assets/profile.png por tu imagen
-              (debe estar en la carpeta /public/assets/). */}
+              Para cambiar la foto:
+                - URL externa: pon la nueva URL aquí y añade su dominio en next.config.ts
+                - Archivo local: pon la imagen en /public/assets/ y escribe src="/assets/mi-foto.jpg" */}
           <div className="md:col-span-5 flex justify-center">
             <div className="relative w-64 h-64 md:w-full md:h-auto md:aspect-square max-w-sm rounded-2xl overflow-hidden border border-[#2C5E43]/10 shadow-lg bg-white p-2 group">
               <Image
-                src="/assets/profile.png"
+                src="https://thundershoot.com/wp-content/uploads/2025/03/Pablo-Equipo-1-scaled.jpg"
                 alt="Pablo Blázquez Gil"
                 width={400}
                 height={400}

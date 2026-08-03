@@ -17,12 +17,18 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       // ── player.vimeo.com ─────────────────────────────────────────────────
-      // Necesario si usas el componente <Image> de Next.js con URLs de Vimeo.
-      // (El <video> del hero usa <source src="..."> directamente, no <Image>,
-      //  así que este patrón es por si en el futuro usas thumbnails de Vimeo.)
       {
         protocol: "https",
         hostname: "player.vimeo.com",
+        pathname: "/**",
+      },
+      // ── thundershoot.com ─────────────────────────────────────────────────
+      // Dominio de la foto de perfil (sección "Sobre Mí").
+      // Si en el futuro alojas la imagen en otro sitio, añade aquí su hostname
+      // y actualiza la src en page.tsx.
+      {
+        protocol: "https",
+        hostname: "thundershoot.com",
         pathname: "/**",
       },
       // ── Añade aquí más dominios si tienes imágenes externas ──────────────
@@ -31,12 +37,6 @@ const nextConfig: NextConfig = {
       //   protocol: "https",
       //   hostname: "res.cloudinary.com",
       //   pathname: "/tu-cloud-name/**",
-      // },
-      // Ejemplo para un bucket S3:
-      // {
-      //   protocol: "https",
-      //   hostname: "mi-bucket.s3.eu-west-1.amazonaws.com",
-      //   pathname: "/**",
       // },
     ],
   },
