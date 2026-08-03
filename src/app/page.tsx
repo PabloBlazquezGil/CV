@@ -275,17 +275,27 @@ export default function Home() {
 
           {/* ── Columna izquierda: Foto de perfil ──────────────────────────────
               md:col-span-5 = ocupa 5 de 12 columnas en pantallas medianas y grandes.
+
+              MARCO:
+              - aspect-[3/4]: proporciones verticales (retrato), ideales para foto de persona.
+                Si tu foto es cuadrada cambia a aspect-square.
+                Si tu foto es apaisada cambia a aspect-video (16:9) o aspect-[4/3].
+              - object-top: ancla la imagen a la parte superior para que no se corte la cara.
+                Cámbialo a object-center si prefieres centrado, o object-bottom para anclar abajo.
+              - overflow-hidden: recorta todo lo que salga del marco.
+              - Sin p-2 (padding interior) → la foto va de borde a borde del marco, más limpio.
+
               Para cambiar la foto:
                 - URL externa: pon la nueva URL aquí y añade su dominio en next.config.ts
                 - Archivo local: pon la imagen en /public/assets/ y escribe src="/assets/mi-foto.jpg" */}
           <div className="md:col-span-5 flex justify-center">
-            <div className="relative w-64 h-64 md:w-full md:h-auto md:aspect-square max-w-sm rounded-2xl overflow-hidden border border-[#2C5E43]/10 shadow-lg bg-white p-2 group">
+            <div className="relative w-56 md:w-full max-w-xs aspect-[3/4] rounded-2xl overflow-hidden border border-[#2C5E43]/10 shadow-lg group">
               <Image
                 src="https://thundershoot.com/wp-content/uploads/2025/03/Pablo-Equipo-1-scaled.jpg"
                 alt="Pablo Blázquez Gil"
-                width={400}
-                height={400}
-                className="w-full h-full object-cover rounded-xl transition-transform duration-700 group-hover:scale-105"
+                fill                  // fill: la imagen ocupa todo el contenedor (requiere position:relative en el padre)
+                sizes="(max-width: 768px) 224px, 400px" // sizes: ayuda al navegador a elegir la resolución óptima
+                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 priority // priority: carga esta imagen antes que las demás (mejora el LCP/rendimiento)
               />
             </div>
