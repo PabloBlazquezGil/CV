@@ -38,6 +38,11 @@ export default function Home() {
   // Se inicializa en 2026 y se actualiza con JavaScript en el cliente para ser siempre correcto.
   const [currentYear, setCurrentYear] = useState<number>(2026);
 
+  // Estado: controla si el usuario ha hecho scroll hacia abajo.
+  // Cuando es true, el header se vuelve más opaco (efecto de entrada suave).
+  // Si quieres cambiar el umbral de opacidad, cambia el valor 20 (píxeles de scroll).
+  const [scrolled, setScrolled] = useState<boolean>(false);
+
   // Estado: controla si el lightbox (modal de imagen ampliada) está abierto y qué muestra.
   // isOpen: si está visible | type: imagen o vídeo | src: ruta del archivo |
   // title: título del proyecto | desc: descripción del proyecto
@@ -65,7 +70,14 @@ export default function Home() {
     // 1. Año dinámico para el footer
     setCurrentYear(new Date().getFullYear());
 
-    // 2. Animación de scroll reveal con IntersectionObserver
+    // 2. Listener de scroll para el efecto del header
+    // Cuando el usuario baja más de 20px, activamos el estado "scrolled".
+    // Esto permite cambiar la opacidad/fondo del header con CSS/clases de Tailwind.
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // passive: true → mejora el rendimiento del scroll (no bloquea el hilo principal)
+
+    // 3. Animación de scroll reveal con IntersectionObserver
     // Seleccionamos todos los elementos con clase "reveal-entry" (definida en globals.css)
     const revealElements = document.querySelectorAll(".reveal-entry");
 
@@ -92,8 +104,9 @@ export default function Home() {
     revealElements.forEach((el) => observer.observe(el));
 
     // Función de limpieza: se ejecuta cuando el componente se desmonta.
-    // Evita memory leaks desconectando el observer.
+    // Evita memory leaks desconectando el observer y el listener de scroll.
     return () => {
+      window.removeEventListener("scroll", handleScroll);
       revealElements.forEach((el) => observer.unobserve(el));
     };
   }, []);
@@ -161,51 +174,88 @@ export default function Home() {
   return (
     <>
       {/* ════════════════════════════════════════════════════════════════════════
-          SECCIÓN 1: HERO
-          Ocupa toda la pantalla (min-h-screen). Contiene el nombre, el vídeo
-          de presentación y el indicador de scroll.
-          Para cambiar el vídeo: sustituye la URL en <source src="...">
-          o sube un .mp4 a /public/assets/ y usa src="/assets/mi-video.mp4".
-          Para cambiar el poster (imagen mientras carga): edita el atributo poster.
-          ════════════════════════════════════════════════════════════════════════ */}
-      <section id="hero" className="w-full min-h-screen flex flex-col px-6 md:px-12 py-6 justify-between max-w-6xl mx-auto">
+          HEADER STICKY SEMITRANSPARENTE
+          position: fixed → siempre visible al hacer scroll (no se va con la página).
+          top-0 left-0 right-0 → se pega a la parte superior, ocupa todo el ancho.
+          z-40 → aparece por encima del contenido pero debajo del lightbox (z-50).
+          backdrop-blur-md → efecto glassmorphism: desenfoca lo que hay detrás.
+          transition-all → el cambio de opacidad/fondo es animado y suave.
 
-        {/* Cabecera: solo tu nombre. Actúa como el <h1> principal de la página (SEO). */}
-        <header className="text-center py-4">
-          <h1 className="text-xl md:text-2xl font-bold tracking-[0.3em] text-[#2C5E43] uppercase">
+          OPACIDAD:
+          - Cuando scrolled=false (arriba del todo): bg-transparent → invisible, texto semitransparente.
+          - Cuando scrolled=true (bajado ≥20px): fondo semiopaco con blur → nombre visible.
+
+          Para ajustar la opacidad del texto: cambia text-white/40 (arriba) o text-[#2C5E43] (abajo).
+          Para ajustar el color de fondo al hacer scroll: cambia bg-[#FAF8F5]/80.
+          ════════════════════════════════════════════════════════════════════════ */}
+      <header
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
+          scrolled
+            ? "bg-[#FAF8F5]/80 backdrop-blur-md border-b border-[#2C5E43]/10 shadow-sm" // Con scroll: fondo semiopaco + blur
+            : "bg-transparent"                                                             // Sin scroll: completamente transparente
+        }`}
+      >
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-4 flex items-center justify-center">
+          {/*
+            Tu nombre como h1 (importante para el SEO → solo debe haber uno por página).
+            text-white/50: texto blanco al 50% de opacidad cuando el header es transparente
+                           (así se ve sobre el vídeo oscuro).
+            text-[#2C5E43]: texto verde sólido cuando el header tiene fondo (al hacer scroll).
+            tracking-[0.3em]: espaciado entre letras muy amplio (efecto elegante).
+          */}
+          <h1
+            className={`text-xl md:text-2xl font-bold tracking-[0.3em] uppercase transition-colors duration-500 ${
+              scrolled ? "text-[#2C5E43]" : "text-white/50"
+            }`}
+          >
             Pablo Blázquez Gil
           </h1>
-        </header>
+        </div>
+      </header>
 
-        {/* Contenedor del vídeo de presentación */}
-        <div className="flex-1 w-full flex items-center justify-center py-4">
-          <div className="w-full h-full max-h-[75vh] aspect-video rounded-3xl overflow-hidden border border-[#2C5E43]/10 shadow-2xl shadow-[#2C5E43]/10 bg-emerald-950/20 group relative">
-            <video
-              className="w-full h-full object-cover"
-              controls          // Muestra los controles nativos del navegador (play, pausa, volumen)
-              preload="metadata" // Carga solo los metadatos al inicio (más rápido)
-              poster="/assets/project-saas.png" // Imagen de portada mientras carga el vídeo
-              playsInline        // IMPORTANTE: necesario en iOS para que el vídeo no abra pantalla completa
-            >
-              {/* 
-                CAMBIA AQUÍ EL VÍDEO:
-                - URL externa (Vimeo, S3, etc.): pon la URL directa al .mp4
-                - Archivo local: sube tu .mp4 a /public/assets/ y escribe src="/assets/tu-video.mp4"
-              */}
-              <source
-                src="https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c054f4d823f6607bb0d1f126c929ec37&profile_id=139&oauth2_token_id=57447761"
-                type="video/mp4"
-              />
-              Tu navegador no soporta reproducción de video.
-            </video>
-          </div>
+      {/* ════════════════════════════════════════════════════════════════════════
+          SECCIÓN 1: HERO — VÍDEO A PANTALLA COMPLETA
+          El vídeo ocupa el 100vw (ancho de la ventana) y 100vh (alto de la ventana).
+          No tiene padding ni max-width: se extiende de borde a borde.
+
+          object-cover: el vídeo cubre todo el contenedor sin dejar franjas negras
+                        (puede recortar ligeramente los bordes si el ratio no coincide).
+
+          Para cambiar el vídeo: sustituye la URL en <source src="...">
+          Para cambiar el poster (imagen de carga): edita el atributo poster.
+
+          El indicador de scroll (flecha) está posicionado en absolute sobre el vídeo.
+          ════════════════════════════════════════════════════════════════════════ */}
+      <section id="hero" className="relative w-full h-screen overflow-hidden">
+
+        {/* Vídeo de fondo a pantalla completa — sin bordes redondeados ni margen */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          controls          // Muestra los controles nativos del navegador
+          preload="metadata" // Carga solo los metadatos al inicio (más rápido)
+          poster="/assets/project-saas.png" // Imagen de portada mientras carga el vídeo
+          playsInline        // Necesario en iOS para evitar que abra pantalla completa
+        >
+          {/*
+            CAMBIA AQUÍ EL VÍDEO:
+            - URL externa (Vimeo, S3, etc.): pon la URL directa al .mp4
+            - Archivo local: sube tu .mp4 a /public/assets/ y escribe src="/assets/tu-video.mp4"
+          */}
+          <source
+            src="https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c054f4d823f6607bb0d1f126c929ec37&profile_id=139&oauth2_token_id=57447761"
+            type="video/mp4"
+          />
+          Tu navegador no soporta reproducción de video.
+        </video>
+
+        {/* Indicador de scroll: posicionado en la parte inferior central sobre el vídeo.
+            Pulsa suavemente hacia abajo para indicar que hay más contenido.
+            Para quitarlo: borra este bloque. */}
+        <div className="absolute bottom-8 left-0 right-0 flex flex-col items-center space-y-1 pointer-events-none">
+          <span className="text-xs tracking-[0.2em] text-white/70 uppercase font-light">Presentación Profesional</span>
+          <ChevronDown className="w-4 h-4 text-white/70 animate-bounce mt-1" />
         </div>
 
-        {/* Indicador de scroll: flecha animada que invita a seguir bajando */}
-        <div className="text-center py-4 flex flex-col items-center space-y-1">
-          <span className="text-xs tracking-[0.2em] text-[#53645A] uppercase font-light">Presentación Profesional</span>
-          <ChevronDown className="w-4 h-4 text-[#2C5E43] animate-bounce mt-1" />
-        </div>
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════════
