@@ -323,9 +323,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* ── Columna 3 (Derecha): Competencias Técnicas y Habilidades Blandas ──
-              lg:col-span-4 = ocupa 4 de 12 columnas. */}
-
             {/* Soft Skills */}
             <div className="space-y-2.5 pt-1">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">
