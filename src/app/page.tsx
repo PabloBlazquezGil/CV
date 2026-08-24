@@ -271,47 +271,45 @@ export default function Home() {
             En móvil (menos de md = 768px) se apila en una sola columna.
             "reveal-entry" activa la animación de entrada al hacer scroll.
             ════════════════════════════════════════════════════════════════════ */}
-        <section id="about" className="reveal-entry grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center">
+        <section id="about" className="reveal-entry grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
 
-          {/* ── Columna izquierda: Foto de perfil ──────────────────────────────
-              md:col-span-5 = ocupa 5 de 12 columnas en pantallas medianas y grandes.
-
-              MARCO:
-              - aspect-[3/4]: proporciones verticales (retrato), ideales para foto de persona.
-                Si tu foto es cuadrada cambia a aspect-square.
-                Si tu foto es apaisada cambia a aspect-video (16:9) o aspect-[4/3].
-              - object-top: ancla la imagen a la parte superior para que no se corte la cara.
-                Cámbialo a object-center si prefieres centrado, o object-bottom para anclar abajo.
-              - overflow-hidden: recorta todo lo que salga del marco.
-              - Sin p-2 (padding interior) → la foto va de borde a borde del marco, más limpio.
-
-              Para cambiar la foto:
-                - URL externa: pon la nueva URL aquí y añade su dominio en next.config.ts
-                - Archivo local: pon la imagen en /public/assets/ y escribe src="/assets/mi-foto.jpg" */}
-          <div className="md:col-span-5 flex justify-center">
-            <div className="relative w-56 md:w-full max-w-xs aspect-[3/4] rounded-2xl overflow-hidden border border-[#2C5E43]/10 shadow-lg group">
+          {/* ── Columna 1 (Izquierda): Foto de perfil y botón de descarga ──────────
+              lg:col-span-3 = ocupa 3 de 12 columnas en pantallas grandes. */}
+          <div className="lg:col-span-3 flex flex-col items-center space-y-5">
+            <div className="relative w-48 sm:w-56 lg:w-full aspect-[3/4] rounded-2xl overflow-hidden border border-[#2C5E43]/10 shadow-lg group">
               <Image
                 src="https://thundershoot.com/wp-content/uploads/2025/03/Pablo-Equipo-1-scaled.jpg"
                 alt="Pablo Blázquez Gil"
                 fill                  // fill: la imagen ocupa todo el contenedor (requiere position:relative en el padre)
-                sizes="(max-width: 768px) 224px, 400px" // sizes: ayuda al navegador a elegir la resolución óptima
+                sizes="(max-width: 1024px) 224px, 260px" // sizes: ayuda al navegador a elegir la resolución óptima
                 className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 priority // priority: carga esta imagen antes que las demás (mejora el LCP/rendimiento)
               />
             </div>
+
+            {/* Botón de descarga del CV debajo de la foto */}
+            <div className="w-full flex justify-center">
+              <a
+                href="/assets/cv-placeholder.pdf"
+                download="CV_Pablo_Blazquez.pdf"
+                className="glow-effect inline-flex items-center justify-center space-x-2 w-full px-4 py-3 bg-[#2C5E43] hover:bg-[#1F4430] text-white font-medium rounded-xl text-xs sm:text-sm transition-all duration-300 shadow-md shadow-[#2C5E43]/10 hover:shadow-[#2C5E43]/20 text-center"
+              >
+                <Download className="w-4 h-4 shrink-0" />
+                <span>Descargar CV (PDF)</span>
+              </a>
+            </div>
           </div>
 
-          {/* ── Columna derecha: Bio y botón de descarga ────────────────────────
-              md:col-span-7 = ocupa 7 de 12 columnas (complementa las 5 de la foto).
-              Aquí editas: el título, el párrafo de presentación y las etiquetas de habilidades. */}
-          <div className="md:col-span-7 space-y-6">
-            <div className="space-y-2">
+          {/* ── Columna 2 (Centro): Trayectoria y Visión Creativa ────────────────
+              lg:col-span-5 = ocupa 5 de 12 columnas. */}
+          <div className="lg:col-span-5 space-y-5">
+            <div className="space-y-1.5">
               <span className="text-xs uppercase tracking-[0.2em] text-[#2C5E43] font-semibold">Perfil Profesional</span>
-              {/* Título de la sección (h2 porque h1 ya está en el header del hero) */}
-              <h2 className="text-2xl md:text-3xl font-semibold text-[#1E2D24]">Trayectoria y Visión Creativa</h2>
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-[#1E2D24] leading-tight">
+                Trayectoria y Visión Creativa
+              </h2>
             </div>
 
-            {/* Párrafo de presentación: cámbialo con tu bio personal */}
             <div className="space-y-4 text-[#53645A] text-sm md:text-base font-light leading-relaxed">
               <p>
                 Bioquímico y Comunicador Audiovisual apasionado por la divulgación científica, la sostenibilidad y la narrativa visual. Mi trayectoria combina el rigor científico —con experiencia investigadora en el Centro de Astrobiología (CSIC-INTA)— con la producción audiovisual, la creación de contenidos en redes sociales y la docencia.
@@ -320,68 +318,54 @@ export default function Home() {
                 He participado activamente en proyectos europeos enfocados en emprendimiento, conservación e impacto socioeconómico y ambiental. Actualmente dirijo y produzco mi primer proyecto documental, aplicando visión estratégica, paciencia y narrativa visual para conectar a la sociedad con la ciencia y la naturaleza. Destaco por mi resiliencia, mi capacidad de adaptación tras superar diversos retos personales y un firme compromiso por construir soluciones sostenibles a través del trabajo en equipo.
               </p>
             </div>
+          </div>
 
-            {/* Competencias Técnicas y Habilidades Blandas */}
-            <div className="space-y-4 pt-2">
-              {/* Hard Skills */}
-              <div className="space-y-2">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">
-                  Competencias Técnicas (Hard Skills)
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
-                    Bioquímica y cultura científica
-                  </span>
-                  <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
-                    Producción audiovisual, fotografía, vídeo y narrativa documental
-                  </span>
-                  <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
-                    Divulgación científica y creación de contenido para RRSS
-                  </span>
-                  <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
-                    Gestión de proyectos (Proyectos Europeos / Emprendimiento)
-                  </span>
-                  <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
-                    Docencia y formación
-                  </span>
-                </div>
-              </div>
-
-              {/* Soft Skills */}
-              <div className="space-y-2 pt-1">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">
-                  Habilidades Blandas (Soft Skills)
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
-                    <strong className="font-medium">Resiliencia y adaptación:</strong> Aprendizaje frente a obstáculos
-                  </span>
-                  <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
-                    <strong className="font-medium">Visión estratégica y narrativa:</strong> Gestión integral a largo plazo
-                  </span>
-                  <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
-                    <strong className="font-medium">Compromiso socioambiental:</strong> Sostenibilidad y conservación
-                  </span>
-                  <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
-                    <strong className="font-medium">Trabajo en equipo</strong> y liderazgo colaborativo
-                  </span>
-                </div>
+          {/* ── Columna 3 (Derecha): Competencias Técnicas y Habilidades Blandas ──
+              lg:col-span-4 = ocupa 4 de 12 columnas. */}
+          <div className="lg:col-span-4 space-y-5">
+            {/* Hard Skills */}
+            <div className="space-y-2.5">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">
+                Competencias Técnicas (Hard Skills)
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
+                  Bioquímica y cultura científica
+                </span>
+                <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
+                  Producción audiovisual, fotografía, vídeo y narrativa documental
+                </span>
+                <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
+                  Divulgación científica y creación de contenido para RRSS
+                </span>
+                <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
+                  Gestión de proyectos (Proyectos Europeos / Emprendimiento)
+                </span>
+                <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
+                  Docencia y formación
+                </span>
               </div>
             </div>
 
-            {/* Botón de descarga del CV
-                href: ruta al archivo PDF (en /public/assets/).
-                download: nombre con el que se guardará el archivo al descargarlo.
-                Para cambiar el PDF: reemplaza /assets/cv-placeholder.pdf con tu archivo real. */}
-            <div className="pt-4">
-              <a
-                href="/assets/cv-placeholder.pdf"
-                download="CV_Pablo_Blazquez.pdf"
-                className="glow-effect inline-flex items-center space-x-3 px-6 py-3.5 bg-[#2C5E43] hover:bg-[#1F4430] text-white font-medium rounded-xl text-sm transition-all duration-300 shadow-md shadow-[#2C5E43]/10 hover:shadow-[#2C5E43]/20"
-              >
-                <Download className="w-4 h-4" />
-                <span>Descargar CV Completo (PDF)</span>
-              </a>
+            {/* Soft Skills */}
+            <div className="space-y-2.5 pt-1">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">
+                Habilidades Blandas (Soft Skills)
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
+                  <strong className="font-medium">Resiliencia y adaptación:</strong> Aprendizaje frente a obstáculos
+                </span>
+                <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
+                  <strong className="font-medium">Visión estratégica y narrativa:</strong> Gestión integral a largo plazo
+                </span>
+                <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
+                  <strong className="font-medium">Compromiso socioambiental:</strong> Sostenibilidad y conservación
+                </span>
+                <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
+                  <strong className="font-medium">Trabajo en equipo</strong> y liderazgo colaborativo
+                </span>
+              </div>
             </div>
           </div>
         </section>
