@@ -291,8 +291,10 @@ export default function Home() {
             {/* Botón de descarga del CV debajo de la foto */}
             <div className="w-full flex justify-center">
               <a
-                href="/assets/cv-placeholder.pdf"
-                download="CV_Pablo_Blazquez.pdf"
+                href="https://thundershoot.com/wp-content/uploads/2026/08/CV_Pablo_Blazquez_Gil.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download="CV_Pablo_Blazquez_Gil.pdf"
                 className="glow-effect inline-flex items-center justify-center space-x-2 w-full px-4 py-3 bg-[#2C5E43] hover:bg-[#1F4430] text-white font-medium rounded-xl text-xs sm:text-sm transition-all duration-300 shadow-md shadow-[#2C5E43]/10 hover:shadow-[#2C5E43]/20 text-center"
               >
                 <Download className="w-4 h-4 shrink-0" />
