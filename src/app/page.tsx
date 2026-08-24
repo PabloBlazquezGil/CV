@@ -325,30 +325,6 @@ export default function Home() {
 
           {/* ── Columna 3 (Derecha): Competencias Técnicas y Habilidades Blandas ──
               lg:col-span-4 = ocupa 4 de 12 columnas. */}
-          <div className="lg:col-span-4 space-y-5">
-            {/* Hard Skills */}
-            <div className="space-y-2.5">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">
-                Competencias Técnicas (Hard Skills)
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
-                  Bioquímica y cultura científica
-                </span>
-                <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
-                  Producción audiovisual, fotografía, vídeo y narrativa documental
-                </span>
-                <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
-                  Divulgación científica y creación de contenido para RRSS
-                </span>
-                <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
-                  Gestión de proyectos (Proyectos Europeos / Emprendimiento)
-                </span>
-                <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
-                  Docencia y formación
-                </span>
-              </div>
-            </div>
 
             {/* Soft Skills */}
             <div className="space-y-2.5 pt-1">
