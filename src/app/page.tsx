@@ -434,7 +434,7 @@ export default function Home() {
                   Cambia el título y el párrafo con tu mensaje de contacto personal. */}
               <div className="md:col-span-7 space-y-4">
                 <span className="text-xs uppercase tracking-[0.2em] text-[#2C5E43] font-semibold">Contacto</span>
-                <h2 className="text-2xl md:text-4xl font-bold text-[#1E2D24] tracking-tight">Colaboraciones y Consultoría</h2>
+                <h2 className="text-2xl md:text-4xl font-bold text-[#1E2D24] tracking-tight">Colaboraciones profesionales</h2>
                 <p className="text-[#53645A] text-sm md:text-base font-light">
                   Si deseas conocer más detalles de mi trayectoria, puedes contactar conmigo a través de los siguientes enlaces.
                 </p>
