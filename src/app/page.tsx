@@ -243,7 +243,7 @@ export default function Home() {
             - Archivo local: sube tu .mp4 a /public/assets/ y escribe src="/assets/tu-video.mp4"
           */}
           <source
-            src="https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c054f4d823f6607bb0d1f126c929ec37&profile_id=139&oauth2_token_id=57447761"
+            src="https://vimeo.com/1220785662?share=copy&fl=sv&fe=ci"
             type="video/mp4"
           />
           Tu navegador no soporta reproducción de video.
