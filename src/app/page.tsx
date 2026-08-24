@@ -17,15 +17,16 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 // Iconos de la librería Lucide React.
-// Download → icono de descarga, ChevronDown → flecha abajo, Mail → sobre, X → cerrar.
-import { Download, ChevronDown, Mail, X } from "lucide-react";
+// Download → icono de descarga, ChevronDown → flecha abajo, Mail → sobre, X → cerrar, Play → reproducir vídeo.
+import { Download, ChevronDown, Mail, X, Play } from "lucide-react";
 
 // ── TIPOS TYPESCRIPT ──────────────────────────────────────────────────────────
 // Define la "forma" de cada elemento de la galería de proyectos.
 // Si quieres añadir más proyectos, cada uno debe tener estas propiedades.
 interface GalleryItem {
   type: "image" | "video"; // Tipo de media: imagen o vídeo
-  src: string;             // Ruta del archivo (relativa a /public)
+  src: string;             // Ruta del archivo (o URL de video/imagen)
+  thumbnail?: string;      // Imagen de portada opcional (útil para videos)
   title: string;           // Título del proyecto
   desc: string;            // Descripción corta
   category: string;        // Categoría / disciplina
@@ -118,6 +119,13 @@ export default function Home() {
   // Para añadir un vídeo propio, sube el archivo a /public/assets/ y pon type: "video".
   const galleryItems: GalleryItem[] = [
     {
+      type: "video",
+      src: "https://thundershoot.com/wp-content/uploads/2024/11/Dia-de-la-Mujer-y-la-Nina-en-la-Ciencia-11_02_2024-Centro-de-Astrobiologia-CAB-CSIC-INTA-1.mp4",
+      title: "Día de la Mujer y la Niña en la Ciencia",
+      category: "Campaña Audiovisual & Divulgación",
+      desc: "Campaña audiovisual realizada para el Centro de Astrobiología (CAB, CSIC-INTA) con motivo del 11 de febrero, visibilizando y conmemorando el papel de las investigadoras y tecnólogas en la astrobiología y la exploración espacial.",
+    },
+    {
       type: "image",
       src: "/assets/project-saas.png",       // Imagen en public/assets/project-saas.png
       title: "Interfaz SaaS Analítica",
@@ -130,13 +138,6 @@ export default function Home() {
       title: "Fintech Mobile App Design",
       category: "Mobile UI/UX Architecture",
       desc: "Estructura de interfaz minimalista para operaciones financieras móviles. Enfoque en la accesibilidad de transacciones rápidas y flujos limpios.",
-    },
-    {
-      type: "image",
-      src: "/assets/project-brand.png",       // Imagen en public/assets/project-brand.png
-      title: "Identidad de Marca Conceptual",
-      category: "Branding & Visual Design",
-      desc: "Conceptualización de identidad gráfica y branding minimalista para empresas de tecnología. Paleta de colores orgánicos y líneas puras.",
     },
     // ── AÑADE AQUÍ MÁS PROYECTOS con el mismo formato ──
     // {
@@ -391,30 +392,52 @@ export default function Home() {
               <div
                 key={index}
                 onClick={() => openLightbox(item)} // Al hacer clic, abre el lightbox con este proyecto
-                className="group cursor-pointer bg-white border border-[#E2ECE5] rounded-2xl overflow-hidden hover:border-[#2C5E43]/40 transition-all duration-500 shadow-sm hover:shadow-md"
+                className="group cursor-pointer bg-white border border-[#E2ECE5] rounded-2xl overflow-hidden hover:border-[#2C5E43]/40 transition-all duration-500 shadow-sm hover:shadow-md flex flex-col"
               >
-                {/* Imagen del proyecto con overlay de hover */}
-                <div className="relative aspect-video overflow-hidden bg-stone-100">
-                  <Image
-                    src={item.src}
-                    alt={item.title}
-                    width={480}
-                    height={270}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                {/* Media del proyecto (imagen o preview de vídeo) */}
+                <div className="relative aspect-video overflow-hidden bg-stone-900">
+                  {item.type === "video" ? (
+                    <video
+                      src={item.src}
+                      muted
+                      playsInline
+                      preload="metadata"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : (
+                    <Image
+                      src={item.src}
+                      alt={item.title}
+                      width={480}
+                      height={270}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  )}
+
+                  {/* Indicador de vídeo */}
+                  {item.type === "video" && (
+                    <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-[#1E2D24]/80 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white shadow-md">
+                      <Play className="w-3.5 h-3.5 fill-white ml-0.5" />
+                    </div>
+                  )}
+
                   {/* Overlay oscuro con texto que aparece al pasar el ratón por encima */}
                   <div className="absolute inset-0 bg-[#1E2D24]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <span className="px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-xs text-white border border-white/20 transition-transform duration-300 translate-y-2 group-hover:translate-y-0">
-                      Ver Detalles
+                    <span className="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-xs text-white border border-white/20 transition-transform duration-300 translate-y-2 group-hover:translate-y-0 font-medium">
+                      {item.type === "video" && <Play className="w-3 h-3 fill-white" />}
+                      <span>{item.type === "video" ? "Reproducir Vídeo" : "Ver Detalles"}</span>
                     </span>
                   </div>
                 </div>
-                {/* Texto debajo de la imagen: categoría y título */}
-                <div className="p-6 space-y-2">
-                  <span className="text-xs text-[#2C5E43] font-semibold uppercase tracking-wider">{item.category}</span>
-                  <h3 className="text-lg font-medium text-[#1E2D24] group-hover:text-[#2C5E43] transition-colors duration-300">
-                    {item.title}
-                  </h3>
+
+                {/* Texto debajo de la imagen/vídeo: categoría y título */}
+                <div className="p-6 space-y-2 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span className="text-xs text-[#2C5E43] font-semibold uppercase tracking-wider">{item.category}</span>
+                    <h3 className="text-lg font-medium text-[#1E2D24] group-hover:text-[#2C5E43] transition-colors duration-300 mt-1">
+                      {item.title}
+                    </h3>
+                  </div>
                 </div>
               </div>
             ))}
