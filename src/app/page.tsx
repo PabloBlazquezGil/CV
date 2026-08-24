@@ -312,10 +312,14 @@ export default function Home() {
             </div>
 
             {/* Párrafo de presentación: cámbialo con tu bio personal */}
-            <p className="text-[#53645A] text-sm md:text-base font-light leading-relaxed">
-              Bioquímico y Comunicador Audiovisual apasionado por la divulgación científica, la sostenibilidad y la narrativa visual. Mi trayectoria combina el rigor científico —con experiencia investigadora en el Centro de Astrobiología (CSIC-INTA)— con la producción audiovisual, la creación de contenidos en redes sociales y la docencia.
-            <br><br />He participado activamente en proyectos europeos enfocados en emprendimiento, conservación e impacto socioeconómico y ambiental. Actualmente dirijo y produzco mi primer proyecto documental, aplicando visión estratégica, paciencia y narrativa visual para conectar a la sociedad con la ciencia y la naturaleza. Destaco por mi resiliencia, mi capacidad de adaptación tras superar diversos retos personales y un firme compromiso por construir soluciones sostenibles a través del trabajo en equipo.
-            </p>
+            <div className="space-y-4 text-[#53645A] text-sm md:text-base font-light leading-relaxed">
+              <p>
+                Bioquímico y Comunicador Audiovisual apasionado por la divulgación científica, la sostenibilidad y la narrativa visual. Mi trayectoria combina el rigor científico —con experiencia investigadora en el Centro de Astrobiología (CSIC-INTA)— con la producción audiovisual, la creación de contenidos en redes sociales y la docencia.
+              </p>
+              <p>
+                He participado activamente en proyectos europeos enfocados en emprendimiento, conservación e impacto socioeconómico y ambiental. Actualmente dirijo y produzco mi primer proyecto documental, aplicando visión estratégica, paciencia y narrativa visual para conectar a la sociedad con la ciencia y la naturaleza. Destaco por mi resiliencia, mi capacidad de adaptación tras superar diversos retos personales y un firme compromiso por construir soluciones sostenibles a través del trabajo en equipo.
+              </p>
+            </div>
 
             {/* Etiquetas de habilidades/tecnologías
                 Para añadir o quitar habilidades: copia o elimina uno de estos <span>.
