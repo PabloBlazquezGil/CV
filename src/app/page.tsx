@@ -321,15 +321,52 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Etiquetas de habilidades/tecnologías
-                Para añadir o quitar habilidades: copia o elimina uno de estos <span>.
-                NOTA: todos usan className (no class), que es la forma correcta en JSX/React. */}
-            <div className="flex flex-wrap gap-2 pt-2">
-              <span className="px-3 py-1 bg-white border border-[#E2ECE5] rounded-full text-xs text-[#53645A]">Diseño UI/UX</span>
-              <span className="px-3 py-1 bg-white border border-[#E2ECE5] rounded-full text-xs text-[#53645A]">Frontend Dev</span>
-              <span className="px-3 py-1 bg-white border border-[#E2ECE5] rounded-full text-xs text-[#53645A]">Tailwind CSS</span>
-              <span className="px-3 py-1 bg-white border border-[#E2ECE5] rounded-full text-xs text-[#53645A]">JavaScript ES6</span>
-              <span className="px-3 py-1 bg-white border border-[#E2ECE5] rounded-full text-xs text-[#53645A]">Figma Prototyping</span>
+            {/* Competencias Técnicas y Habilidades Blandas */}
+            <div className="space-y-4 pt-2">
+              {/* Hard Skills */}
+              <div className="space-y-2">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">
+                  Competencias Técnicas (Hard Skills)
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
+                    Bioquímica y cultura científica
+                  </span>
+                  <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
+                    Producción audiovisual, fotografía, vídeo y narrativa documental
+                  </span>
+                  <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
+                    Divulgación científica y creación de contenido para RRSS
+                  </span>
+                  <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
+                    Gestión de proyectos (Proyectos Europeos / Emprendimiento)
+                  </span>
+                  <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
+                    Docencia y formación
+                  </span>
+                </div>
+              </div>
+
+              {/* Soft Skills */}
+              <div className="space-y-2 pt-1">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">
+                  Habilidades Blandas (Soft Skills)
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
+                    <strong className="font-medium">Resiliencia y adaptación:</strong> Aprendizaje frente a obstáculos
+                  </span>
+                  <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
+                    <strong className="font-medium">Visión estratégica y narrativa:</strong> Gestión integral a largo plazo
+                  </span>
+                  <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
+                    <strong className="font-medium">Compromiso socioambiental:</strong> Sostenibilidad y conservación
+                  </span>
+                  <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
+                    <strong className="font-medium">Trabajo en equipo</strong> y liderazgo colaborativo
+                  </span>
+                </div>
+              </div>
             </div>
 
             {/* Botón de descarga del CV
