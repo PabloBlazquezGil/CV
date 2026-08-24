@@ -436,7 +436,7 @@ export default function Home() {
                 <span className="text-xs uppercase tracking-[0.2em] text-[#2C5E43] font-semibold">Contacto</span>
                 <h2 className="text-2xl md:text-4xl font-bold text-[#1E2D24] tracking-tight">Colaboraciones y Consultoría</h2>
                 <p className="text-[#53645A] text-sm md:text-base font-light">
-                  Si deseas conocer más detalles de mi trayectoria, coordinar una reunión o discutir una futura colaboración profesional, ponte en contacto directo.
+                  Si deseas conocer más detalles de mi trayectoria, puedes contactar conmigo a través de los siguientes enlaces.
                 </p>
               </div>
 
@@ -449,7 +449,7 @@ export default function Home() {
 
                   {/* LINKEDIN: cambia href con tu URL de LinkedIn personal */}
                   <a
-                    href="https://linkedin.com"
+                    href="https://www.linkedin.com/in/pabloblazquezgil/"
                     target="_blank"          // Abre en nueva pestaña
                     rel="noopener noreferrer" // Seguridad: evita que la pestaña nueva acceda al origen
                     className="w-12 h-12 inline-flex items-center justify-center bg-white border border-[#E2ECE5] hover:border-[#2C5E43]/40 text-[#53645A] hover:text-[#2C5E43] rounded-xl transition-all duration-300 hover:scale-105 shadow-sm"
@@ -460,38 +460,9 @@ export default function Home() {
                     </svg>
                   </a>
 
-                  {/* INSTAGRAM: cambia href con tu URL de Instagram personal */}
-                  <a
-                    href="https://instagram.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 inline-flex items-center justify-center bg-white border border-[#E2ECE5] hover:border-[#2C5E43]/40 text-[#53645A] hover:text-[#2C5E43] rounded-xl transition-all duration-300 hover:scale-105 shadow-sm"
-                    title="Instagram"
-                  >
-                    <svg className="w-5 h-5 stroke-current fill-none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                    </svg>
-                  </a>
-
-                  {/* YOUTUBE: cambia href con tu canal de YouTube */}
-                  <a
-                    href="https://youtube.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 inline-flex items-center justify-center bg-white border border-[#E2ECE5] hover:border-[#2C5E43]/40 text-[#53645A] hover:text-[#2C5E43] rounded-xl transition-all duration-300 hover:scale-105 shadow-sm"
-                    title="YouTube"
-                  >
-                    <svg className="w-5 h-5 stroke-current fill-none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"></path>
-                      <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon>
-                    </svg>
-                  </a>
-
                   {/* EMAIL: cambia la dirección después de mailto: */}
                   <a
-                    href="mailto:pablo@ejemplo.com"
+                    href="mailto:pabloblazquezgil@gmail.com"
                     className="w-12 h-12 inline-flex items-center justify-center bg-[#2C5E43] text-white hover:bg-[#1F4430] rounded-xl transition-all duration-300 hover:scale-105 shadow-md shadow-[#2C5E43]/10 hover:shadow-[#2C5E43]/20"
                     title="Enviar Correo"
                   >
