@@ -10,7 +10,7 @@
 // ── IMPORTACIONES ────────────────────────────────────────────────────────────
 // useEffect: ejecuta código después de que el componente se monta en el DOM.
 // useState: guarda valores reactivos (si cambian, la página se re-renderiza).
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 // Componente <Image> optimizado de Next.js. Sustituye a <img> normal y añade:
 // lazy-loading automático, formatos modernos (WebP/AVIF) y evita layout shift.
@@ -18,7 +18,7 @@ import Image from "next/image";
 
 // Iconos de la librería Lucide React.
 // Download → icono de descarga, ChevronDown → flecha abajo, Mail → sobre, X → cerrar, Play → reproducir vídeo.
-import { Download, ChevronDown, Mail, X, Play } from "lucide-react";
+import { Download, ChevronDown, Mail, X, Play, Pause, Volume2, VolumeX } from "lucide-react";
 
 // ── TIPOS TYPESCRIPT ──────────────────────────────────────────────────────────
 // Define la "forma" de cada elemento de la galería de proyectos.
@@ -43,6 +43,14 @@ export default function Home() {
   // Cuando es true, el header se vuelve más opaco (efecto de entrada suave).
   // Si quieres cambiar el umbral de opacidad, cambia el valor 20 (píxeles de scroll).
   const [scrolled, setScrolled] = useState<boolean>(false);
+
+  // ── ESTADOS DEL HERO (player de Vimeo) ──────────────────────────────────────
+  const [heroMuted, setHeroMuted] = useState(true);    // Empieza silenciado para permitir autoplay
+  const [heroPlaying, setHeroPlaying] = useState(true); // Empieza reproduciendo
+  const [heroHovered, setHeroHovered] = useState(false); // Controla visibilidad de los controles
+  const iframeRef = useRef<HTMLIFrameElement>(null);     // Referencia al iframe de Vimeo
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const vimeoPlayerRef = useRef<any>(null);              // Instancia de Vimeo.Player
 
   // Estado: controla si el lightbox (modal de imagen ampliada) está abierto y qué muestra.
   // isOpen: si está visible | type: imagen o vídeo | src: ruta del archivo |
@@ -111,6 +119,53 @@ export default function Home() {
       revealElements.forEach((el) => observer.unobserve(el));
     };
   }, []);
+
+  // ── EFECTO: carga el SDK de Vimeo Player y conecta la instancia al iframe ────
+  // Se ejecuta una sola vez al montar el componente.
+  // El SDK permite controlar el player (mute, play, pause) desde fuera del iframe.
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://player.vimeo.com/api/player.js";
+    script.async = true;
+    script.onload = () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const Vimeo = (window as any).Vimeo;
+      if (iframeRef.current && Vimeo) {
+        vimeoPlayerRef.current = new Vimeo.Player(iframeRef.current);
+      }
+    };
+    document.head.appendChild(script);
+    return () => {
+      // Limpieza: destruir el player y eliminar el script al desmontar
+      vimeoPlayerRef.current?.destroy();
+      if (document.head.contains(script)) document.head.removeChild(script);
+    };
+  }, []);
+
+  // ── CONTROL: alternar mute / sonido ─────────────────────────────────────────
+  const toggleMute = async () => {
+    if (!vimeoPlayerRef.current) return;
+    if (heroMuted) {
+      await vimeoPlayerRef.current.setVolume(1);
+      await vimeoPlayerRef.current.setMuted(false);
+      setHeroMuted(false);
+    } else {
+      await vimeoPlayerRef.current.setMuted(true);
+      setHeroMuted(true);
+    }
+  };
+
+  // ── CONTROL: alternar play / pausa ──────────────────────────────────────────
+  const togglePlay = async () => {
+    if (!vimeoPlayerRef.current) return;
+    if (heroPlaying) {
+      await vimeoPlayerRef.current.pause();
+      setHeroPlaying(false);
+    } else {
+      await vimeoPlayerRef.current.play();
+      setHeroPlaying(true);
+    }
+  };
 
   // ── DATOS DE LA GALERÍA DE PROYECTOS ────────────────────────────────────────
   // Para añadir o modificar proyectos, edita este array.
@@ -230,16 +285,19 @@ export default function Home() {
       <section id="hero" className="relative w-full h-screen overflow-hidden">
 
         {/* Iframe del player de Vimeo — ocupa todo el hero a pantalla completa.
-            El truco de escalado (padding-top 56.25% + scale) garantiza que el vídeo
-            cubra el ancho completo sin franjas negras independientemente del ratio. */}
-        <div className="absolute inset-0 w-full h-full overflow-hidden bg-black">
-          {/* Contenedor con ratio 16:9 sobredimensionado para cubrir toda la pantalla */}
+            background=1 oculta la interfaz de Vimeo; los controles los gestionamos
+            nosotros con la API de Vimeo Player.js cargada en el useEffect. */}
+        <div
+          className="absolute inset-0 w-full h-full overflow-hidden bg-black"
+          onMouseEnter={() => setHeroHovered(true)}
+          onMouseLeave={() => setHeroHovered(false)}
+        >
+          {/* Contenedor 16:9 sobredimensionado para cubrir toda la pantalla sin franjas */}
           <div
             style={{
               position: "absolute",
               top: "50%",
               left: "50%",
-              /* Mínimo: ancho = 100vw, alto proporcional; o alto = 100vh, ancho proporcional */
               width: "calc(100vh * 16 / 9)",
               height: "calc(100vw * 9 / 16)",
               minWidth: "100%",
@@ -248,6 +306,7 @@ export default function Home() {
             }}
           >
             <iframe
+              ref={iframeRef}
               src="https://player.vimeo.com/video/1220785662?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1"
               style={{
                 position: "absolute",
@@ -261,6 +320,36 @@ export default function Home() {
               referrerPolicy="strict-origin-when-cross-origin"
               title="Vídeo CV"
             />
+          </div>
+
+          {/* ── Controles minimalistas — visibles solo al hacer hover ──────────────
+              transition-opacity: aparecen/desaparecen suavemente en 300 ms.
+              pointer-events: solo activos cuando son visibles (evita clics fantasma). */}
+          <div
+            className="absolute bottom-8 right-6 flex items-center gap-2 transition-opacity duration-300"
+            style={{ opacity: heroHovered ? 1 : 0, pointerEvents: heroHovered ? "auto" : "none" }}
+          >
+            {/* Botón Play / Pausa */}
+            <button
+              onClick={togglePlay}
+              className="w-9 h-9 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white hover:bg-black/60 transition-all duration-200 hover:scale-110"
+              title={heroPlaying ? "Pausar" : "Reproducir"}
+            >
+              {heroPlaying
+                ? <Pause className="w-3.5 h-3.5 fill-white" />
+                : <Play className="w-3.5 h-3.5 fill-white ml-0.5" />}
+            </button>
+
+            {/* Botón Mute / Sonido */}
+            <button
+              onClick={toggleMute}
+              className="w-9 h-9 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white hover:bg-black/60 transition-all duration-200 hover:scale-110"
+              title={heroMuted ? "Activar sonido" : "Silenciar"}
+            >
+              {heroMuted
+                ? <VolumeX className="w-3.5 h-3.5" />
+                : <Volume2 className="w-3.5 h-3.5" />}
+            </button>
           </div>
         </div>
 
