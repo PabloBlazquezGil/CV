@@ -229,25 +229,40 @@ export default function Home() {
           ════════════════════════════════════════════════════════════════════════ */}
       <section id="hero" className="relative w-full h-screen overflow-hidden">
 
-        {/* Vídeo de fondo a pantalla completa — sin bordes redondeados ni margen */}
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          controls          // Muestra los controles nativos del navegador
-          preload="metadata" // Carga solo los metadatos al inicio (más rápido)
-          poster="/assets/project-saas.png" // Imagen de portada mientras carga el vídeo
-          playsInline        // Necesario en iOS para evitar que abra pantalla completa
-        >
-          {/*
-            CAMBIA AQUÍ EL VÍDEO:
-            - URL externa (Vimeo, S3, etc.): pon la URL directa al .mp4
-            - Archivo local: sube tu .mp4 a /public/assets/ y escribe src="/assets/tu-video.mp4"
-          */}
-          <source
-            src="https://vimeo.com/1220785662?share=copy&fl=sv&fe=ci"
-            type="video/mp4"
-          />
-          Tu navegador no soporta reproducción de video.
-        </video>
+        {/* Iframe del player de Vimeo — ocupa todo el hero a pantalla completa.
+            El truco de escalado (padding-top 56.25% + scale) garantiza que el vídeo
+            cubra el ancho completo sin franjas negras independientemente del ratio. */}
+        <div className="absolute inset-0 w-full h-full overflow-hidden bg-black">
+          {/* Contenedor con ratio 16:9 sobredimensionado para cubrir toda la pantalla */}
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              /* Mínimo: ancho = 100vw, alto proporcional; o alto = 100vh, ancho proporcional */
+              width: "calc(100vh * 16 / 9)",
+              height: "calc(100vw * 9 / 16)",
+              minWidth: "100%",
+              minHeight: "100%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <iframe
+              src="https://player.vimeo.com/video/1220785662?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                border: 0,
+              }}
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+              referrerPolicy="strict-origin-when-cross-origin"
+              title="Vídeo CV"
+            />
+          </div>
+        </div>
 
         {/* Indicador de scroll: posicionado en la parte inferior central sobre el vídeo.
             Pulsa suavemente hacia abajo para indicar que hay más contenido.
