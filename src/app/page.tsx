@@ -282,7 +282,7 @@ export default function Home() {
 
           El indicador de scroll (flecha) está posicionado en absolute sobre el vídeo.
           ════════════════════════════════════════════════════════════════════════ */}
-      <section id="hero" className="relative w-full h-screen overflow-hidden">
+      <section id="hero" className="relative w-full h-[56.25vw] lg:h-screen overflow-hidden">
 
         {/* Iframe del player de Vimeo — ocupa todo el hero a pantalla completa.
             background=1 oculta la interfaz de Vimeo; los controles los gestionamos
@@ -292,16 +292,17 @@ export default function Home() {
           onMouseEnter={() => setHeroHovered(true)}
           onMouseLeave={() => setHeroHovered(false)}
         >
-          {/* Contenedor 16:9 sobredimensionado para cubrir toda la pantalla sin franjas */}
+          {/* Contenedor que cubre toda la sección sin franjas negras.
+              max(): elige el mayor entre el 100% del contenedor y el tamaño proporcional al otro eje.
+              En móvil portrait (h=[56.25vw]) el vídeo es exactamente 100% × 100%.
+              En desktop landscape el vídeo se sobredimensiona para cubrir 100vh. */}
           <div
             style={{
               position: "absolute",
               top: "50%",
               left: "50%",
-              width: "calc(100vh * 16 / 9)",
-              height: "calc(100vw * 9 / 16)",
-              minWidth: "100%",
-              minHeight: "100%",
+              width: "max(100%, calc(100vh * 16 / 9))",
+              height: "max(100%, calc(100vw * 9 / 16))",
               transform: "translate(-50%, -50%)",
             }}
           >
@@ -372,27 +373,29 @@ export default function Home() {
         
         {/* ════════════════════════════════════════════════════════════════════
             SECCIÓN 2: SOBRE MÍ
-            Diseño de dos columnas: foto a la izquierda, texto a la derecha.
-            En móvil (menos de md = 768px) se apila en una sola columna.
+            Diseño de dos columnas: izquierda (foto + botón + soft skills),
+            derecha (perfil profesional).
+            En móvil se apila en una sola columna.
             "reveal-entry" activa la animación de entrada al hacer scroll.
             ════════════════════════════════════════════════════════════════════ */}
-        <section id="about" className="reveal-entry grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+        <section id="about" className="reveal-entry grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
-          {/* ── Columna 1 (Izquierda): Foto de perfil y botón de descarga ──────────
-              lg:col-span-3 = ocupa 3 de 12 columnas en pantallas grandes. */}
-          <div className="lg:col-span-3 flex flex-col items-center space-y-5">
+          {/* ── Columna izquierda: Foto, botón de descarga y soft skills ─────────
+              lg:col-span-4 = ocupa 4 de 12 columnas en pantallas grandes. */}
+          <div className="lg:col-span-4 flex flex-col items-center space-y-5">
+            {/* Foto de perfil */}
             <div className="relative w-48 sm:w-56 lg:w-full aspect-[3/4] rounded-2xl overflow-hidden border border-[#2C5E43]/10 shadow-lg group">
               <Image
                 src="https://thundershoot.com/wp-content/uploads/2025/03/Pablo-Equipo-1-scaled.jpg"
                 alt="Pablo Blázquez Gil"
-                fill                  // fill: la imagen ocupa todo el contenedor (requiere position:relative en el padre)
-                sizes="(max-width: 1024px) 224px, 260px" // sizes: ayuda al navegador a elegir la resolución óptima
+                fill
+                sizes="(max-width: 1024px) 224px, 320px"
                 className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                priority // priority: carga esta imagen antes que las demás (mejora el LCP/rendimiento)
+                priority
               />
             </div>
 
-            {/* Botón de descarga del CV debajo de la foto */}
+            {/* Botón de descarga del CV */}
             <div className="w-full flex justify-center">
               <a
                 href="https://thundershoot.com/wp-content/uploads/2026/08/CV_Pablo_Blazquez_Gil.pdf"
@@ -405,59 +408,11 @@ export default function Home() {
                 <span>Descargar CV (PDF)</span>
               </a>
             </div>
-          </div>
 
-          {/* ── Columna 2 (Centro): Trayectoria y Visión Creativa ────────────────
-              lg:col-span-5 = ocupa 5 de 12 columnas. */}
-          <div className="lg:col-span-5 space-y-5">
-            <div className="space-y-1.5">
-              <span className="text-xs uppercase tracking-[0.2em] text-[#2C5E43] font-semibold">Perfil Profesional</span>
-              <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-[#1E2D24] leading-tight">
-                Trayectoria y Visión Creativa
-              </h2>
-            </div>
-
-            <div className="space-y-4 text-[#53645A] text-sm md:text-base font-light leading-relaxed">
-              <p>
-                Bioquímico y Comunicador Audiovisual apasionado por la divulgación científica, la sostenibilidad y la narrativa visual. Mi trayectoria combina el rigor científico —con experiencia investigadora en el Centro de Astrobiología (CSIC-INTA)— con la producción audiovisual, la creación de contenidos en redes sociales y la docencia.
-              </p>
-              <p>
-                He participado activamente en proyectos europeos enfocados en emprendimiento, conservación e impacto socioeconómico y ambiental. Actualmente dirijo y produzco mi primer proyecto documental, aplicando visión estratégica, paciencia y narrativa visual para conectar a la sociedad con la ciencia y la naturaleza. Destaco por mi resiliencia, mi capacidad de adaptación tras superar diversos retos personales y un firme compromiso por construir soluciones sostenibles a través del trabajo en equipo.
-              </p>
-            </div>
-          </div>
-
-          {/* ── Columna 3 (Derecha): Competencias Técnicas y Habilidades Blandas ──
-              lg:col-span-4 = ocupa 4 de 12 columnas. */}
-          <div className="lg:col-span-4 space-y-5">
-            {/* Hard Skills */}
-            <div className="space-y-2.5">
+            {/* Soft Skills debajo del botón */}
+            <div className="w-full space-y-2.5 pt-1">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">
-                Competencias Técnicas (Hard Skills)
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
-                  Bioquímica y cultura científica
-                </span>
-                <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
-                  Producción audiovisual, fotografía, vídeo y narrativa documental
-                </span>
-                <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
-                  Divulgación científica y creación de contenido para RRSS
-                </span>
-                <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
-                  Gestión de proyectos (Proyectos Europeos / Emprendimiento)
-                </span>
-                <span className="px-3 py-1.5 bg-white border border-[#E2ECE5] rounded-lg text-xs text-[#3E4E44] shadow-xs">
-                  Docencia y formación
-                </span>
-              </div>
-            </div>
-
-            {/* Soft Skills */}
-            <div className="space-y-2.5 pt-1">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">
-                Habilidades Blandas (Soft Skills)
+                Habilidades
               </h3>
               <div className="flex flex-wrap gap-2">
                 <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
@@ -475,6 +430,27 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          {/* ── Columna derecha: Perfil profesional ──────────────────────────────
+              lg:col-span-8 = ocupa 8 de 12 columnas. */}
+          <div className="lg:col-span-8 space-y-5">
+            <div className="space-y-1.5">
+              <span className="text-xs uppercase tracking-[0.2em] text-[#2C5E43] font-semibold">Perfil Profesional</span>
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-[#1E2D24] leading-tight">
+                Trayectoria y Visión Creativa
+              </h2>
+            </div>
+
+            <div className="space-y-4 text-[#53645A] text-sm md:text-base font-light leading-relaxed">
+              <p>
+                Bioquímico y Comunicador Audiovisual apasionado por la divulgación científica, la sostenibilidad y la narrativa visual. Mi trayectoria combina el rigor científico —con experiencia investigadora en el Centro de Astrobiología (CSIC-INTA)— con la producción audiovisual, la creación de contenidos en redes sociales y la docencia.
+              </p>
+              <p>
+                He participado activamente en proyectos europeos enfocados en emprendimiento, conservación e impacto socioeconómico y ambiental. Actualmente dirijo y produzco mi primer proyecto documental, aplicando visión estratégica, paciencia y narrativa visual para conectar a la sociedad con la ciencia y la naturaleza. Destaco por mi resiliencia, mi capacidad de adaptación tras superar diversos retos personales y un firme compromiso por construir soluciones sostenibles a través del trabajo en equipo.
+              </p>
+            </div>
+          </div>
+
         </section>
 
         {/* ════════════════════════════════════════════════════════════════════

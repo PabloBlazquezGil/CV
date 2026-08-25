@@ -37,8 +37,8 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 // Para añadir más metadatos (og:image, Twitter cards, etc.) consulta:
 // https://nextjs.org/docs/app/api-reference/functions/generate-metadata
 export const metadata: Metadata = {
-  title: "Pablo Blázquez Gil | Senior UI/UX Designer & Frontend Developer",
-  description: "Presentación profesional y portafolio de Pablo Blázquez Gil. Especialista en diseño UI/UX y desarrollo frontend.",
+  title: "Pablo Blázquez Gil",
+  description: "Bioquímico y Comunicador Audiovisual apasionado por la divulgación científica, la sostenibilidad y la narrativa visual. Con experiencia investigadora en el Centro de Astrobiología (CSIC-INTA), producción audiovisual, proyectos europeos y dirección de su primer documental.",
 };
 
 // ── COMPONENTE RootLayout ──────────────────────────────────────────────────────
