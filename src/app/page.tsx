@@ -48,6 +48,7 @@ export default function Home() {
   const [heroMuted, setHeroMuted] = useState(true);    // Empieza silenciado para permitir autoplay
   const [heroPlaying, setHeroPlaying] = useState(true); // Empieza reproduciendo
   const [heroHovered, setHeroHovered] = useState(false); // Controla visibilidad de los controles
+  const [isTouchDevice, setIsTouchDevice] = useState(false); // true en móvil/tablet
   const iframeRef = useRef<HTMLIFrameElement>(null);     // Referencia al iframe de Vimeo
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const vimeoPlayerRef = useRef<any>(null);              // Instancia de Vimeo.Player
@@ -78,6 +79,9 @@ export default function Home() {
   useEffect(() => {
     // 1. Año dinámico para el footer
     setCurrentYear(new Date().getFullYear());
+
+    // 1b. Detectar dispositivo táctil (móvil/tablet) para mostrar controles siempre visibles
+    setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
 
     // 2. Listener de scroll para el efecto del header
     // Cuando el usuario baja más de 20px, activamos el estado "scrolled".
@@ -323,35 +327,48 @@ export default function Home() {
             />
           </div>
 
-          {/* ── Controles minimalistas — visibles solo al hacer hover ──────────────
-              transition-opacity: aparecen/desaparecen suavemente en 300 ms.
-              pointer-events: solo activos cuando son visibles (evita clics fantasma). */}
-          <div
-            className="absolute bottom-8 right-6 flex items-center gap-2 transition-opacity duration-300"
-            style={{ opacity: heroHovered ? 1 : 0, pointerEvents: heroHovered ? "auto" : "none" }}
-          >
-            {/* Botón Play / Pausa */}
-            <button
-              onClick={togglePlay}
-              className="w-9 h-9 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white hover:bg-black/60 transition-all duration-200 hover:scale-110"
-              title={heroPlaying ? "Pausar" : "Reproducir"}
-            >
-              {heroPlaying
-                ? <Pause className="w-3.5 h-3.5 fill-white" />
-                : <Play className="w-3.5 h-3.5 fill-white ml-0.5" />}
-            </button>
+          {/* ── Controles de vídeo ──────────────────────────────────────────────────────
+              En dispositivos táctiles (móvil/tablet): siempre visibles, tamaño generoso.
+              En escritorio: aparecen al hacer hover, tamaño compacto.
+              controlsVisible = true si hay hover en desktop O si es dispositivo táctil. */}
+          {(() => {
+            const controlsVisible = heroHovered || isTouchDevice;
+            return (
+              <div
+                className="absolute bottom-4 right-4 flex items-center gap-2 transition-opacity duration-300"
+                style={{ opacity: controlsVisible ? 1 : 0, pointerEvents: controlsVisible ? "auto" : "none" }}
+              >
+                {/* Botón Play / Pausa */}
+                <button
+                  onClick={togglePlay}
+                  className="w-10 h-10 lg:w-9 lg:h-9 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/25 text-white hover:bg-black/70 active:scale-95 transition-all duration-200"
+                  title={heroPlaying ? "Pausar" : "Reproducir"}
+                >
+                  {heroPlaying
+                    ? <Pause className="w-4 h-4 lg:w-3.5 lg:h-3.5 fill-white" />
+                    : <Play className="w-4 h-4 lg:w-3.5 lg:h-3.5 fill-white ml-0.5" />}
+                </button>
 
-            {/* Botón Mute / Sonido */}
-            <button
-              onClick={toggleMute}
-              className="w-9 h-9 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white hover:bg-black/60 transition-all duration-200 hover:scale-110"
-              title={heroMuted ? "Activar sonido" : "Silenciar"}
-            >
-              {heroMuted
-                ? <VolumeX className="w-3.5 h-3.5" />
-                : <Volume2 className="w-3.5 h-3.5" />}
-            </button>
-          </div>
+                {/* Botón Mute / Sonido */}
+                <button
+                  onClick={toggleMute}
+                  className="w-10 h-10 lg:w-9 lg:h-9 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/25 text-white hover:bg-black/70 active:scale-95 transition-all duration-200"
+                  title={heroMuted ? "Activar sonido" : "Silenciar"}
+                >
+                  {heroMuted
+                    ? <VolumeX className="w-4 h-4 lg:w-3.5 lg:h-3.5" />
+                    : <Volume2 className="w-4 h-4 lg:w-3.5 lg:h-3.5" />}
+                </button>
+
+                {/* Etiqueta únicamente visible en móvil mientras el audio está silenciado */}
+                {isTouchDevice && heroMuted && (
+                  <span className="text-[10px] text-white/70 font-light tracking-wide">
+                    Toca 🔊 para activar sonido
+                  </span>
+                )}
+              </div>
+            );
+          })()}
         </div>
 
         {/* Indicador de scroll: posicionado en la parte inferior central sobre el vídeo.
