@@ -25,7 +25,8 @@ import { Download, ChevronDown, Mail, X, Play, Pause, Volume2, VolumeX } from "l
 // Si quieres añadir más proyectos, cada uno debe tener estas propiedades.
 interface GalleryItem {
   type: "image" | "video"; // Tipo de media: imagen o vídeo
-  src: string;             // Ruta del archivo (o URL de video/imagen)
+  src: string;             // Ruta principal (portada/thumbnail del vídeo)
+  srcs?: string[];         // Vídeos adicionales (para mostrar varios en el lightbox)
   thumbnail?: string;      // Imagen de portada opcional (útil para videos)
   title: string;           // Título del proyecto
   desc: string;            // Descripción corta
@@ -60,12 +61,14 @@ export default function Home() {
     isOpen: boolean;
     type: "image" | "video";
     src: string;
+    srcs?: string[];   // Fuentes adicionales (para proyectos con múltiples vídeos)
     title: string;
     desc: string;
   }>({
     isOpen: false,
     type: "image",
     src: "",
+    srcs: undefined,
     title: "",
     desc: "",
   });
@@ -186,17 +189,16 @@ export default function Home() {
     },
     {
       type: "video",
+      // src actúa de portada/thumbnail en la tarjeta (primer vídeo)
       src: "https://thundershoot.com/wp-content/uploads/2026/06/Short-Film-San-Lorenzo-1.mp4",
-      title: "Short Film San Lorenzo",
+      // srcs contiene todos los vídeos que se mostrarán en el lightbox
+      srcs: [
+        "https://thundershoot.com/wp-content/uploads/2026/06/Short-Film-San-Lorenzo-1.mp4",
+        "https://thundershoot.com/wp-content/uploads/2026/06/SHORT-FILM-CASA-BEATNIK-1080.mp4",
+      ],
+      title: "Shorts para Floristerías — San Lorenzo & Casa Beatnik",
       category: "Contenido para Redes Sociales & Videografía",
-      desc: "Vídeo para redes sociales realizado junto a otro videógrafo para la floristería San Lorenzo. Producción integral: concepto, rodaje y edición orientados a maximizar el impacto en plataformas digitales.",
-    },
-    {
-      type: "video",
-      src: "https://thundershoot.com/wp-content/uploads/2026/06/SHORT-FILM-CASA-BEATNIK-1080.mp4",
-      title: "Short Film Casa Beatnik",
-      category: "Contenido para Redes Sociales & Videografía",
-      desc: "Vídeo para redes sociales de la floristería Casa Beatnik, realizado en colaboración con otro videógrafo. Pieza audiovisual que combina estética y narrativa visual para conectar con la audiencia en redes.",
+      desc: "Dos vídeos para redes sociales realizados junto a otro videógrafo para las floristerías San Lorenzo y Casa Beatnik. Producción integral: concepto, rodaje y edición orientados a maximizar el impacto en plataformas digitales.",
     },
     // ── AÑADE AQUÍ MÁS PROYECTOS con el mismo formato ──
     // {
@@ -216,6 +218,7 @@ export default function Home() {
       isOpen: true,
       type: item.type,
       src: item.src,
+      srcs: item.srcs,   // Pasa las fuentes adicionales si las hay
       title: item.title,
       desc: item.desc,
     });
@@ -636,24 +639,38 @@ export default function Home() {
             className="w-full max-w-4xl flex flex-col space-y-4 cursor-default animate-zoom-in"
             onClick={(e) => e.stopPropagation()} // Evita cerrar el modal al clicar en el contenido
           >
-            {/* Imagen o vídeo del proyecto ampliado */}
-            <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-white border border-[#E2ECE5] shadow-2xl">
-              {lightbox.type === "image" ? (
-                // fill: la imagen ocupa todo el contenedor padre (que tiene position: relative)
+            {/* Imagen o vídeo/s del proyecto ampliado */}
+            {lightbox.type === "image" ? (
+              // ── Imagen: ocupa todo el ancho ─────────────────────────────────
+              <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-white border border-[#E2ECE5] shadow-2xl">
                 <Image
                   src={lightbox.src}
                   alt={lightbox.title}
                   fill
                   className="object-contain"
                 />
-              ) : (
-                // Para vídeos: se reproduce automáticamente al abrir el lightbox
+              </div>
+            ) : lightbox.srcs && lightbox.srcs.length > 1 ? (
+              // ── Múltiples vídeos: grid de dos columnas (una fila por vídeo en móvil) ──
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                {lightbox.srcs.map((videoSrc, i) => (
+                  <div key={i} className="rounded-2xl overflow-hidden bg-black border border-[#E2ECE5] shadow-2xl">
+                    <video className="w-full h-full object-contain" controls autoPlay={i === 0} muted={i !== 0}>
+                      <source src={videoSrc} type="video/mp4" />
+                      Tu navegador no soporta la reproducción de video.
+                    </video>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              // ── Vídeo único ─────────────────────────────────────────────────
+              <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black border border-[#E2ECE5] shadow-2xl">
                 <video className="w-full h-full object-contain" controls autoPlay>
                   <source src={lightbox.src} type="video/mp4" />
                   Tu navegador no soporta la reproducción de video.
                 </video>
-              )}
-            </div>
+              </div>
+            )}
 
             {/* Ficha informativa del proyecto: título y descripción */}
             <div className="space-y-1.5 px-4 py-3 bg-[#FAF8F5] border border-[#E2ECE5] rounded-xl">
