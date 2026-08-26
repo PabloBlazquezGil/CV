@@ -196,9 +196,9 @@ export default function Home() {
         "https://thundershoot.com/wp-content/uploads/2026/06/Short-Film-San-Lorenzo-1.mp4",
         "https://thundershoot.com/wp-content/uploads/2026/06/SHORT-FILM-CASA-BEATNIK-1080.mp4",
       ],
-      title: "Shorts para Floristerías — San Lorenzo & Casa Beatnik",
+      title: "Shorts para Floristería — San Lorenzo & Casa Beatnik",
       category: "Contenido para Redes Sociales & Videografía",
-      desc: "Dos vídeos para redes sociales realizados junto a otro videógrafo para las floristerías San Lorenzo y Casa Beatnik. Producción integral: concepto, rodaje y edición orientados a maximizar el impacto en plataformas digitales.",
+      desc: "Dos vídeos para redes sociales realizados junto a otro videógrafo para las floristería en su trabajo en San Lorenzo y Casa Beatnik. Producción integral: concepto, rodaje y edición orientados a maximizar el impacto en plataformas digitales.",
     },
     // ── AÑADE AQUÍ MÁS PROYECTOS con el mismo formato ──
     // {
