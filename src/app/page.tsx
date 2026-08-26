@@ -185,18 +185,18 @@ export default function Home() {
       desc: "Campaña audiovisual realizada para el Centro de Astrobiología (CAB, CSIC-INTA) con motivo del 11 de febrero, visibilizando y conmemorando el papel de las investigadoras y tecnólogas en la astrobiología y la exploración espacial.",
     },
     {
-      type: "image",
-      src: "/assets/project-saas.png",       // Imagen en public/assets/project-saas.png
-      title: "Interfaz SaaS Analítica",
-      category: "UI/UX & React Frontend",
-      desc: "Diseño y modelado de un panel de analíticas empresariales de alta densidad de datos, enfocado en legibilidad visual y experiencia de usuario optimizada.",
+      type: "video",
+      src: "https://thundershoot.com/wp-content/uploads/2026/06/Short-Film-San-Lorenzo-1.mp4",
+      title: "Short Film San Lorenzo",
+      category: "Contenido para Redes Sociales & Videografía",
+      desc: "Vídeo para redes sociales realizado junto a otro videógrafo para la floristería San Lorenzo. Producción integral: concepto, rodaje y edición orientados a maximizar el impacto en plataformas digitales.",
     },
     {
-      type: "image",
-      src: "/assets/project-mobile.png",      // Imagen en public/assets/project-mobile.png
-      title: "Fintech Mobile App Design",
-      category: "Mobile UI/UX Architecture",
-      desc: "Estructura de interfaz minimalista para operaciones financieras móviles. Enfoque en la accesibilidad de transacciones rápidas y flujos limpios.",
+      type: "video",
+      src: "https://thundershoot.com/wp-content/uploads/2026/06/SHORT-FILM-CASA-BEATNIK-1080.mp4",
+      title: "Short Film Casa Beatnik",
+      category: "Contenido para Redes Sociales & Videografía",
+      desc: "Vídeo para redes sociales de la floristería Casa Beatnik, realizado en colaboración con otro videógrafo. Pieza audiovisual que combina estética y narrativa visual para conectar con la audiencia en redes.",
     },
     // ── AÑADE AQUÍ MÁS PROYECTOS con el mismo formato ──
     // {
