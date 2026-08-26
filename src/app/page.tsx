@@ -198,7 +198,7 @@ export default function Home() {
       ],
       title: "Shorts para Floristería — San Lorenzo & Casa Beatnik",
       category: "Contenido para Redes Sociales & Videografía",
-      desc: "Dos vídeos para redes sociales realizados junto a otro videógrafo para las floristería en su trabajo en San Lorenzo y Casa Beatnik. Producción integral: concepto, rodaje y edición orientados a maximizar el impacto en plataformas digitales.",
+      desc: "Dos vídeos para redes sociales realizados junto a otro videógrafo para la floristería en su trabajo en San Lorenzo y Casa Beatnik. Producción integral: concepto, rodaje y edición orientados a maximizar el impacto en plataformas digitales.",
     },
     // ── AÑADE AQUÍ MÁS PROYECTOS con el mismo formato ──
     // {
