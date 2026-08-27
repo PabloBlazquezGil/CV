@@ -398,9 +398,12 @@ export default function Home() {
             En móvil se apila en una sola columna.
             "reveal-entry" activa la animación de entrada al hacer scroll.
             ════════════════════════════════════════════════════════════════════ */}
-        <section id="about" className="reveal-entry grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        <section id="about" className="reveal-entry space-y-8">
 
-          {/* ── Columna izquierda: Foto, botón de descarga y soft skills ─────────
+          {/* ── Fila superior: dos columnas (foto+botón | perfil profesional) ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+
+          {/* ── Columna izquierda: Foto y botón de descarga ─────────────────────
               lg:col-span-4 = ocupa 4 de 12 columnas en pantallas grandes. */}
           <div className="lg:col-span-4 flex flex-col items-center space-y-5">
             {/* Foto de perfil */}
@@ -429,26 +432,6 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Soft Skills debajo del botón */}
-            <div className="w-full space-y-2.5 pt-1">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">
-                Habilidades
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
-                  <strong className="font-medium">Resiliencia y adaptación:</strong> Aprendizaje frente a obstáculos
-                </span>
-                <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
-                  <strong className="font-medium">Visión estratégica y narrativa:</strong> Gestión integral a largo plazo
-                </span>
-                <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
-                  <strong className="font-medium">Compromiso socioambiental:</strong> Sostenibilidad y conservación
-                </span>
-                <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
-                  <strong className="font-medium">Trabajo en equipo</strong> y liderazgo colaborativo
-                </span>
-              </div>
-            </div>
           </div>
 
           {/* ── Columna derecha: Perfil profesional ──────────────────────────────
@@ -468,6 +451,29 @@ export default function Home() {
               <p>
                 He participado activamente en proyectos europeos enfocados en emprendimiento, conservación e impacto socioeconómico y ambiental. Actualmente dirijo y produzco mi primer proyecto documental, aplicando visión estratégica, paciencia y narrativa visual para conectar a la sociedad con la ciencia y la naturaleza. Destaco por mi resiliencia, mi capacidad de adaptación tras superar diversos retos personales y un firme compromiso por construir soluciones sostenibles a través del trabajo en equipo.
               </p>
+            </div>
+          </div>
+
+          </div>{/* fin grid dos columnas */}
+
+          {/* ── Fila de habilidades: ancho completo, debajo de ambas columnas ── */}
+          <div className="w-full space-y-2.5">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">
+              Habilidades
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
+                <strong className="font-medium">Resiliencia y adaptación:</strong> Aprendizaje frente a obstáculos
+              </span>
+              <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
+                <strong className="font-medium">Visión estratégica y narrativa:</strong> Gestión integral a largo plazo
+              </span>
+              <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
+                <strong className="font-medium">Compromiso socioambiental:</strong> Sostenibilidad y conservación
+              </span>
+              <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
+                <strong className="font-medium">Trabajo en equipo</strong> y liderazgo colaborativo
+              </span>
             </div>
           </div>
 
