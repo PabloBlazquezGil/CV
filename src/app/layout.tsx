@@ -37,8 +37,35 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 // Para añadir más metadatos (og:image, Twitter cards, etc.) consulta:
 // https://nextjs.org/docs/app/api-reference/functions/generate-metadata
 export const metadata: Metadata = {
-  title: "Pablo Blázquez Gil",
-  description: "Bioquímico y Comunicador Audiovisual apasionado por la divulgación científica, la sostenibilidad y la narrativa visual. Con experiencia investigadora en el Centro de Astrobiología (CSIC-INTA), producción audiovisual, proyectos europeos y dirección de su primer documental.",
+  // metadataBase: dominio público, necesario para que las imágenes de vista
+  // previa (Open Graph) tengan URL absoluta al compartir el enlace.
+  metadataBase: new URL("https://pabloblazquezgilcv.vercel.app"),
+  title: "Pablo Blázquez Gil · Comunicador científico y audiovisual",
+  description:
+    "Bioquímico con Máster en Neurociencias. Comunicación científica, divulgación, producción audiovisual y gestión de proyectos. Coordinó la comunicación del Centro de Astrobiología (CSIC-INTA). Galicia, disponible desde febrero de 2027.",
+  // Vista previa al compartir el enlace en LinkedIn, WhatsApp, email…
+  openGraph: {
+    type: "profile",
+    locale: "es_ES",
+    alternateLocale: ["gl_ES"],
+    url: "/",
+    siteName: "Pablo Blázquez Gil",
+    title: "Pablo Blázquez Gil · Comunicador científico y audiovisual",
+    description:
+      "Comunicación científica, divulgación, producción audiovisual y gestión de proyectos en Galicia.",
+    images: [
+      {
+        url: "https://thundershoot.com/wp-content/uploads/2025/03/Pablo-Equipo-1-scaled.jpg",
+        alt: "Pablo Blázquez Gil",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pablo Blázquez Gil · Comunicador científico y audiovisual",
+    description:
+      "Comunicación científica, divulgación, producción audiovisual y gestión de proyectos en Galicia.",
+  },
 };
 
 // ── COMPONENTE RootLayout ──────────────────────────────────────────────────────

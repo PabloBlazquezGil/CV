@@ -1,0 +1,140 @@
+{
+  "idioma": "gl",
+  "nombre": "Pablo Blázquez Gil",
+  "titular": "Comunicador científico e audiovisual · Xestión de proxectos",
+  "contacto": {
+    "ubicacion": "Pontecesures (Pontevedra)",
+    "telefono": "+34 608 720 216",
+    "email": "pabloblazquezgil@gmail.com",
+    "linkedin": "linkedin.com/in/pabloblazquezgil",
+    "portfolio": "pabloblazquezgil.vercel.app"
+  },
+  "disponibilidad": "Dispoñible desde febreiro de 2027 · Remoto, híbrido ou presencial en Santiago, Rías Baixas, Vigo e A Coruña",
+  "etiquetas": {
+    "perfil": "Perfil",
+    "clave": "Competencias clave",
+    "experiencia": "Experiencia profesional",
+    "formacion": "Formación académica",
+    "premios": "Premios e programas",
+    "cursos": "Formación complementaria",
+    "competencias": "Competencias técnicas",
+    "idiomas": "Idiomas",
+    "otros": "Outros datos",
+    "trabajos": "Traballos audiovisuais seleccionados"
+  },
+  "perfil": "Bioquímico con Mestrado en Neurociencias (Matrícula de Honra no TFM) especializado en comunicación científica, produción audiovisual e coordinación de proxectos. Dous anos coordinando a comunicación e a divulgación do Centro de Astrobioloxía (CSIC-INTA), fundador da asociación de divulgación ANOVAciencia e coordinador de proxectos educativos STEAM. Agora en Berlín, producindo vídeo para redes e YouTube e aplicando intelixencia artificial á creación de contido. Quero unir rigor científico e narrativa audiovisual ao servizo da innovación e da sustentabilidade en Galicia.",
+  "clave": ["Comunicación científica", "Divulgación", "Produción e edición de vídeo", "Xestión de redes sociais", "Xestión de proxectos", "Proxectos europeos", "Organización de eventos", "SEO e contidos dixitais", "IA aplicada a contidos", "Educación STEAM"],
+  "orden": ["martina", "docu", "vermis", "cab", "anova", "usc", "uex"],
+  "experiencia": {
+    "martina": {
+      "cargo": "Comunicador audiovisual (Erasmus para Mozos Emprendedores)",
+      "entidad": "Martina Flor Studio, axencia de deseño gráfico",
+      "lugar": "Berlín (Alemaña)",
+      "fechas": "10/2026 – 01/2027",
+      "puntos": [
+        "Gravación e edición de vídeo para redes sociais e YouTube.",
+        "Investigación e implantación de ferramentas de intelixencia artificial para a creación de vídeo e a xestión de contido en redes sociais.",
+        "Traballo diario en inglés nun equipo creativo internacional."
+      ]
+    },
+    "docu": {
+      "cargo": "Codirector e produtor",
+      "entidad": "Docu Galicia, episodio piloto de serie documental",
+      "lugar": "Galicia",
+      "fechas": "02/2026 – 06/2026",
+      "puntos": [
+        "Desenvolvemento, produción e rodaxe do episodio piloto dunha serie documental sobre Galicia, xunto a un realizador.",
+        "Proxecto actualmente en fase de montaxe."
+      ]
+    },
+    "vermis": {
+      "cargo": "Coordinador de proxectos educativos e divulgador científico",
+      "entidad": "VermisLAB",
+      "lugar": "Santiago de Compostela",
+      "fechas": "07/2025 – 01/2026",
+      "puntos": [
+        "Coordinación de proxectos educativos para fomentar vocacións científicas e dun equipo multidisciplinar, con seguimento do cronograma.",
+        "Deseño e impartición de obradoiros STEAM (bioloxía, física, química, robótica, programación, impresión 3D e electrónica) adaptados a cada idade.",
+        "Metodoloxías maker, design thinking e aprendizaxe experiencial; acompañamento de proxectos e prototipos do alumnado."
+      ]
+    },
+    "cab": {
+      "cargo": "Coordinador de Comunicación e Divulgación Científica",
+      "entidad": "Centro de Astrobioloxía (CSIC-INTA)",
+      "lugar": "Torrejón de Ardoz (Madrid)",
+      "fechas": "03/2023 – 03/2025",
+      "puntos": [
+        "Deseño e implementación de estratexias de comunicación para proxectos científicos.",
+        "Produción de vídeo, deseño gráfico e xestión de redes sociais; campañas SEO e narrativa para medios dixitais.",
+        "Organización de eventos científicos e institucionais (PhDays, Día Internacional da Muller e a Nena na Ciencia) e participación en congresos internacionais.",
+        "Coordinación con investigadores e equipos de comunicación para achegar descubrimentos ao público xeral."
+      ]
+    },
+    "anova": {
+      "cargo": "Fundador e responsable de contidos",
+      "entidad": "ANOVAciencia, asociación de divulgación científica",
+      "lugar": "Santiago de Compostela",
+      "fechas": "2023 – 08/2025",
+      "puntos": [
+        "Creación e xestión de contido divulgativo en YouTube e redes sociais: vídeos educativos e documentais científicos.",
+        "Entrevistas a investigadores, entre eles científicos da NASA e expertos en química prebiótica.",
+        "Obradoiros e eventos de divulgación para público xeral e escolares; colaboracións con entidades científicas e culturais."
+      ]
+    },
+    "usc": {
+      "cargo": "Asistente de investigación en Neurociencias",
+      "entidad": "Universidade de Santiago de Compostela, grupo BioFarma",
+      "lugar": "Santiago de Compostela",
+      "fechas": "09/2020 – 06/2021",
+      "puntos": [
+        "Deseño e avaliación de fármacos fronte a proteínas clave na esquizofrenia mediante técnicas bioquímicas e biofísicas; análise estatística de datos."
+      ]
+    },
+    "uex": {
+      "cargo": "Asistente de investigación en Microbioloxía",
+      "entidad": "Universidad de Extremadura",
+      "lugar": "Cáceres",
+      "fechas": "03/2019 – 06/2020",
+      "puntos": [
+        "Caracterización de bacterias multirresistentes e ensaios de sensibilidade a antibióticos; análise de datos e informes técnicos."
+      ]
+    }
+  },
+  "formacion": [
+    { "titulo": "Mestrado en Neurociencias", "entidad": "Universidade de Santiago de Compostela", "fechas": "2020 – 2021", "nota": "Matrícula de Honra no Traballo Fin de Mestrado" },
+    { "titulo": "Grao en Bioquímica", "entidad": "Universidad de Extremadura", "fechas": "2016 – 2020" }
+  ],
+  "premios": [
+    "1.º Premio a Iniciativa en Economía Azul, Local Creative Jam de ATLIC, programa Blue Leader (Vedra, 2025).",
+    "Premio Youth Summit de Nantes (Francia), programa ATLIC Blue Leader.",
+    "Santander X Explorer: programa de emprendemento e innovación (2024, 96 h).",
+    "Participación en proxectos europeos sobre emprendemento, conservación e impacto socioeconómico e ambiental."
+  ],
+  "cursos": [
+    "Creación, programación e deseño de páxinas web · Talentia Summit (2023, 210 h)",
+    "Creación e xestión de blogs e redes sociais · Talentia Summit (2023, 60 h)",
+    "Realización e edición de documentais · Domestika (2024, 40 h)",
+    "Community management · Talentia Summit (2023, 20 h)",
+    "Manipulación creativa con Photoshop · RBG Escuela (2024, 8 h)",
+    "Congresos: Galicia BioDays; II Congreso Internacional de Bioloxía Sintética, STEAM e Innovación Social (2023); II Encontro de Comunicación CSIC (2023)"
+  ],
+  "competencias": [
+    { "grupo": "Vídeo e deseño", "items": "Adobe Premiere Pro, After Effects, Photoshop, Lightroom, DaVinci Resolve (edición e cor), Blender (3D), Canva" },
+    { "grupo": "Foto e vídeo de campo", "items": "Fotografía de natureza, deportiva, retrato e eventos; gravación aérea con dron (licenza A1/A2/A3 e STS ES 01-02)" },
+    { "grupo": "Dixital", "items": "Redes sociais, YouTube, community management, SEO, WordPress, HTML, CSS, JavaScript" },
+    { "grupo": "Intelixencia artificial", "items": "Ferramentas de IA xenerativa para vídeo e automatización da xestión de contido en redes" },
+    { "grupo": "Xestión", "items": "Planificación de proxectos e cronogramas, coordinación de equipos multidisciplinares, Notion, Google Workspace" },
+    { "grupo": "Ciencia", "items": "Bioquímica, neurociencia, microbioloxía, análise estatística, redacción de informes técnicos" }
+  ],
+  "idiomas": [
+    "Galego: fluído",
+    "Castelán: nativo",
+    "Inglés: nivel profesional (B1 Cambridge certificado; uso diario en contorna laboral internacional)"
+  ],
+  "otros": [
+    "Carné de conducir B (coche) e A2 (moto).",
+    "Licenza de piloto de drons A1/A2/A3 e STS ES 01-02 (2024)."
+  ],
+  "trabajos": [],
+  "secciones": ["perfil", "clave", "experiencia", "formacion", "premios", "competencias", "cursos", "idiomas", "otros"]
+}
