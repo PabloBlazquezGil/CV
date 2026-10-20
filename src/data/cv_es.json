@@ -1,0 +1,196 @@
+{
+  "idioma": "es",
+  "nombre": "Pablo Blázquez Gil",
+  "titular": "Comunicador científico y audiovisual · Gestión de proyectos",
+  "contacto": {
+    "ubicacion": "Pontecesures (Pontevedra)",
+    "telefono": "+34 608 720 216",
+    "email": "pabloblazquezgil@gmail.com",
+    "linkedin": "linkedin.com/in/pabloblazquezgil",
+    "portfolio": "pabloblazquezgil.vercel.app"
+  },
+  "disponibilidad": "Disponible desde febrero de 2027 · Remoto, híbrido o presencial en Santiago, Rías Baixas, Vigo y A Coruña",
+  "etiquetas": {
+    "perfil": "Perfil",
+    "clave": "Competencias clave",
+    "experiencia": "Experiencia profesional",
+    "formacion": "Formación académica",
+    "premios": "Premios y programas",
+    "cursos": "Formación complementaria",
+    "competencias": "Competencias técnicas",
+    "idiomas": "Idiomas",
+    "otros": "Otros datos",
+    "trabajos": "Trabajos audiovisuales seleccionados"
+  },
+  "perfil": "Bioquímico con Máster en Neurociencias (Matrícula de Honor en el TFM) especializado en comunicación científica, producción audiovisual y coordinación de proyectos. Dos años coordinando la comunicación y la divulgación del Centro de Astrobiología (CSIC-INTA), fundador de la asociación de divulgación ANOVAciencia y coordinador de proyectos educativos STEAM. Actualmente en Berlín, produciendo vídeo para redes y YouTube y aplicando inteligencia artificial a la creación de contenido. Busco unir rigor científico y narrativa audiovisual al servicio de la innovación y la sostenibilidad en Galicia.",
+  "clave": [
+    "Comunicación científica",
+    "Divulgación",
+    "Producción y edición de vídeo",
+    "Gestión de redes sociales",
+    "Gestión de proyectos",
+    "Proyectos europeos",
+    "Organización de eventos",
+    "SEO y contenidos digitales",
+    "IA aplicada a contenidos",
+    "Educación STEAM"
+  ],
+  "orden": [
+    "martina",
+    "docu",
+    "vermis",
+    "cab",
+    "anova",
+    "usc",
+    "uex"
+  ],
+  "experiencia": {
+    "martina": {
+      "cargo": "Comunicador audiovisual (Erasmus para Jóvenes Emprendedores)",
+      "entidad": "Martina Flor Studio, agencia de diseño gráfico",
+      "lugar": "Berlín (Alemania)",
+      "fechas": "10/2026 – 01/2027",
+      "puntos": [
+        "Grabación y edición de vídeo para redes sociales y YouTube.",
+        "Investigación e implantación de herramientas de inteligencia artificial para la creación de vídeo y la gestión de contenido en redes sociales.",
+        "Trabajo diario en inglés en un equipo creativo internacional."
+      ]
+    },
+    "docu": {
+      "cargo": "Codirector y productor",
+      "entidad": "Docu Galicia, episodio piloto de serie documental",
+      "lugar": "Galicia",
+      "fechas": "02/2026 – 06/2026",
+      "puntos": [
+        "Desarrollo, producción y rodaje del episodio piloto de una serie documental sobre Galicia, junto a un realizador.",
+        "Proyecto actualmente en fase de montaje."
+      ]
+    },
+    "vermis": {
+      "cargo": "Coordinador de proyectos educativos y divulgador científico",
+      "entidad": "VermisLAB",
+      "lugar": "Santiago de Compostela",
+      "fechas": "07/2025 – 01/2026",
+      "puntos": [
+        "Coordinación de proyectos educativos para fomentar vocaciones científicas y de un equipo multidisciplinar, con seguimiento del cronograma.",
+        "Diseño e impartición de talleres STEAM (biología, física, química, robótica, programación, impresión 3D y electrónica) adaptados a cada edad.",
+        "Metodologías maker, design thinking y aprendizaje experiencial; acompañamiento de proyectos y prototipos del alumnado."
+      ]
+    },
+    "cab": {
+      "cargo": "Coordinador de Comunicación y Divulgación Científica",
+      "entidad": "Centro de Astrobiología (CSIC-INTA)",
+      "lugar": "Torrejón de Ardoz (Madrid)",
+      "fechas": "03/2023 – 03/2025",
+      "puntos": [
+        "Diseño e implementación de estrategias de comunicación para proyectos científicos.",
+        "Producción de vídeo, diseño gráfico y gestión de redes sociales; campañas SEO y narrativa para medios digitales.",
+        "Organización de eventos científicos e institucionales (PhDays, Día Internacional de la Mujer y la Niña en la Ciencia) y participación en congresos internacionales.",
+        "Coordinación con investigadores y equipos de comunicación para trasladar descubrimientos al público general."
+      ]
+    },
+    "anova": {
+      "cargo": "Fundador y responsable de contenidos",
+      "entidad": "ANOVAciencia, asociación de divulgación científica",
+      "lugar": "Santiago de Compostela",
+      "fechas": "2023 – 08/2025",
+      "puntos": [
+        "Creación y gestión de contenido divulgativo en YouTube y redes sociales: vídeos educativos y documentales científicos.",
+        "Entrevistas a investigadores, entre ellos científicos de la NASA y expertos en química prebiótica.",
+        "Talleres y eventos de divulgación para público general y escolares; colaboraciones con entidades científicas y culturales."
+      ]
+    },
+    "usc": {
+      "cargo": "Asistente de investigación en Neurociencias",
+      "entidad": "Universidade de Santiago de Compostela, grupo BioFarma",
+      "lugar": "Santiago de Compostela",
+      "fechas": "09/2020 – 06/2021",
+      "puntos": [
+        "Diseño y evaluación de fármacos frente a proteínas clave en esquizofrenia mediante técnicas bioquímicas y biofísicas; análisis estadístico de datos."
+      ]
+    },
+    "uex": {
+      "cargo": "Asistente de investigación en Microbiología",
+      "entidad": "Universidad de Extremadura",
+      "lugar": "Cáceres",
+      "fechas": "03/2019 – 06/2020",
+      "puntos": [
+        "Caracterización de bacterias multirresistentes y ensayos de sensibilidad a antibióticos; análisis de datos e informes técnicos."
+      ]
+    }
+  },
+  "formacion": [
+    {
+      "titulo": "Máster en Neurociencias",
+      "entidad": "Universidade de Santiago de Compostela",
+      "fechas": "2020 – 2021",
+      "nota": "Matrícula de Honor en el Trabajo Fin de Máster"
+    },
+    {
+      "titulo": "Grado en Bioquímica",
+      "entidad": "Universidad de Extremadura",
+      "fechas": "2016 – 2020"
+    }
+  ],
+  "premios": [
+    "1.er Premio a Iniciativa en Economía Azul, Local Creative Jam de ATLIC, programa Blue Leader (Vedra, 2025).",
+    "Premio Youth Summit de Nantes (Francia), programa ATLIC Blue Leader.",
+    "Santander X Explorer: programa de emprendimiento e innovación (2024, 96 h).",
+    "Participación en proyectos europeos sobre emprendimiento, conservación e impacto socioeconómico y ambiental."
+  ],
+  "cursos": [
+    "Creación, programación y diseño de páginas web · Talentia Summit (2023, 210 h)",
+    "Creación y gestión de blogs y redes sociales · Talentia Summit (2023, 60 h)",
+    "Realización y edición de documentales · Domestika (2024, 40 h)",
+    "Community management · Talentia Summit (2023, 20 h)",
+    "Manipulación creativa con Photoshop · RBG Escuela (2024, 8 h)",
+    "Congresos: Galicia BioDays; II Congreso Internacional de Biología Sintética, STEAM e Innovación Social (2023); II Encuentro de Comunicación CSIC (2023)"
+  ],
+  "competencias": [
+    {
+      "grupo": "Vídeo y diseño",
+      "items": "Adobe Premiere Pro, After Effects, Photoshop, Lightroom, DaVinci Resolve (edición y color), Blender (3D), Canva"
+    },
+    {
+      "grupo": "Foto y vídeo de campo",
+      "items": "Fotografía de naturaleza, deportiva, retrato y eventos; grabación aérea con dron (licencia A1/A2/A3 y STS ES 01-02)"
+    },
+    {
+      "grupo": "Digital",
+      "items": "Redes sociales, YouTube, community management, SEO, WordPress, HTML, CSS, JavaScript"
+    },
+    {
+      "grupo": "Inteligencia artificial",
+      "items": "Herramientas de IA generativa para vídeo y automatización de la gestión de contenido en redes"
+    },
+    {
+      "grupo": "Gestión",
+      "items": "Planificación de proyectos y cronogramas, coordinación de equipos multidisciplinares, Notion, Google Workspace"
+    },
+    {
+      "grupo": "Ciencia",
+      "items": "Bioquímica, neurociencia, microbiología, análisis estadístico, redacción de informes técnicos"
+    }
+  ],
+  "idiomas": [
+    "Castellano: nativo",
+    "Gallego: fluido",
+    "Inglés: nivel profesional (B1 Cambridge certificado; uso diario en entorno laboral internacional)"
+  ],
+  "otros": [
+    "Carné de conducir B (coche) y A2 (moto).",
+    "Licencia de piloto de drones A1/A2/A3 y STS ES 01-02 (2024)."
+  ],
+  "trabajos": [],
+  "secciones": [
+    "perfil",
+    "clave",
+    "experiencia",
+    "formacion",
+    "premios",
+    "competencias",
+    "cursos",
+    "idiomas",
+    "otros"
+  ]
+}

@@ -2,134 +2,114 @@
 // DIRECTIVA "use client"
 // Marca este archivo como Componente de Cliente (Client Component) de Next.js.
 // Es necesario porque usamos hooks de React (useState, useEffect) y eventos
-// del navegador (onClick, scroll). Sin esta directiva, Next.js intentaría
-// renderizar el componente en el servidor y fallaría al encontrar estos hooks.
+// del navegador (onClick, scroll, cambio de idioma).
 // ─────────────────────────────────────────────────────────────────────────────
 "use client";
 
-// ── IMPORTACIONES ────────────────────────────────────────────────────────────
-// useEffect: ejecuta código después de que el componente se monta en el DOM.
-// useState: guarda valores reactivos (si cambian, la página se re-renderiza).
 import { useEffect, useState, useRef } from "react";
-
-// Componente <Image> optimizado de Next.js. Sustituye a <img> normal y añade:
-// lazy-loading automático, formatos modernos (WebP/AVIF) y evita layout shift.
 import Image from "next/image";
+import {
+  Download, ChevronDown, Mail, X, Play, Pause, Volume2, VolumeX,
+  MapPin, CalendarCheck, GraduationCap, Award, Languages, Wrench, Clapperboard, ExternalLink,
+} from "lucide-react";
 
-// Iconos de la librería Lucide React.
-// Download → icono de descarga, ChevronDown → flecha abajo, Mail → sobre, X → cerrar, Play → reproducir vídeo.
-import { Download, ChevronDown, Mail, X, Play, Pause, Volume2, VolumeX } from "lucide-react";
+// Todo el texto de la web vive en src/data/ (castellano y gallego).
+// Para cambiar un texto, edita esos archivos, no este.
+import { cv, ui, links, galleryItems, type Lang, type GalleryItem } from "@/data/web";
 
-// ── TIPOS TYPESCRIPT ──────────────────────────────────────────────────────────
-// Define la "forma" de cada elemento de la galería de proyectos.
-// Si quieres añadir más proyectos, cada uno debe tener estas propiedades.
-interface GalleryItem {
-  type: "image" | "video"; // Tipo de media: imagen o vídeo
-  src: string;             // Ruta principal (portada/thumbnail del vídeo)
-  srcs?: string[];         // Vídeos adicionales (para mostrar varios en el lightbox)
-  thumbnail?: string;      // Imagen de portada opcional (útil para videos)
-  title: string;           // Título del proyecto
-  desc: string;            // Descripción corta
-  category: string;        // Categoría / disciplina
+// ── ICONOS DE REDES ──────────────────────────────────────────────────────────
+// Lucide no incluye logotipos de marcas, así que van como SVG propios.
+function LinkedInIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+    </svg>
+  );
+}
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="2" y="2" width="20" height="20" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
 }
 
-// ── COMPONENTE PRINCIPAL ──────────────────────────────────────────────────────
-// Esta es la página principal (/). Todo lo que está aquí se renderiza en la ruta raíz.
+// Título pequeño en mayúsculas que encabeza cada sección.
+function Kicker({ children }: { children: React.ReactNode }) {
+  return <span className="text-xs uppercase tracking-[0.2em] text-[#2C5E43] font-semibold">{children}</span>;
+}
+
 export default function Home() {
-  // Estado: año actual para el copyright del footer.
-  // Se inicializa en 2026 y se actualiza con JavaScript en el cliente para ser siempre correcto.
+  // ── ESTADO ─────────────────────────────────────────────────────────────────
+  const [lang, setLang] = useState<Lang>("es");          // Idioma activo
   const [currentYear, setCurrentYear] = useState<number>(2026);
-
-  // Estado: controla si el usuario ha hecho scroll hacia abajo.
-  // Cuando es true, el header se vuelve más opaco (efecto de entrada suave).
-  // Si quieres cambiar el umbral de opacidad, cambia el valor 20 (píxeles de scroll).
   const [scrolled, setScrolled] = useState<boolean>(false);
-
-  // ── ESTADOS DEL HERO (player de Vimeo) ──────────────────────────────────────
-  const [heroMuted, setHeroMuted] = useState(true);    // Empieza silenciado para permitir autoplay
-  const [heroPlaying, setHeroPlaying] = useState(true); // Empieza reproduciendo
-  const [heroHovered, setHeroHovered] = useState(false); // Controla visibilidad de los controles
-  const [isTouchDevice, setIsTouchDevice] = useState(false); // true en móvil/tablet
-  const iframeRef = useRef<HTMLIFrameElement>(null);     // Referencia al iframe de Vimeo
+  const [heroMuted, setHeroMuted] = useState(true);       // Empieza silenciado para permitir autoplay
+  const [heroPlaying, setHeroPlaying] = useState(true);
+  const [heroHovered, setHeroHovered] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);      // Iframe de Vimeo
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const vimeoPlayerRef = useRef<any>(null);              // Instancia de Vimeo.Player
+  const vimeoPlayerRef = useRef<any>(null);               // Instancia de Vimeo.Player
+  const [lightbox, setLightbox] = useState<GalleryItem | null>(null); // Proyecto abierto en el visor
 
-  // Estado: controla si el lightbox (modal de imagen ampliada) está abierto y qué muestra.
-  // isOpen: si está visible | type: imagen o vídeo | src: ruta del archivo |
-  // title: título del proyecto | desc: descripción del proyecto
-  const [lightbox, setLightbox] = useState<{
-    isOpen: boolean;
-    type: "image" | "video";
-    src: string;
-    srcs?: string[];   // Fuentes adicionales (para proyectos con múltiples vídeos)
-    title: string;
-    desc: string;
-  }>({
-    isOpen: false,
-    type: "image",
-    src: "",
-    srcs: undefined,
-    title: "",
-    desc: "",
-  });
+  // Atajos al contenido del idioma activo.
+  const t = ui[lang];
+  const d = cv[lang];
 
-  // ── EFECTO DE INICIALIZACIÓN ────────────────────────────────────────────────
-  // useEffect con array vacío [] = se ejecuta UNA SOLA VEZ cuando la página carga.
-  // Aquí hacemos dos cosas:
-  //   1. Actualizamos el año del copyright al año real.
-  //   2. Configuramos el "scroll reveal": las secciones aparecen con animación
-  //      al hacer scroll y entrar en el viewport (área visible de la pantalla).
+  // ── IDIOMA ─────────────────────────────────────────────────────────────────
+  // Al cargar: ?lang=gl en la URL tiene prioridad (útil para enviar el enlace en
+  // gallego a un cluster), luego lo que eligió el visitante la última vez.
   useEffect(() => {
-    // 1. Año dinámico para el footer
-    setCurrentYear(new Date().getFullYear());
+    const fromUrl = new URLSearchParams(window.location.search).get("lang");
+    let saved: string | null = null;
+    try { saved = localStorage.getItem("lang"); } catch {}
+    const initial = fromUrl ?? saved;
+    // Solo se puede leer en el navegador, después de la hidratación.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (initial === "gl" || initial === "es") setLang(initial);
+  }, []);
 
-    // 1b. Detectar dispositivo táctil (móvil/tablet) para mostrar controles siempre visibles
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    try { localStorage.setItem("lang", lang); } catch {}
+  }, [lang]);
+
+  // ── SCROLL Y ANIMACIONES DE ENTRADA ────────────────────────────────────────
+  useEffect(() => {
+    // Valores que solo existen en el navegador (no durante el renderizado estático).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setCurrentYear(new Date().getFullYear());
     setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
 
-    // 2. Listener de scroll para el efecto del header
-    // Cuando el usuario baja más de 20px, activamos el estado "scrolled".
-    // Esto permite cambiar la opacidad/fondo del header con CSS/clases de Tailwind.
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // passive: true → mejora el rendimiento del scroll (no bloquea el hilo principal)
 
-    // 3. Animación de scroll reveal con IntersectionObserver
-    // Seleccionamos todos los elementos con clase "reveal-entry" (definida en globals.css)
+    // Los elementos con clase "reveal-entry" aparecen con una animación al entrar en pantalla.
     const revealElements = document.querySelectorAll(".reveal-entry");
-
-    // IntersectionObserver detecta cuando un elemento entra en el viewport.
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Cuando el elemento es visible, añadimos la clase "active"
-            // que en globals.css activa la transición de opacidad y posición.
             entry.target.classList.add("active");
-            // Dejamos de observar el elemento para que la animación solo ocurra una vez.
             observer.unobserve(entry.target);
           }
         });
       },
-      {
-        threshold: 0.1,      // Se activa cuando el 10% del elemento es visible
-        rootMargin: "0px 0px -50px 0px", // Margen inferior: activa 50px antes del borde
-      }
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
     );
-
-    // Empezamos a observar cada elemento
     revealElements.forEach((el) => observer.observe(el));
 
-    // Función de limpieza: se ejecuta cuando el componente se desmonta.
-    // Evita memory leaks desconectando el observer y el listener de scroll.
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      revealElements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
     };
   }, []);
 
-  // ── EFECTO: carga el SDK de Vimeo Player y conecta la instancia al iframe ────
-  // Se ejecuta una sola vez al montar el componente.
-  // El SDK permite controlar el player (mute, play, pause) desde fuera del iframe.
+  // ── VIMEO PLAYER API ───────────────────────────────────────────────────────
+  // Permite pausar y activar el sonido del vídeo de portada con nuestros botones.
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://player.vimeo.com/api/player.js";
@@ -143,13 +123,11 @@ export default function Home() {
     };
     document.head.appendChild(script);
     return () => {
-      // Limpieza: destruir el player y eliminar el script al desmontar
       vimeoPlayerRef.current?.destroy();
       if (document.head.contains(script)) document.head.removeChild(script);
     };
   }, []);
 
-  // ── CONTROL: alternar mute / sonido ─────────────────────────────────────────
   const toggleMute = async () => {
     if (!vimeoPlayerRef.current) return;
     if (heroMuted) {
@@ -162,7 +140,6 @@ export default function Home() {
     }
   };
 
-  // ── CONTROL: alternar play / pausa ──────────────────────────────────────────
   const togglePlay = async () => {
     if (!vimeoPlayerRef.current) return;
     if (heroPlaying) {
@@ -174,135 +151,134 @@ export default function Home() {
     }
   };
 
-  // ── DATOS DE LA GALERÍA DE PROYECTOS ────────────────────────────────────────
-  // Para añadir o modificar proyectos, edita este array.
-  // Cada objeto sigue la estructura GalleryItem definida arriba.
-  // Las imágenes deben estar en /public/assets/ y referenciarse con "/assets/nombre.png".
-  // Para añadir un vídeo propio, sube el archivo a /public/assets/ y pon type: "video".
-  const galleryItems: GalleryItem[] = [
-    {
-      type: "video",
-      src: "https://thundershoot.com/wp-content/uploads/2024/11/Dia-de-la-Mujer-y-la-Nina-en-la-Ciencia-11_02_2024-Centro-de-Astrobiologia-CAB-CSIC-INTA-1.mp4",
-      title: "Día de la Mujer y la Niña en la Ciencia",
-      category: "Campaña Audiovisual & Divulgación",
-      desc: "Campaña audiovisual realizada para el Centro de Astrobiología (CAB, CSIC-INTA) con motivo del 11 de febrero, visibilizando y conmemorando el papel de las investigadoras y tecnólogas en la astrobiología y la exploración espacial.",
-    },
-    {
-      type: "video",
-      // src actúa de portada/thumbnail en la tarjeta (primer vídeo)
-      src: "https://thundershoot.com/wp-content/uploads/2026/06/Short-Film-San-Lorenzo-1.mp4",
-      // srcs contiene todos los vídeos que se mostrarán en el lightbox
-      srcs: [
-        "https://thundershoot.com/wp-content/uploads/2026/06/Short-Film-San-Lorenzo-1.mp4",
-        "https://thundershoot.com/wp-content/uploads/2026/06/SHORT-FILM-CASA-BEATNIK-1080.mp4",
-      ],
-      title: "Shorts para Floristería — San Lorenzo & Casa Beatnik",
-      category: "Contenido para Redes Sociales & Videografía",
-      desc: "Dos vídeos para redes sociales realizados junto a otro videógrafo para la floristería en su trabajo en San Lorenzo y Casa Beatnik. Producción integral: concepto, rodaje y edición orientados a maximizar el impacto en plataformas digitales.",
-    },
-    // ── AÑADE AQUÍ MÁS PROYECTOS con el mismo formato ──
-    // {
-    //   type: "image",
-    //   src: "/assets/mi-nuevo-proyecto.png",
-    //   title: "Nombre del proyecto",
-    //   category: "Categoría",
-    //   desc: "Descripción del proyecto.",
-    // },
-  ];
-
-  // ── FUNCIONES DEL LIGHTBOX (MODAL) ──────────────────────────────────────────
-  // openLightbox: abre el modal con la información del proyecto clicado.
-  // También bloquea el scroll de la página para que no se desplace mientras el modal está abierto.
+  // ── VISOR DE PROYECTOS (LIGHTBOX) ──────────────────────────────────────────
   const openLightbox = (item: GalleryItem) => {
-    setLightbox({
-      isOpen: true,
-      type: item.type,
-      src: item.src,
-      srcs: item.srcs,   // Pasa las fuentes adicionales si las hay
-      title: item.title,
-      desc: item.desc,
-    });
-    document.body.style.overflow = "hidden"; // Bloquea el scroll del fondo
+    if (item.type !== "video") return; // Los proyectos "soon" no tienen vídeo todavía
+    setLightbox(item);
   };
 
-  // closeLightbox: cierra el modal y restaura el scroll de la página.
-  const closeLightbox = () => {
-    setLightbox((prev) => ({ ...prev, isOpen: false }));
-    document.body.style.overflow = "unset"; // Restaura el scroll
+  const closeLightbox = () => setLightbox(null);
+
+  // Con el visor abierto: bloquea el scroll del fondo y la tecla Escape lo cierra.
+  useEffect(() => {
+    if (!lightbox) return;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setLightbox(null);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [lightbox]);
+
+  // Experiencia en el orden definido en el JSON del CV.
+  const experience = d.orden.map((id) => d.experiencia[id as keyof typeof d.experiencia]);
+
+  // Bloque de presentación: nombre, titular, ubicación, disponibilidad y botones.
+  // Se muestra sobre el vídeo en escritorio y debajo del vídeo en móvil.
+  const intro = (variant: "overlay" | "plain") => {
+    const onVideo = variant === "overlay";
+    return (
+      <div className={`space-y-4 ${onVideo ? "text-white" : "text-[#1E2D24]"}`}>
+        <p className={`text-xs uppercase tracking-[0.25em] font-medium ${onVideo ? "text-white/80" : "text-[#2C5E43]"}`}>
+          {t.heroKicker}
+        </p>
+        <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight leading-[1.05]">{d.nombre}</h1>
+        <p className={`text-lg lg:text-2xl font-light ${onVideo ? "text-white/90" : "text-[#284B37]"}`}>{d.titular}</p>
+        <ul className={`flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-1.5 text-sm ${onVideo ? "text-white/85" : "text-[#53645A]"}`}>
+          <li className="inline-flex items-center gap-2"><MapPin className="w-4 h-4 shrink-0" aria-hidden="true" />{t.location}</li>
+          <li className="inline-flex items-center gap-2"><CalendarCheck className="w-4 h-4 shrink-0" aria-hidden="true" />{d.disponibilidad}</li>
+        </ul>
+        <div className="flex flex-wrap gap-3 pt-2">
+          <a
+            href={`mailto:${links.email}`}
+            className="inline-flex items-center gap-2 px-5 py-3 bg-[#2C5E43] hover:bg-[#1F4430] text-white font-medium rounded-xl text-sm transition-colors duration-300 shadow-md"
+          >
+            <Mail className="w-4 h-4" aria-hidden="true" />{t.contactCta}
+          </a>
+          <a
+            href={links.cvPdf[lang]}
+            download
+            className={`inline-flex items-center gap-2 px-5 py-3 font-medium rounded-xl text-sm transition-colors duration-300 border ${
+              onVideo
+                ? "bg-white/10 backdrop-blur-md border-white/40 text-white hover:bg-white/20"
+                : "bg-white border-[#D5E5DA] text-[#2C5E43] hover:border-[#2C5E43]/50"
+            }`}
+          >
+            <Download className="w-4 h-4" aria-hidden="true" />{t.downloadCv}
+          </a>
+        </div>
+      </div>
+    );
   };
 
-  // ── RENDERIZADO JSX ──────────────────────────────────────────────────────────
-  // El return devuelve el HTML (en realidad JSX) que se muestra en pantalla.
-  // El fragmento <> </> agrupa todo sin añadir un div extra al DOM.
   return (
     <>
       {/* ════════════════════════════════════════════════════════════════════════
-          HEADER STICKY SEMITRANSPARENTE
-          position: fixed → siempre visible al hacer scroll (no se va con la página).
-          top-0 left-0 right-0 → se pega a la parte superior, ocupa todo el ancho.
-          z-40 → aparece por encima del contenido pero debajo del lightbox (z-50).
-          backdrop-blur-md → efecto glassmorphism: desenfoca lo que hay detrás.
-          transition-all → el cambio de opacidad/fondo es animado y suave.
-
-          OPACIDAD:
-          - Cuando scrolled=false (arriba del todo): bg-transparent → invisible, texto semitransparente.
-          - Cuando scrolled=true (bajado ≥20px): fondo semiopaco con blur → nombre visible.
-
-          Para ajustar la opacidad del texto: cambia text-white/40 (arriba) o text-[#2C5E43] (abajo).
-          Para ajustar el color de fondo al hacer scroll: cambia bg-[#FAF8F5]/80.
+          HEADER FIJO
+          Transparente sobre el vídeo; con fondo crema y desenfoque al hacer scroll.
+          Contiene el nombre, el menú de secciones (solo escritorio) y el selector ES/GL.
           ════════════════════════════════════════════════════════════════════════ */}
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
-          scrolled
-            ? "bg-[#FAF8F5]/80 backdrop-blur-md border-b border-[#2C5E43]/10 shadow-sm" // Con scroll: fondo semiopaco + blur
-            : "bg-transparent"                                                             // Sin scroll: completamente transparente
+          scrolled ? "bg-[#FAF8F5]/85 backdrop-blur-md border-b border-[#2C5E43]/10 shadow-sm" : "bg-transparent"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 md:px-12 py-4 flex items-center justify-center">
-          {/*
-            Tu nombre como h1 (importante para el SEO → solo debe haber uno por página).
-            text-white/50: texto blanco al 50% de opacidad cuando el header es transparente
-                           (así se ve sobre el vídeo oscuro).
-            text-[#2C5E43]: texto verde sólido cuando el header tiene fondo (al hacer scroll).
-            tracking-[0.3em]: espaciado entre letras muy amplio (efecto elegante).
-          */}
-          <h1
-            className={`text-xl md:text-2xl font-bold tracking-[0.3em] uppercase transition-colors duration-500 ${
-              scrolled ? "text-[#2C5E43]" : "text-white/50"
+        <div className="max-w-6xl mx-auto px-4 md:px-12 py-3 flex items-center justify-between gap-4">
+          <a
+            href="#hero"
+            className={`text-sm md:text-base font-bold tracking-[0.25em] uppercase transition-colors duration-500 ${
+              scrolled ? "text-[#2C5E43]" : "text-white/70"
             }`}
           >
             Pablo Blázquez Gil
-          </h1>
+          </a>
+          <nav className="flex items-center gap-6">
+            <ul className={`hidden md:flex items-center gap-6 text-sm transition-colors duration-500 ${scrolled ? "text-[#53645A]" : "text-white/80"}`}>
+              <li><a href="#about" className="hover:text-[#2C5E43] transition-colors">{t.nav.about}</a></li>
+              <li><a href="#experience" className="hover:text-[#2C5E43] transition-colors">{t.nav.experience}</a></li>
+              <li><a href="#portfolio" className="hover:text-[#2C5E43] transition-colors">{t.nav.projects}</a></li>
+              <li><a href="#contact" className="hover:text-[#2C5E43] transition-colors">{t.nav.contact}</a></li>
+            </ul>
+            {/* Selector de idioma */}
+            <div
+              role="group"
+              aria-label={t.langLabel}
+              className={`flex rounded-full border text-xs font-semibold overflow-hidden ${
+                scrolled ? "border-[#2C5E43]/30" : "border-white/40 bg-black/20 backdrop-blur-sm"
+              }`}
+            >
+              {(["es", "gl"] as Lang[]).map((l) => (
+                <button
+                  key={l}
+                  onClick={() => setLang(l)}
+                  aria-pressed={lang === l}
+                  className={`px-3 py-1.5 uppercase transition-colors ${
+                    lang === l
+                      ? "bg-[#2C5E43] text-white"
+                      : scrolled ? "text-[#2C5E43] hover:bg-[#2C5E43]/10" : "text-white hover:bg-white/10"
+                  }`}
+                >
+                  {l}
+                </button>
+              ))}
+            </div>
+          </nav>
         </div>
       </header>
 
       {/* ════════════════════════════════════════════════════════════════════════
           SECCIÓN 1: HERO — VÍDEO A PANTALLA COMPLETA
-          El vídeo ocupa el 100vw (ancho de la ventana) y 100vh (alto de la ventana).
-          No tiene padding ni max-width: se extiende de borde a borde.
-
-          object-cover: el vídeo cubre todo el contenedor sin dejar franjas negras
-                        (puede recortar ligeramente los bordes si el ratio no coincide).
-
-          Para cambiar el vídeo: sustituye la URL en <source src="...">
-          Para cambiar el poster (imagen de carga): edita el atributo poster.
-
-          El indicador de scroll (flecha) está posicionado en absolute sobre el vídeo.
+          En escritorio el vídeo ocupa toda la pantalla y la presentación va encima.
+          En móvil el vídeo mantiene su proporción 16:9 y la presentación va debajo.
           ════════════════════════════════════════════════════════════════════════ */}
       <section id="hero" className="relative w-full h-[56.25vw] lg:h-screen overflow-hidden">
-
-        {/* Iframe del player de Vimeo — ocupa todo el hero a pantalla completa.
-            background=1 oculta la interfaz de Vimeo; los controles los gestionamos
-            nosotros con la API de Vimeo Player.js cargada en el useEffect. */}
         <div
           className="absolute inset-0 w-full h-full overflow-hidden bg-black"
           onMouseEnter={() => setHeroHovered(true)}
           onMouseLeave={() => setHeroHovered(false)}
         >
-          {/* Contenedor que cubre toda la sección sin franjas negras.
-              max(): elige el mayor entre el 100% del contenedor y el tamaño proporcional al otro eje.
-              En móvil portrait (h=[56.25vw]) el vídeo es exactamente 100% × 100%.
-              En desktop landscape el vídeo se sobredimensiona para cubrir 100vh. */}
+          {/* Contenedor que cubre toda la sección sin franjas negras. */}
           <div
             style={{
               position: "absolute",
@@ -316,24 +292,25 @@ export default function Home() {
             <iframe
               ref={iframeRef}
               src="https://player.vimeo.com/video/1220785662?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1"
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                border: 0,
-              }}
+              style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: 0 }}
               allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
               referrerPolicy="strict-origin-when-cross-origin"
-              title="Vídeo CV"
+              title="Vídeo de presentación de Pablo Blázquez Gil"
             />
           </div>
 
-          {/* ── Controles de vídeo ──────────────────────────────────────────────────────
-              En dispositivos táctiles (móvil/tablet): siempre visibles, tamaño generoso.
-              En escritorio: aparecen al hacer hover, tamaño compacto.
-              controlsVisible = true si hay hover en desktop O si es dispositivo táctil. */}
+          {/* Degradado oscuro para que el texto se lea sobre el vídeo (solo escritorio). */}
+          <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-transparent pointer-events-none" />
+
+          {/* Presentación sobre el vídeo (solo escritorio). */}
+          <div className="hidden lg:flex absolute inset-0 items-center">
+            <div className="max-w-6xl w-full mx-auto px-12">
+              <div className="max-w-2xl">{intro("overlay")}</div>
+            </div>
+          </div>
+
+          {/* ── Controles de vídeo ──────────────────────────────────────────────
+              En táctil: siempre visibles. En escritorio: aparecen al pasar el ratón. */}
           {(() => {
             const controlsVisible = heroHovered || isTouchDevice;
             return (
@@ -341,347 +318,371 @@ export default function Home() {
                 className="absolute bottom-4 right-4 flex items-center gap-2 transition-opacity duration-300"
                 style={{ opacity: controlsVisible ? 1 : 0, pointerEvents: controlsVisible ? "auto" : "none" }}
               >
-                {/* Botón Play / Pausa */}
                 <button
                   onClick={togglePlay}
                   className="w-10 h-10 lg:w-9 lg:h-9 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/25 text-white hover:bg-black/70 active:scale-95 transition-all duration-200"
-                  title={heroPlaying ? "Pausar" : "Reproducir"}
+                  aria-label={heroPlaying ? t.pause : t.play}
+                  title={heroPlaying ? t.pause : t.play}
                 >
                   {heroPlaying
                     ? <Pause className="w-4 h-4 lg:w-3.5 lg:h-3.5 fill-white" />
                     : <Play className="w-4 h-4 lg:w-3.5 lg:h-3.5 fill-white ml-0.5" />}
                 </button>
-
-                {/* Botón Mute / Sonido */}
                 <button
                   onClick={toggleMute}
                   className="w-10 h-10 lg:w-9 lg:h-9 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/25 text-white hover:bg-black/70 active:scale-95 transition-all duration-200"
-                  title={heroMuted ? "Activar sonido" : "Silenciar"}
+                  aria-label={heroMuted ? t.unmute : t.mute}
+                  title={heroMuted ? t.unmute : t.mute}
                 >
                   {heroMuted
                     ? <VolumeX className="w-4 h-4 lg:w-3.5 lg:h-3.5" />
                     : <Volume2 className="w-4 h-4 lg:w-3.5 lg:h-3.5" />}
                 </button>
-
-                {/* Etiqueta únicamente visible en móvil mientras el audio está silenciado */}
                 {isTouchDevice && heroMuted && (
-                  <span className="text-[10px] text-white/70 font-light tracking-wide">
-                    Toca 🔊 para activar sonido
-                  </span>
+                  <span className="text-[10px] text-white/70 font-light tracking-wide">{t.soundHint}</span>
                 )}
               </div>
             );
           })()}
         </div>
 
-        {/* Indicador de scroll: posicionado en la parte inferior central sobre el vídeo.
-            Pulsa suavemente hacia abajo para indicar que hay más contenido.
-            Para quitarlo: borra este bloque. */}
-        <div className="absolute bottom-8 left-0 right-0 flex flex-col items-center space-y-1 pointer-events-none">
-          <span className="text-xs tracking-[0.2em] text-white/70 uppercase font-light">Presentación Profesional</span>
+        {/* Indicador de scroll (solo escritorio, en móvil la presentación ya está debajo). */}
+        <div className="hidden lg:flex absolute bottom-8 left-0 right-0 flex-col items-center space-y-1 pointer-events-none">
+          <span className="text-xs tracking-[0.2em] text-white/70 uppercase font-light">{t.scrollHint}</span>
           <ChevronDown className="w-4 h-4 text-white/70 animate-bounce mt-1" />
         </div>
-
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════════════
-          CONTENEDOR PRINCIPAL del contenido debajo del hero.
-          space-y-24 / space-y-36: espacio vertical entre secciones.
-          Para ajustar el espacio entre secciones, cambia estos valores.
-          ════════════════════════════════════════════════════════════════════════ */}
-      <main className="w-full max-w-5xl mx-auto px-6 md:px-12 py-16 space-y-24 md:space-y-36">
-        
+      {/* Presentación debajo del vídeo (solo móvil y tablet). */}
+      <div className="lg:hidden w-full max-w-5xl mx-auto px-6 md:px-12 pt-10">{intro("plain")}</div>
+
+      <main className="w-full max-w-5xl mx-auto px-6 md:px-12 py-16 space-y-24 md:space-y-32">
         {/* ════════════════════════════════════════════════════════════════════
-            SECCIÓN 2: SOBRE MÍ
-            Diseño de dos columnas: izquierda (foto + botón + soft skills),
-            derecha (perfil profesional).
-            En móvil se apila en una sola columna.
-            "reveal-entry" activa la animación de entrada al hacer scroll.
+            SECCIÓN 2: PERFIL
+            Foto a la izquierda; perfil, cita y competencias clave a la derecha.
             ════════════════════════════════════════════════════════════════════ */}
-        <section id="about" className="reveal-entry space-y-8">
-
-          {/* ── Fila superior: dos columnas (foto+botón | perfil profesional) ── */}
+        <section id="about" className="reveal-entry scroll-mt-24">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-
-          {/* ── Columna izquierda: Foto y botón de descarga ─────────────────────
-              lg:col-span-4 = ocupa 4 de 12 columnas en pantallas grandes. */}
-          <div className="lg:col-span-4 flex flex-col items-center space-y-5">
-            {/* Foto de perfil */}
-            <div className="relative w-48 sm:w-56 lg:w-full aspect-[3/4] rounded-2xl overflow-hidden border border-[#2C5E43]/10 shadow-lg group">
-              <Image
-                src="https://thundershoot.com/wp-content/uploads/2025/03/Pablo-Equipo-1-scaled.jpg"
-                alt="Pablo Blázquez Gil"
-                fill
-                sizes="(max-width: 1024px) 224px, 320px"
-                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                priority
-              />
+            <div className="lg:col-span-4 flex justify-center">
+              <div className="relative w-48 sm:w-56 lg:w-full aspect-[3/4] rounded-2xl overflow-hidden border border-[#2C5E43]/10 shadow-lg group">
+                <Image
+                  src="https://thundershoot.com/wp-content/uploads/2025/03/Pablo-Equipo-1-scaled.jpg"
+                  alt="Pablo Blázquez Gil"
+                  fill
+                  sizes="(max-width: 1024px) 224px, 320px"
+                  className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  priority
+                />
+              </div>
             </div>
 
-            {/* Botón de descarga del CV */}
-            <div className="w-full flex justify-center">
-              <a
-                href="https://thundershoot.com/wp-content/uploads/2026/08/CV_Pablo_Blazquez_Gil.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                download="CV_Pablo_Blazquez_Gil.pdf"
-                className="glow-effect inline-flex items-center justify-center space-x-2 w-full px-4 py-3 bg-[#2C5E43] hover:bg-[#1F4430] text-white font-medium rounded-xl text-xs sm:text-sm transition-all duration-300 shadow-md shadow-[#2C5E43]/10 hover:shadow-[#2C5E43]/20 text-center"
-              >
-                <Download className="w-4 h-4 shrink-0" />
-                <span>Descargar CV (PDF)</span>
-              </a>
-            </div>
-
-          </div>
-
-          {/* ── Columna derecha: Perfil profesional ──────────────────────────────
-              lg:col-span-8 = ocupa 8 de 12 columnas. */}
-          <div className="lg:col-span-8 space-y-5">
-            <div className="space-y-1.5">
-              <span className="text-xs uppercase tracking-[0.2em] text-[#2C5E43] font-semibold">Perfil Profesional</span>
-              <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-[#1E2D24] leading-tight">
-                Trayectoria y Visión Creativa
-              </h2>
-            </div>
-
-            <div className="space-y-4 text-[#53645A] text-sm md:text-base font-light leading-relaxed">
-              <p>
-                Bioquímico y Comunicador Audiovisual apasionado por la divulgación científica, la sostenibilidad y la narrativa visual. Mi trayectoria combina el rigor científico —con experiencia investigadora en el Centro de Astrobiología (CSIC-INTA)— con la producción audiovisual, la creación de contenidos en redes sociales y la docencia.
-              </p>
-              <p>
-                He participado activamente en proyectos europeos enfocados en emprendimiento, conservación e impacto socioeconómico y ambiental. Actualmente dirijo y produzco mi primer proyecto documental, aplicando visión estratégica, paciencia y narrativa visual para conectar a la sociedad con la ciencia y la naturaleza. Destaco por mi resiliencia, mi capacidad de adaptación tras superar diversos retos personales y un firme compromiso por construir soluciones sostenibles a través del trabajo en equipo.
-              </p>
+            <div className="lg:col-span-8 space-y-6">
+              <div className="space-y-1.5">
+                <Kicker>{t.aboutKicker}</Kicker>
+                <h2 className="text-2xl md:text-3xl font-semibold text-[#1E2D24] leading-tight">{t.aboutTitle}</h2>
+              </div>
+              <p className="text-[#53645A] text-sm md:text-base font-light leading-relaxed">{d.perfil}</p>
+              <blockquote className="border-l-2 border-[#2C5E43] pl-4 italic text-[#284B37] text-sm md:text-base">
+                “{t.quote}”
+              </blockquote>
+              <div className="space-y-2.5">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">{d.etiquetas.clave}</h3>
+                <ul className="flex flex-wrap gap-2">
+                  {d.clave.map((skill) => (
+                    <li key={skill} className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37]">
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
-
-          </div>{/* fin grid dos columnas */}
-
-          {/* ── Fila de habilidades: ancho completo, debajo de ambas columnas ── */}
-          <div className="w-full space-y-2.5">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">
-              Habilidades
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
-                <strong className="font-medium">Resiliencia y adaptación:</strong> Aprendizaje frente a obstáculos
-              </span>
-              <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
-                <strong className="font-medium">Visión estratégica y narrativa:</strong> Gestión integral a largo plazo
-              </span>
-              <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
-                <strong className="font-medium">Compromiso socioambiental:</strong> Sostenibilidad y conservación
-              </span>
-              <span className="px-3 py-1.5 bg-[#F4F8F5] border border-[#D5E5DA] rounded-lg text-xs text-[#284B37] shadow-xs">
-                <strong className="font-medium">Trabajo en equipo</strong> y liderazgo colaborativo
-              </span>
-            </div>
-          </div>
-
         </section>
 
         {/* ════════════════════════════════════════════════════════════════════
-            SECCIÓN 3: GALERÍA DE PROYECTOS
-            Muestra los proyectos del array galleryItems definido arriba.
-            Al hacer clic en una tarjeta, se abre el lightbox (modal).
-            Para añadir proyectos: edita el array galleryItems.
-            grid-cols-3: 3 columnas en escritorio, 1 columna en móvil.
+            SECCIÓN 3: EXPERIENCIA
+            Línea de tiempo generada a partir de "experiencia" y "orden" del JSON.
             ════════════════════════════════════════════════════════════════════ */}
-        <section id="portfolio" className="reveal-entry space-y-12">
-          <div className="space-y-2 text-center md:text-left">
-            <span className="text-xs uppercase tracking-[0.2em] text-[#2C5E43] font-semibold">Proyectos Destacados</span>
-            <h2 className="text-2xl md:text-4xl font-semibold text-[#1E2D24]">Trabajos Seleccionados</h2>
+        <section id="experience" className="reveal-entry space-y-10 scroll-mt-24">
+          <div className="space-y-2">
+            <Kicker>{t.experienceKicker}</Kicker>
+            <h2 className="text-2xl md:text-4xl font-semibold text-[#1E2D24]">{d.etiquetas.experiencia}</h2>
+          </div>
+          <ol className="relative border-l border-[#D5E5DA] ml-2 space-y-10">
+            {experience.map((job) => (
+              <li key={job.cargo + job.fechas} className="pl-6 md:pl-8 relative">
+                <span className="absolute -left-[7px] top-1.5 w-3.5 h-3.5 rounded-full bg-[#FAF8F5] border-2 border-[#2C5E43]" aria-hidden="true" />
+                <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1">
+                  <h3 className="text-base md:text-lg font-semibold text-[#1E2D24]">{job.cargo}</h3>
+                  <span className="text-xs font-medium text-[#2C5E43] tracking-wide whitespace-nowrap">{job.fechas}</span>
+                </div>
+                <p className="text-sm text-[#284B37] mt-0.5">{job.entidad} · {job.lugar}</p>
+                <ul className="mt-3 space-y-1.5 text-sm text-[#53645A] font-light leading-relaxed list-disc pl-4 marker:text-[#2C5E43]/60">
+                  {job.puntos.map((p) => <li key={p}>{p}</li>)}
+                </ul>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* ════════════════════════════════════════════════════════════════════
+            SECCIÓN 4: PROYECTOS
+            Tarjetas a partir de galleryItems (src/data/web.ts). Al hacer clic en
+            un vídeo se abre el visor; los proyectos "soon" se muestran sin vídeo.
+            ════════════════════════════════════════════════════════════════════ */}
+        <section id="portfolio" className="reveal-entry space-y-10 scroll-mt-24">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div className="space-y-2">
+              <Kicker>{t.projectsKicker}</Kicker>
+              <h2 className="text-2xl md:text-4xl font-semibold text-[#1E2D24]">{t.projectsTitle}</h2>
+            </div>
+            <a
+              href={links.portfolio}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-[#2C5E43] hover:text-[#1F4430] underline-offset-4 hover:underline"
+            >
+              {t.fullPortfolio}<ExternalLink className="w-4 h-4" aria-hidden="true" />
+            </a>
           </div>
 
-          {/* Grid de tarjetas de proyectos
-              galleryItems.map() recorre el array y crea una tarjeta por cada elemento.
-              key={index}: identificador único que React necesita para optimizar el renderizado. */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {galleryItems.map((item, index) => (
-              <div
-                key={index}
-                onClick={() => openLightbox(item)} // Al hacer clic, abre el lightbox con este proyecto
-                className="group cursor-pointer bg-white border border-[#E2ECE5] rounded-2xl overflow-hidden hover:border-[#2C5E43]/40 transition-all duration-500 shadow-sm hover:shadow-md flex flex-col"
-              >
-                {/* Media del proyecto (imagen o preview de vídeo) */}
-                <div className="relative aspect-video overflow-hidden bg-stone-900">
-                  {item.type === "video" ? (
-                    <video
-                      src={item.src}
-                      muted
-                      playsInline
-                      preload="metadata"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  ) : (
-                    <Image
-                      src={item.src}
-                      alt={item.title}
-                      width={480}
-                      height={270}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  )}
-
-                  {/* Indicador de vídeo */}
-                  {item.type === "video" && (
-                    <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-[#1E2D24]/80 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white shadow-md">
-                      <Play className="w-3.5 h-3.5 fill-white ml-0.5" />
-                    </div>
-                  )}
-
-                  {/* Overlay oscuro con texto que aparece al pasar el ratón por encima */}
-                  <div className="absolute inset-0 bg-[#1E2D24]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <span className="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-xs text-white border border-white/20 transition-transform duration-300 translate-y-2 group-hover:translate-y-0 font-medium">
-                      {item.type === "video" && <Play className="w-3 h-3 fill-white" />}
-                      <span>{item.type === "video" ? "Reproducir Vídeo" : "Ver Detalles"}</span>
-                    </span>
+            {galleryItems.map((item) => {
+              const isVideo = item.type === "video";
+              const cardClass =
+                "group text-left bg-white border border-[#E2ECE5] rounded-2xl overflow-hidden transition-all duration-500 shadow-sm flex flex-col";
+              const body = (
+                <>
+                  <div className="relative aspect-video overflow-hidden bg-[#1E2D24]">
+                    {isVideo ? (
+                      <>
+                        <video
+                          src={item.src}
+                          muted
+                          playsInline
+                          preload="metadata"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-[#1E2D24]/80 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white shadow-md">
+                          <Play className="w-3.5 h-3.5 fill-white ml-0.5" aria-hidden="true" />
+                        </div>
+                        <div className="absolute inset-0 bg-[#1E2D24]/60 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-xs text-white border border-white/20 font-medium">
+                            <Play className="w-3 h-3 fill-white" aria-hidden="true" />{t.playVideo}
+                          </span>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-white/80 bg-gradient-to-br from-[#2C5E43] to-[#1E2D24]">
+                        <Clapperboard className="w-8 h-8" aria-hidden="true" />
+                        <span className="text-xs uppercase tracking-[0.2em]">{t.inProgress}</span>
+                      </div>
+                    )}
                   </div>
-                </div>
-
-                {/* Texto debajo de la imagen/vídeo: categoría y título */}
-                <div className="p-6 space-y-2 flex-1 flex flex-col justify-between">
-                  <div>
-                    <span className="text-xs text-[#2C5E43] font-semibold uppercase tracking-wider">{item.category}</span>
-                    <h3 className="text-lg font-medium text-[#1E2D24] group-hover:text-[#2C5E43] transition-colors duration-300 mt-1">
-                      {item.title}
+                  <div className="p-6 space-y-2">
+                    <span className="text-xs text-[#2C5E43] font-semibold uppercase tracking-wider">{item.category[lang]}</span>
+                    <h3 className="text-lg font-medium text-[#1E2D24] group-hover:text-[#2C5E43] transition-colors duration-300">
+                      {item.title[lang]}
                     </h3>
+                    {!isVideo && <p className="text-sm text-[#53645A] font-light leading-relaxed">{item.desc[lang]}</p>}
                   </div>
-                </div>
+                </>
+              );
+              return isVideo ? (
+                <button
+                  key={item.title.es}
+                  onClick={() => openLightbox(item)}
+                  className={`${cardClass} cursor-pointer hover:border-[#2C5E43]/40 hover:shadow-md focus-visible:outline-2 focus-visible:outline-[#2C5E43]`}
+                >
+                  {body}
+                </button>
+              ) : (
+                <div key={item.title.es} className={cardClass}>{body}</div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ════════════════════════════════════════════════════════════════════
+            SECCIÓN 5: FORMACIÓN, PREMIOS Y FORMACIÓN COMPLEMENTARIA
+            ════════════════════════════════════════════════════════════════════ */}
+        <section className="reveal-entry space-y-10">
+          <div className="space-y-2">
+            <Kicker>{t.educationKicker}</Kicker>
+            <h2 className="text-2xl md:text-4xl font-semibold text-[#1E2D24]">{d.etiquetas.formacion}</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white border border-[#E2ECE5] rounded-2xl p-6 space-y-5 shadow-sm">
+              <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[#2C5E43]">
+                <GraduationCap className="w-4 h-4" aria-hidden="true" />{d.etiquetas.formacion}
+              </h3>
+              <ul className="space-y-4">
+                {d.formacion.map((f) => (
+                  <li key={f.titulo}>
+                    <p className="font-medium text-[#1E2D24]">{f.titulo}</p>
+                    <p className="text-sm text-[#53645A]">{f.entidad} · {f.fechas}</p>
+                    {"nota" in f && f.nota && <p className="text-sm text-[#2C5E43] mt-0.5">{f.nota}</p>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="bg-white border border-[#E2ECE5] rounded-2xl p-6 space-y-5 shadow-sm">
+              <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[#2C5E43]">
+                <Award className="w-4 h-4" aria-hidden="true" />{d.etiquetas.premios}
+              </h3>
+              <ul className="space-y-2.5 text-sm text-[#53645A] leading-relaxed list-disc pl-4 marker:text-[#2C5E43]/60">
+                {d.premios.map((p) => <li key={p}>{p}</li>)}
+              </ul>
+            </div>
+          </div>
+          <div className="space-y-3">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">{d.etiquetas.cursos}</h3>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-sm text-[#53645A] font-light list-disc pl-4 marker:text-[#2C5E43]/60">
+              {d.cursos.map((c) => <li key={c}>{c}</li>)}
+            </ul>
+          </div>
+        </section>
+
+        {/* ════════════════════════════════════════════════════════════════════
+            SECCIÓN 6: COMPETENCIAS, IDIOMAS Y OTROS DATOS
+            ════════════════════════════════════════════════════════════════════ */}
+        <section className="reveal-entry space-y-10">
+          <div className="space-y-2">
+            <Kicker>{t.skillsKicker}</Kicker>
+            <h2 className="text-2xl md:text-4xl font-semibold text-[#1E2D24]">{d.etiquetas.competencias}</h2>
+          </div>
+          <dl className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {d.competencias.map((c) => (
+              <div key={c.grupo} className="bg-[#F4F8F5] border border-[#D5E5DA] rounded-xl p-5">
+                <dt className="flex items-center gap-2 text-sm font-semibold text-[#284B37]">
+                  <Wrench className="w-3.5 h-3.5 text-[#2C5E43]" aria-hidden="true" />{c.grupo}
+                </dt>
+                <dd className="text-sm text-[#53645A] font-light mt-1.5 leading-relaxed">{c.items}</dd>
               </div>
             ))}
+          </dl>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-3">
+              <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">
+                <Languages className="w-4 h-4" aria-hidden="true" />{d.etiquetas.idiomas}
+              </h3>
+              <ul className="space-y-1.5 text-sm text-[#53645A]">
+                {d.idiomas.map((i) => <li key={i}>{i}</li>)}
+              </ul>
+            </div>
+            <div className="space-y-3">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-[#2C5E43]">{d.etiquetas.otros}</h3>
+              <ul className="space-y-1.5 text-sm text-[#53645A]">
+                {d.otros.map((o) => <li key={o}>{o}</li>)}
+              </ul>
+            </div>
           </div>
         </section>
 
         {/* ════════════════════════════════════════════════════════════════════
-            SECCIÓN 4: CONTACTO Y REDES SOCIALES
-            Para editar los enlaces sociales: cambia el atributo href="..." de cada <a>.
-            Para cambiar el email: edita href="mailto:tu@email.com".
+            SECCIÓN 7: CONTACTO
             ════════════════════════════════════════════════════════════════════ */}
-        <section id="contact" className="reveal-entry space-y-12">
-          <div className="border-t border-[#E2ECE5] pt-16">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
-
-              {/* ── Columna izquierda: Texto de contacto ───────────────────────
-                  Cambia el título y el párrafo con tu mensaje de contacto personal. */}
-              <div className="md:col-span-7 space-y-4">
-                <span className="text-xs uppercase tracking-[0.2em] text-[#2C5E43] font-semibold">Contacto</span>
-                <h2 className="text-2xl md:text-4xl font-bold text-[#1E2D24] tracking-tight">Colaboraciones profesionales</h2>
-                <p className="text-[#53645A] text-sm md:text-base font-light">
-                  Si deseas conocer más detalles de mi trayectoria, puedes contactar conmigo a través de los siguientes enlaces.
-                </p>
-              </div>
-
-              {/* ── Columna derecha: Iconos de redes sociales ──────────────────
-                  Cada <a> es un botón de red social.
-                  Para añadir una red nueva: copia uno de los bloques <a>...</a>
-                  y actualiza href, title y el SVG interior. */}
-              <div className="md:col-span-5 flex flex-col md:items-end space-y-4">
-                <div className="flex flex-wrap gap-3">
-
-                  {/* LINKEDIN: cambia href con tu URL de LinkedIn personal */}
+        <section id="contact" className="reveal-entry scroll-mt-24">
+          <div className="border-t border-[#E2ECE5] pt-16 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+            <div className="md:col-span-7 space-y-4">
+              <Kicker>{t.contactKicker}</Kicker>
+              <h2 className="text-2xl md:text-4xl font-bold text-[#1E2D24] tracking-tight">{t.contactTitle}</h2>
+              <p className="text-[#53645A] text-sm md:text-base font-light">{t.contactText}</p>
+              <a href={`mailto:${links.email}`} className="inline-block text-[#2C5E43] font-medium hover:underline underline-offset-4">
+                {links.email}
+              </a>
+            </div>
+            <div className="md:col-span-5 flex flex-col md:items-end gap-4">
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href={`mailto:${links.email}`}
+                  className="w-12 h-12 inline-flex items-center justify-center bg-[#2C5E43] text-white hover:bg-[#1F4430] rounded-xl transition-all duration-300 hover:scale-105 shadow-md"
+                  aria-label="Email"
+                  title="Email"
+                >
+                  <Mail className="w-5 h-5" />
+                </a>
+                {[
+                  { href: links.linkedin, label: "LinkedIn", icon: <LinkedInIcon className="w-5 h-5" /> },
+                  { href: links.instagram, label: "Instagram", icon: <InstagramIcon className="w-5 h-5" /> },
+                  { href: links.portfolio, label: "Portfolio", icon: <ExternalLink className="w-5 h-5" /> },
+                ].map((s) => (
                   <a
-                    href="https://www.linkedin.com/in/pabloblazquezgil/"
-                    target="_blank"          // Abre en nueva pestaña
-                    rel="noopener noreferrer" // Seguridad: evita que la pestaña nueva acceda al origen
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-12 h-12 inline-flex items-center justify-center bg-white border border-[#E2ECE5] hover:border-[#2C5E43]/40 text-[#53645A] hover:text-[#2C5E43] rounded-xl transition-all duration-300 hover:scale-105 shadow-sm"
-                    title="LinkedIn"
+                    aria-label={s.label}
+                    title={s.label}
                   >
-                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                    </svg>
+                    {s.icon}
                   </a>
-
-                  {/* EMAIL: cambia la dirección después de mailto: */}
-                  <a
-                    href="mailto:pabloblazquezgil@gmail.com"
-                    className="w-12 h-12 inline-flex items-center justify-center bg-[#2C5E43] text-white hover:bg-[#1F4430] rounded-xl transition-all duration-300 hover:scale-105 shadow-md shadow-[#2C5E43]/10 hover:shadow-[#2C5E43]/20"
-                    title="Enviar Correo"
-                  >
-                    <Mail className="w-5 h-5" />
-                  </a>
-
-                </div>
+                ))}
               </div>
+              <a
+                href={links.cvPdf[lang]}
+                download
+                className="glow-effect inline-flex items-center gap-2 px-5 py-3 bg-white border border-[#D5E5DA] text-[#2C5E43] hover:border-[#2C5E43]/50 font-medium rounded-xl text-sm transition-colors"
+              >
+                <Download className="w-4 h-4" aria-hidden="true" />{t.downloadCv}
+              </a>
             </div>
           </div>
         </section>
       </main>
 
-      {/* ════════════════════════════════════════════════════════════════════════
-          PIE DE PÁGINA (Footer)
-          {currentYear} se reemplaza automáticamente con el año actual.
-          Edita el texto para personalizar el aviso de copyright.
-          ════════════════════════════════════════════════════════════════════════ */}
       <footer className="w-full py-8 border-t border-[#E2ECE5] text-center text-xs text-[#53645A] font-light bg-[#F3EFEB]/30 mt-auto">
         <div className="max-w-5xl mx-auto px-6">
-          <p>&copy; {currentYear} Pablo Blázquez Gil. Presentación de perfil profesional y portafolio.</p>
+          <p>&copy; {currentYear} Pablo Blázquez Gil. {t.footer}</p>
         </div>
       </footer>
 
       {/* ════════════════════════════════════════════════════════════════════════
-          LIGHTBOX (Modal de proyecto ampliado)
-          Solo se renderiza cuando lightbox.isOpen es true.
-          Al hacer clic en el fondo oscuro (div exterior), se cierra.
-          Al hacer clic en el contenido (div interior), e.stopPropagation()
-          evita que el clic "burbujee" y cierre el modal accidentalmente.
+          LIGHTBOX (visor de proyecto)
+          Clic en el fondo, en la X o tecla Escape → se cierra.
           ════════════════════════════════════════════════════════════════════════ */}
-      {lightbox.isOpen && (
+      {lightbox && (
         <div
           id="lightbox"
-          onClick={closeLightbox}    // Clic en el fondo oscuro → cierra el modal
+          role="dialog"
+          aria-modal="true"
+          aria-label={lightbox.title[lang]}
+          onClick={closeLightbox}
           className="fixed inset-0 bg-[#1E2D24]/95 z-50 flex items-center justify-center p-4 md:p-8 animate-fade-in cursor-zoom-out"
         >
-          {/* Botón X para cerrar en la esquina superior derecha */}
           <button
             onClick={closeLightbox}
             className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center bg-white hover:bg-[#2C5E43] hover:text-white text-[#53645A] rounded-full border border-[#E2ECE5] transition-all duration-300 z-50 cursor-pointer shadow-md"
-            title="Cerrar modal"
+            aria-label={t.close}
+            title={t.close}
           >
             <X className="w-6 h-6" />
           </button>
-
-          {/* Contenedor del contenido del modal */}
           <div
             className="w-full max-w-4xl flex flex-col space-y-4 cursor-default animate-zoom-in"
-            onClick={(e) => e.stopPropagation()} // Evita cerrar el modal al clicar en el contenido
+            onClick={(e) => e.stopPropagation()}
           >
-            {/* Imagen o vídeo/s del proyecto ampliado */}
-            {lightbox.type === "image" ? (
-              // ── Imagen: ocupa todo el ancho ─────────────────────────────────
-              <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-white border border-[#E2ECE5] shadow-2xl">
-                <Image
-                  src={lightbox.src}
-                  alt={lightbox.title}
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            ) : lightbox.srcs && lightbox.srcs.length > 1 ? (
-              // ── Múltiples vídeos: grid de dos columnas (una fila por vídeo en móvil) ──
+            {lightbox.srcs && lightbox.srcs.length > 1 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                 {lightbox.srcs.map((videoSrc, i) => (
-                  <div key={i} className="rounded-2xl overflow-hidden bg-black border border-[#E2ECE5] shadow-2xl">
-                    <video className="w-full h-full object-contain" controls autoPlay={i === 0} muted={i !== 0}>
+                  <div key={videoSrc} className="rounded-2xl overflow-hidden bg-black border border-[#E2ECE5] shadow-2xl">
+                    <video className="w-full h-full object-contain" controls autoPlay={i === 0} muted={i !== 0} playsInline>
                       <source src={videoSrc} type="video/mp4" />
-                      Tu navegador no soporta la reproducción de video.
                     </video>
                   </div>
                 ))}
               </div>
             ) : (
-              // ── Vídeo único ─────────────────────────────────────────────────
               <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black border border-[#E2ECE5] shadow-2xl">
-                <video className="w-full h-full object-contain" controls autoPlay>
+                <video className="w-full h-full object-contain" controls autoPlay playsInline>
                   <source src={lightbox.src} type="video/mp4" />
-                  Tu navegador no soporta la reproducción de video.
                 </video>
               </div>
             )}
-
-            {/* Ficha informativa del proyecto: título y descripción */}
             <div className="space-y-1.5 px-4 py-3 bg-[#FAF8F5] border border-[#E2ECE5] rounded-xl">
-              <h4 className="text-lg font-medium text-[#1E2D24]">{lightbox.title}</h4>
-              <p className="text-sm text-[#53645A] font-light leading-relaxed">{lightbox.desc}</p>
+              <h4 className="text-lg font-medium text-[#1E2D24]">{lightbox.title[lang]}</h4>
+              <p className="text-sm text-[#53645A] font-light leading-relaxed">{lightbox.desc[lang]}</p>
             </div>
           </div>
         </div>
