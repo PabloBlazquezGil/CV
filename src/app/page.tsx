@@ -242,7 +242,7 @@ export default function Home() {
           key={l}
           onClick={() => setLang(l)}
           aria-pressed={lang === l}
-          className={`px-3 py-1.5 uppercase transition-colors ${
+          className={`px-3.5 py-2.5 lg:py-1.5 uppercase transition-colors ${
             lang === l ? "bg-[#2C5E43] text-white" : "text-[#2C5E43] hover:bg-[#2C5E43]/10"
           }`}
         >
@@ -288,7 +288,7 @@ export default function Home() {
           onPointerDown con stopPropagation: los clics del vídeo los gestionan sus
           propios botones, no el "primer gesto" global de arriba.
           ════════════════════════════════════════════════════════════════════════ */}
-      <section id="hero" className="relative w-full h-[56.25vw] lg:h-screen overflow-hidden bg-black">
+      <section id="hero" className="relative w-full h-[min(56.25vw,100svh)] lg:h-screen overflow-hidden bg-black">
         <div
           className="absolute inset-0 w-full h-full overflow-hidden"
           onMouseEnter={() => setHeroHovered(true)}
@@ -340,7 +340,7 @@ export default function Home() {
             const controlsVisible = heroHovered || isTouchDevice;
             return (
               <div
-                className="absolute bottom-4 right-4 flex items-center gap-2 transition-opacity duration-300"
+                className="absolute top-3 right-3 lg:top-auto lg:bottom-4 lg:right-4 flex items-center gap-2 transition-opacity duration-300"
                 style={{ opacity: controlsVisible ? 1 : 0, pointerEvents: controlsVisible ? "auto" : "none" }}
               >
                 <button
@@ -481,7 +481,7 @@ export default function Home() {
               href={links.portfolio}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-medium text-[#2C5E43] hover:text-[#1F4430] underline-offset-4 hover:underline"
+              className="inline-flex items-center gap-2 py-2 text-sm font-medium text-[#2C5E43] hover:text-[#1F4430] underline-offset-4 hover:underline"
             >
               {t.fullPortfolio}<ExternalLink className="w-4 h-4" aria-hidden="true" />
             </a>
@@ -518,7 +518,7 @@ export default function Home() {
                     )}
                   </div>
                   <div className="p-4 space-y-1">
-                    <span className="text-[11px] text-[#2C5E43] font-semibold uppercase tracking-wider">{item.category[lang]}</span>
+                    <span className="text-xs text-[#2C5E43] font-semibold uppercase tracking-wider">{item.category[lang]}</span>
                     <h3 className="text-sm md:text-base font-medium text-[#1E2D24] group-hover:text-[#2C5E43] transition-colors duration-300">
                       {item.title[lang]}
                     </h3>
@@ -585,8 +585,8 @@ export default function Home() {
             </div>
           </div>
 
-          <details className="group bg-[#F4F8F5] border border-[#D5E5DA] rounded-2xl px-5 py-4">
-            <summary className="flex items-center justify-between gap-4 cursor-pointer list-none text-sm font-medium text-[#2C5E43] [&::-webkit-details-marker]:hidden">
+          <details className="group bg-[#F4F8F5] border border-[#D5E5DA] rounded-2xl px-5 py-3">
+            <summary className="flex items-center justify-between gap-4 py-2 min-h-11 cursor-pointer list-none text-sm font-medium text-[#2C5E43] [&::-webkit-details-marker]:hidden">
               {t.moreSkills}
               <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" aria-hidden="true" />
             </summary>
@@ -613,7 +613,7 @@ export default function Home() {
               <Kicker>{t.contactKicker}</Kicker>
               <h2 className="text-2xl md:text-3xl font-bold text-[#1E2D24] tracking-tight">{t.contactTitle}</h2>
               <p className="text-[#53645A] text-sm md:text-base font-light">{t.contactText}</p>
-              <a href={`mailto:${links.email}`} className="inline-block text-[#2C5E43] font-medium hover:underline underline-offset-4">
+              <a href={`mailto:${links.email}`} className="inline-block py-2 text-[#2C5E43] font-medium hover:underline underline-offset-4">
                 {links.email}
               </a>
             </div>
