@@ -1,6 +1,6 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    ESTILOS GLOBALES - globals.css
-   Este archivo se importa en layout.tsx y aplica a toda la aplicación.
+   Este archivo se importa en Layout.astro y aplica a toda la aplicación.
    ─────────────────────────────────────────────────────────────────────────────
    ESTRUCTURA:
    1. Importación de Tailwind CSS (SIEMPRE primero en Tailwind v4)
@@ -11,14 +11,9 @@
    ───────────────────────────────────────────────────────────────────────────── */
 
 /* ── 1. FUENTE TIPOGRÁFICA ───────────────────────────────────────────────────
-   Los @import de URLs externas DEBEN ir ANTES de @import "tailwindcss".
-   Esta es la regla estándar de CSS: los @import siempre van al principio.
-   Plus Jakarta Sans: tipografía moderna con excelente legibilidad.
-   display=swap: el texto se muestra con la fuente del sistema mientras carga,
-   evitando el "flash of invisible text" (FOIT).
-   Si quieres cambiar la fuente: busca otra en fonts.google.com, copia la URL
-   con los pesos que necesites y actualiza también la variable --font-primary. */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+   Plus Jakarta Sans va alojada en la propia web (paquete @fontsource-variable),
+   igual que hacía next/font: no depende de Google Fonts ni de terceros. */
+@import "@fontsource-variable/plus-jakarta-sans/wght.css";
 
 /* ── 2. TAILWIND CSS ─────────────────────────────────────────────────────────
    Incluye todas las utilidades de Tailwind CSS v4.
@@ -32,7 +27,7 @@
    Los colores también se usan directamente en className con valores arbitrarios
    de Tailwind (ej: text-[#2C5E43]). */
 :root {
-  --font-primary: 'Plus Jakarta Sans', sans-serif;
+  --font-primary: 'Plus Jakarta Sans Variable', sans-serif;
 
   /* ── Paleta de colores: Verde bosque + crema ── */
   --bg-cream: #FAF8F5;          /* Fondo principal: crema cálido */
@@ -93,12 +88,21 @@ body {
 /* ── 5. ANIMACIONES Y UTILIDADES PERSONALIZADAS ──────────────────────────────
    Clases adicionales que no existen en Tailwind por defecto. */
 
+/* ── Idioma ES/GL ────────────────────────────────────────────────────────────
+   La página lleva el contenido de los dos idiomas ya escrito en el HTML
+   (paneles data-panel). El atributo data-lang de <html> decide cuál se ve;
+   lo fija un script mínimo en el <head> antes de pintar, así no hay parpadeo. */
+html[data-lang="es"] [data-panel="gl"],
+html[data-lang="gl"] [data-panel="es"] {
+  display: none;
+}
+
 /* ── Scroll Reveal: animación de entrada al hacer scroll ─────────────────────
    Los elementos con clase "reveal-entry" empiezan invisibles (opacity: 0) y
    ligeramente desplazados hacia abajo (translateY: 20px).
-   Cuando el IntersectionObserver en page.tsx añade la clase "active",
+   Cuando el IntersectionObserver en el script de index.astro añade la clase "active",
    la transición de CSS anima el elemento hasta su posición final. */
-.reveal-entry {
+html.js .reveal-entry {
   opacity: 0;
   transform: translateY(20px);
   transition:
@@ -106,7 +110,7 @@ body {
     transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal-entry.active {
+html.js .reveal-entry.active {
   opacity: 1;
   transform: translateY(0);
 }
@@ -145,11 +149,33 @@ body {
   to   { transform: scale(1);    opacity: 1; }
 }
 
-/* Las clases .animate-fade-in y .animate-zoom-in se aplican en page.tsx */
+/* Las clases .animate-fade-in y .animate-zoom-in se aplican en el script de index.astro */
 .animate-fade-in {
   animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-zoom-in {
   animation: zoomIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Vídeo CV: controles e iconos ────────────────────────────────────────────
+   El script (main.ts) pone/quita data-playing y data-muted en #hero; aquí se
+   decide qué icono y qué aviso se ven. Los controles aparecen al pasar el ratón
+   o al navegar con teclado; en táctil (html[data-touch]) se ven siempre. */
+.hero-controls {
+  opacity: 0;
+  pointer-events: none;
+}
+#hero:hover .hero-controls,
+#hero:has(:focus-visible) .hero-controls,
+html[data-touch] .hero-controls {
+  opacity: 1;
+  pointer-events: auto;
+}
+#hero:not([data-playing]) .i-pause,
+#hero[data-playing] .i-play,
+#hero:not([data-muted]) .i-muted,
+#hero[data-muted] .i-sound,
+#hero:not([data-muted]) .hero-hint {
+  display: none;
 }

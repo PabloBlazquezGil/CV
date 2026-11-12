@@ -1,0 +1,19 @@
+---
+// Selector de idioma ES/GL (se usa en el header y junto al nombre).
+// Los botones los activa el script de index.astro (data-set-lang).
+interface Props { label: string }
+const { label } = Astro.props;
+---
+
+<div role="group" aria-label={label} class="flex rounded-full border border-[#2C5E43]/30 text-xs font-semibold overflow-hidden shrink-0">
+  {(["es", "gl"] as const).map((l) => (
+    <button
+      type="button"
+      data-set-lang={l}
+      aria-pressed={l === "es" ? "true" : "false"}
+      class="px-3.5 py-2.5 lg:py-1.5 uppercase transition-colors text-[#2C5E43] hover:bg-[#2C5E43]/10 aria-pressed:bg-[#2C5E43] aria-pressed:text-white aria-pressed:hover:bg-[#2C5E43]"
+    >
+      {l}
+    </button>
+  ))}
+</div>

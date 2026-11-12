@@ -1,0 +1,70 @@
+---
+// SECCIÓN 1: VÍDEO CV A PANTALLA COMPLETA
+// Sin texto encima. En escritorio ocupa toda la pantalla; en móvil mantiene la
+// proporción 16:9. Una capa invisible encima del vídeo recoge los clics (el
+// iframe de Vimeo no avisa a la página cuando se pulsa dentro).
+// El script de index.astro controla el reproductor de Vimeo y pone/quita
+// data-playing y data-muted en esta sección; el CSS (global.css) cambia los iconos.
+// Los textos (aria-label, aviso de sonido) los rellena el script según el idioma.
+import { Play, Pause, Volume2, VolumeX } from "@lucide/astro";
+import { ui } from "../data/web";
+
+const t = ui.es; // texto inicial; el script lo cambia si el idioma activo es otro
+const btn =
+  "w-10 h-10 lg:w-9 lg:h-9 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/25 text-white hover:bg-black/70 active:scale-95 transition-all duration-200";
+---
+
+<section
+  id="hero"
+  data-playing
+  data-muted
+  class="relative w-full h-[min(56.25vw,100svh)] lg:h-screen overflow-hidden bg-black"
+>
+  <div class="absolute inset-0 w-full h-full overflow-hidden" id="hero-inner">
+    <!-- Contenedor que cubre toda la sección sin franjas negras. -->
+    <div
+      style="position:absolute;top:50%;left:50%;width:max(100%, calc(100vh * 16 / 9));height:max(100%, calc(100vw * 9 / 16));transform:translate(-50%,-50%);"
+    >
+      <iframe
+        id="hero-iframe"
+        src="https://player.vimeo.com/video/1220785662?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1"
+        style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+        referrerpolicy="strict-origin-when-cross-origin"
+        title="Vídeo CV de Pablo Blázquez Gil"
+      ></iframe>
+    </div>
+
+    <!-- Capa invisible: el primer clic activa el sonido desde el principio;
+         los siguientes pausan o reanudan. -->
+    <button
+      type="button"
+      id="hero-layer"
+      class="absolute inset-0 w-full h-full cursor-pointer"
+      data-hero-label
+      aria-label={t.unmute}
+    ></button>
+
+    <!-- Aviso de sonido: pequeño, abajo en el centro, solo mientras está en silencio. -->
+    <button
+      type="button"
+      id="hero-hint"
+      class="hero-hint absolute bottom-4 left-1/2 -translate-x-1/2 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/55 backdrop-blur-md border border-white/30 text-white text-xs md:text-sm font-medium whitespace-nowrap hover:bg-black/70 transition-colors animate-pulse"
+    >
+      <Volume2 class="w-4 h-4" aria-hidden="true" /><span data-i18n="soundHint">{t.soundHint}</span>
+    </button>
+
+    <!-- Controles de vídeo. En táctil: siempre visibles. En escritorio:
+         aparecen al pasar el ratón (o al navegar con teclado). -->
+    <div class="hero-controls absolute top-3 right-3 lg:top-auto lg:bottom-4 lg:right-4 flex items-center gap-2 transition-opacity duration-300">
+      <button type="button" id="hero-play" class={btn} data-hero-play>
+        <Pause class="i-pause w-4 h-4 lg:w-3.5 lg:h-3.5 fill-white" />
+        <Play class="i-play w-4 h-4 lg:w-3.5 lg:h-3.5 fill-white ml-0.5" />
+      </button>
+      <button type="button" id="hero-mute" class={btn} data-hero-mute>
+        <VolumeX class="i-muted w-4 h-4 lg:w-3.5 lg:h-3.5" />
+        <Volume2 class="i-sound w-4 h-4 lg:w-3.5 lg:h-3.5" />
+      </button>
+    </div>
+  </div>
+</section>

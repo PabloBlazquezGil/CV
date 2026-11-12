@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Web CV de Pablo Blázquez Gil
 
-## Getting Started
+Web estática hecha con [Astro](https://astro.build) y Tailwind CSS 4. Castellano y gallego en la misma página (selector ES/GL, o `?lang=gl` en la URL).
 
-First, run the development server:
+## Comandos
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install        # instala dependencias (Node 24, ver .nvmrc)
+npm run dev        # servidor local en http://localhost:4321
+npm run build      # genera la web estática en dist/
+npm run preview    # sirve dist/ para probarla
+npm run check      # comprueba tipos
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Dónde está cada cosa
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `src/data/cv_es.json`, `cv_gl.json`: contenido del CV (copias de `cv-base/datos/`).
+- `src/data/web.ts`: textos de la interfaz, enlaces y galería de proyectos.
+- `src/pages/index.astro`, `src/components/`: la página.
+- `src/scripts/main.ts`: idioma, vídeo CV de Vimeo, visor de proyectos y animaciones.
+- `public/cv/`: PDF del CV en castellano y gallego. Sustitúyelos al exportar uno nuevo.
+- `astro.config.mjs`: dominio (`site`) para sitemap y metadatos.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Despliegue (Hostinger desde GitHub)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Tipo de sitio: estático. Comando de compilación `npm run build`, carpeta de salida `dist`, Node 24.

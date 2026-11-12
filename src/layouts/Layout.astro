@@ -1,0 +1,63 @@
+---
+// ─────────────────────────────────────────────────────────────────────────────
+// LAYOUT BASE - Layout.astro
+// Envuelve la página: <head> con SEO (título, descripción, Open Graph, Twitter),
+// la fuente, los estilos globales y el <body>. Se genera en el build, sin JS.
+// ─────────────────────────────────────────────────────────────────────────────
+import "../styles/global.css";
+
+// Texto y vista previa al compartir el enlace (LinkedIn, WhatsApp, email…).
+const title = "Pablo Blázquez Gil · Comunicador científico y audiovisual";
+const description =
+  "Bioquímico con Máster en Neurociencias. Comunicación científica, divulgación, producción audiovisual y gestión de proyectos. Coordinó la comunicación del Centro de Astrobiología (CSIC-INTA). Galicia, disponible desde febrero de 2027.";
+const ogDescription =
+  "Comunicación científica, divulgación, producción audiovisual y gestión de proyectos en Galicia.";
+const image = "https://thundershoot.com/wp-content/uploads/2025/03/Pablo-Equipo-1-scaled.jpg";
+const canonical = new URL("/", Astro.site).href;
+---
+
+<!doctype html>
+<html lang="es" data-lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale:alternate" content="gl_ES" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Pablo Blázquez Gil" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:alt" content="Pablo Blázquez Gil" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content={image} />
+
+    <!-- Idioma inicial. Se ejecuta antes de pintar para evitar parpadeos:
+         ?lang=gl en la URL manda; si no, lo que eligió el visitante la última vez. -->
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.classList.add("js");
+        var fromUrl = new URLSearchParams(location.search).get("lang");
+        var saved = null;
+        try { saved = localStorage.getItem("lang"); } catch (e) {}
+        var l = fromUrl || saved;
+        if (l === "gl" || l === "es") { d.lang = l; d.dataset.lang = l; }
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-[#2C5E43] selection:text-white">
+    <slot />
+  </body>
+</html>
