@@ -24,6 +24,8 @@ const canonical = new URL("/", Astro.site).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <!-- Las imágenes y vídeos externos (thundershoot.com) se piden sin Referer
+         para que su protección anti-hotlinking no los bloquee. -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
 
     <!-- Open Graph -->

@@ -215,6 +215,7 @@ function makeVideo(src: string, autoplay: boolean, muted: boolean, className: st
   v.autoplay = autoplay;
   v.muted = muted;
   v.playsInline = true;
+  v.setAttribute("referrerpolicy", "no-referrer"); // evita que el hosting de los vídeos bloquee por referer
   const source = document.createElement("source");
   source.src = src;
   source.type = "video/mp4";
