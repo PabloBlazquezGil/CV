@@ -1,0 +1,31 @@
+---
+// LIGHTBOX (visor de proyecto). Clic en el fondo, en la X o tecla Escape → se cierra.
+// Está vacío y oculto; el script de index.astro lo rellena con el proyecto elegido.
+import { X } from "@lucide/astro";
+---
+
+<div
+  id="lightbox"
+  hidden
+  role="dialog"
+  aria-modal="true"
+  aria-label=""
+  class="fixed inset-0 bg-[#1E2D24]/95 z-50 flex items-center justify-center p-4 md:p-8 animate-fade-in cursor-zoom-out"
+>
+  <button
+    type="button"
+    id="lightbox-close"
+    class="absolute top-6 right-6 w-12 h-12 flex items-center justify-center bg-white hover:bg-[#2C5E43] hover:text-white text-[#53645A] rounded-full border border-[#E2ECE5] transition-all duration-300 z-50 cursor-pointer shadow-md"
+    aria-label="Cerrar"
+    title="Cerrar"
+  >
+    <X class="w-6 h-6" />
+  </button>
+  <div id="lightbox-body" class="w-full max-w-4xl flex flex-col space-y-4 cursor-default animate-zoom-in">
+    <div id="lightbox-videos"></div>
+    <div class="space-y-1.5 px-4 py-3 bg-[#FAF8F5] border border-[#E2ECE5] rounded-xl">
+      <h4 id="lightbox-title" class="text-lg font-medium text-[#1E2D24]"></h4>
+      <p id="lightbox-desc" class="text-sm text-[#53645A] font-light leading-relaxed"></p>
+    </div>
+  </div>
+</div>

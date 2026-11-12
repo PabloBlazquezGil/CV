@@ -1,0 +1,36 @@
+---
+// ─────────────────────────────────────────────────────────────────────────────
+// PÁGINA ÚNICA - index.astro
+// Se genera una sola vez en el build (HTML estático). Lleva el contenido de los
+// dos idiomas escrito; el selector ES/GL solo cambia cuál se ve (ver global.css).
+// Interactividad (src/scripts/main.ts): idioma, header al hacer scroll,
+// animación de entrada, vídeo CV de Vimeo con sonido y visor de proyectos.
+// ─────────────────────────────────────────────────────────────────────────────
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Content from "../components/Content.astro";
+import Lightbox from "../components/Lightbox.astro";
+import { ui, galleryItems } from "../data/web";
+
+const year = new Date().getFullYear();
+// Datos que necesita el script del navegador (textos de botones y proyectos).
+const pick = (l: "es" | "gl") => {
+  const { soundHint, pause, play, unmute, mute, close } = ui[l];
+  return { soundHint, pause, play, unmute, mute, close };
+};
+const clientData = { ui: { es: pick("es"), gl: pick("gl") }, gallery: galleryItems };
+---
+
+<Layout>
+  <Header lang="es" />
+  <Header lang="gl" />
+  <Hero />
+  <Content lang="es" year={year} />
+  <Content lang="gl" year={year} />
+  <Lightbox />
+  <script type="application/json" id="client-data" set:html={JSON.stringify(clientData)} />
+  <script>
+    import "../scripts/main";
+  </script>
+</Layout>
