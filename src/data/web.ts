@@ -110,7 +110,7 @@ export interface GalleryItem {
 export const galleryItems: GalleryItem[] = [
   {
     type: "video",
-    src: "https://thundershoot.com/wp-content/uploads/2024/11/Dia-de-la-Mujer-y-la-Nina-en-la-Ciencia-11_02_2024-Centro-de-Astrobiologia-CAB-CSIC-INTA-1.mp4",
+    src: "https://archivos.thundershoot.com/2024/11/Dia-de-la-Mujer-y-la-Nina-en-la-Ciencia-11_02_2024-Centro-de-Astrobiologia-CAB-CSIC-INTA-1.mp4",
     title: {
       es: "Día de la Mujer y la Niña en la Ciencia",
       gl: "Día da Muller e a Nena na Ciencia",
@@ -126,10 +126,10 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     type: "video",
-    src: "https://thundershoot.com/wp-content/uploads/2026/06/Short-Film-San-Lorenzo-1.mp4",
+    src: "https://archivos.thundershoot.com/2026/06/Short-Film-San-Lorenzo-1.mp4",
     srcs: [
-      "https://thundershoot.com/wp-content/uploads/2026/06/Short-Film-San-Lorenzo-1.mp4",
-      "https://thundershoot.com/wp-content/uploads/2026/06/SHORT-FILM-CASA-BEATNIK-1080.mp4",
+      "https://archivos.thundershoot.com/2026/06/Short-Film-San-Lorenzo-1.mp4",
+      "https://archivos.thundershoot.com/2026/06/SHORT-FILM-CASA-BEATNIK-1080.mp4",
     ],
     title: {
       es: "Shorts para floristería: San Lorenzo y Casa Beatnik",
