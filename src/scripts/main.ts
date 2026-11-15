@@ -7,7 +7,7 @@
 //   4. Visor de proyectos (lightbox)
 // ─────────────────────────────────────────────────────────────────────────────
 type Lang = "es" | "gl";
-type UiText = { soundHint: string; pause: string; play: string; unmute: string; mute: string; close: string };
+type UiText = { soundHint: string; scrollHint: string; pause: string; play: string; unmute: string; mute: string; close: string };
 type GalleryItem = {
   type: "video" | "soon";
   src?: string;
@@ -61,6 +61,8 @@ function applyLang(l: Lang) {
   const closeBtn = $("#lightbox-close");
   closeBtn.setAttribute("aria-label", t.close);
   closeBtn.title = t.close;
+  // El enlace "Ver perfil" del vídeo apunta al bloque del idioma activo.
+  $("[data-about-link]").setAttribute("href", l === "gl" ? "#about-gl" : "#about");
   heroLabels();
   if (currentItem) fillLightbox(currentItem);
 }
@@ -200,6 +202,7 @@ heroMuteBtn.addEventListener("click", toggleMute);
 
 // ── 4. VISOR DE PROYECTOS (LIGHTBOX) ─────────────────────────────────────────
 let currentItem: GalleryItem | null = null;
+let lastFocused: HTMLElement | null = null; // para devolver el foco al cerrar
 const videosBox = $("#lightbox-videos");
 
 function fillLightbox(item: GalleryItem) {
@@ -244,8 +247,10 @@ function openLightbox(item: GalleryItem) {
   }
   currentItem = item;
   fillLightbox(item);
+  lastFocused = document.activeElement as HTMLElement | null;
   lightbox.hidden = false;
   document.body.style.overflow = "hidden"; // bloquea el scroll del fondo
+  $("#lightbox-close").focus(); // el teclado y los lectores de pantalla entran en el visor
 }
 
 function closeLightbox() {
@@ -253,6 +258,8 @@ function closeLightbox() {
   lightbox.hidden = true;
   videosBox.replaceChildren(); // para el vídeo y libera el reproductor
   document.body.style.overflow = "";
+  lastFocused?.focus(); // vuelve a la tarjeta que se abrió
+  lastFocused = null;
 }
 
 document.querySelectorAll<HTMLElement>("[data-gallery]").forEach((card) => {
@@ -263,6 +270,14 @@ $("#lightbox-body").addEventListener("click", (e) => e.stopPropagation());
 $("#lightbox-close").addEventListener("click", closeLightbox);
 window.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && currentItem) closeLightbox();
+  // Mientras el visor está abierto, Tab no se escapa a la página de detrás.
+  if (e.key === "Tab" && currentItem) {
+    const f = [...lightbox.querySelectorAll<HTMLElement>("button, video[controls]")];
+    const first = f[0], last = f[f.length - 1];
+    const active = document.activeElement;
+    if (e.shiftKey && active === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && active === last) { e.preventDefault(); first.focus(); }
+  }
 });
 
 // Estado inicial de los textos según el idioma con el que arrancó la página.

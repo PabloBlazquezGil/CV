@@ -16,13 +16,15 @@ import { ui, galleryItems } from "../data/web";
 const year = new Date().getFullYear();
 // Datos que necesita el script del navegador (textos de botones y proyectos).
 const pick = (l: "es" | "gl") => {
-  const { soundHint, pause, play, unmute, mute, close } = ui[l];
-  return { soundHint, pause, play, unmute, mute, close };
+  const { soundHint, scrollHint, pause, play, unmute, mute, close } = ui[l];
+  return { soundHint, scrollHint, pause, play, unmute, mute, close };
 };
 const clientData = { ui: { es: pick("es"), gl: pick("gl") }, gallery: galleryItems };
 ---
 
 <Layout>
+  <div data-panel="es" class="contents"><a href="#about" class="skip-link">{ui.es.skip}</a></div>
+  <div data-panel="gl" class="contents"><a href="#about-gl" class="skip-link">{ui.gl.skip}</a></div>
   <Header lang="es" />
   <Header lang="gl" />
   <Hero />

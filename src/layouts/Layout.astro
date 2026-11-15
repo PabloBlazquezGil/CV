@@ -14,6 +14,23 @@ const ogDescription =
   "Comunicación científica, divulgación, producción audiovisual y gestión de proyectos en Galicia.";
 const image = "https://archivos.thundershoot.com/2025/03/Pablo-Equipo-1-scaled.jpg";
 const canonical = new URL("/", Astro.site).href;
+// Datos estructurados (schema.org): ayudan a Google a entender quién es y a mostrarlo
+// bien en los resultados. Solo lleva datos que ya son públicos en la propia web.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Pablo Blázquez Gil",
+  jobTitle: "Comunicador científico y audiovisual",
+  url: canonical,
+  image,
+  address: { "@type": "PostalAddress", addressLocality: "Pontecesures", addressRegion: "Pontevedra", addressCountry: "ES" },
+  knowsLanguage: ["es", "gl", "en"],
+  sameAs: [
+    "https://www.linkedin.com/in/pabloblazquezgil/",
+    "https://www.instagram.com/pabloblazquezgil/",
+    "https://pabloblazquezgil.vercel.app/",
+  ],
+};
 ---
 
 <!doctype html>
@@ -24,6 +41,8 @@ const canonical = new URL("/", Astro.site).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#FAF8F5" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <!-- Las imágenes y vídeos externos (archivos.thundershoot.com) se piden sin Referer
          para que su protección anti-hotlinking no los bloquee. -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
