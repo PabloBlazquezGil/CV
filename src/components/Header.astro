@@ -3,7 +3,8 @@
 // Oculto mientras se ve el vídeo; aparece al bajar con el nombre, el menú de
 // secciones (solo escritorio) y el selector ES/GL. El script le pone data-scrolled.
 import LangSwitch from "./LangSwitch.astro";
-import { ui, type Lang } from "../data/web";
+import { Mail } from "@lucide/astro";
+import { ui, links, type Lang } from "../data/web";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -14,10 +15,10 @@ const sfx = lang === "es" ? "" : "-gl"; // los ids de ancla del bloque gallego l
 <div data-panel={lang} class="contents">
   <header
     data-header
-    class="fixed top-0 left-0 right-0 z-40 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-[#2C5E43]/10 shadow-sm transition-all duration-500 opacity-0 -translate-y-full pointer-events-none data-[scrolled]:opacity-100 data-[scrolled]:translate-y-0 data-[scrolled]:pointer-events-auto"
+    class="fixed top-0 left-0 right-0 z-40 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-[#2C5E43]/10 shadow-sm transition-all duration-500 opacity-0 invisible -translate-y-full pointer-events-none data-[scrolled]:visible data-[scrolled]:opacity-100 data-[scrolled]:translate-y-0 data-[scrolled]:pointer-events-auto"
   >
     <div class="max-w-6xl mx-auto px-4 md:px-12 py-3 flex items-center justify-between gap-4">
-      <a href="#hero" class="text-sm md:text-base font-bold tracking-[0.25em] uppercase text-[#2C5E43]">
+      <a href="#hero" class="text-xs min-[380px]:text-sm md:text-base font-bold tracking-[0.15em] md:tracking-[0.25em] uppercase text-[#2C5E43]">
         Pablo Blázquez Gil
       </a>
       <nav class="flex items-center gap-6">
@@ -28,6 +29,16 @@ const sfx = lang === "es" ? "" : "-gl"; // los ids de ancla del bloque gallego l
           <li><a href={`#contact${sfx}`} class="hover:text-[#2C5E43] transition-colors">{t.nav.contact}</a></li>
         </ul>
         <LangSwitch label={t.langLabel} />
+        <!-- Contacto siempre a mano: en móvil no hay menú de secciones, así que el
+             correo va como botón de icono. En escritorio basta el enlace "Contacto". -->
+        <a
+          href={`mailto:${links.email}`}
+          aria-label={t.contactCta}
+          title={t.contactCta}
+          class="md:hidden -ml-2 w-10 h-10 shrink-0 inline-flex items-center justify-center rounded-full bg-[#2C5E43] text-white"
+        >
+          <Mail class="w-4 h-4" aria-hidden="true" />
+        </a>
       </nav>
     </div>
   </header>

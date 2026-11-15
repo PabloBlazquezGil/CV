@@ -6,7 +6,7 @@
 // El script de index.astro controla el reproductor de Vimeo y pone/quita
 // data-playing y data-muted en esta sección; el CSS (global.css) cambia los iconos.
 // Los textos (aria-label, aviso de sonido) los rellena el script según el idioma.
-import { Play, Pause, Volume2, VolumeX } from "@lucide/astro";
+import { Play, Pause, Volume2, VolumeX, ChevronDown } from "@lucide/astro";
 import { ui } from "../data/web";
 
 const t = ui.es; // texto inicial; el script lo cambia si el idioma activo es otro
@@ -53,6 +53,16 @@ const btn =
     >
       <Volume2 class="w-4 h-4" aria-hidden="true" /><span data-i18n="soundHint">{t.soundHint}</span>
     </button>
+
+    <!-- Pista para bajar al perfil: en escritorio el vídeo ocupa toda la pantalla y
+         no se ve que debajo hay más contenido. En móvil el perfil ya asoma. -->
+    <a
+      href="#about"
+      data-about-link
+      class="hero-scroll hidden lg:inline-flex absolute bottom-4 left-4 items-center gap-2 px-4 py-2 rounded-full bg-black/55 backdrop-blur-md border border-white/30 text-white text-sm font-medium hover:bg-black/70 transition-all"
+    >
+      <span data-i18n="scrollHint">{t.scrollHint}</span><ChevronDown class="w-4 h-4" aria-hidden="true" />
+    </a>
 
     <!-- Controles de vídeo. En táctil: siempre visibles. En escritorio:
          aparecen al pasar el ratón (o al navegar con teclado). -->

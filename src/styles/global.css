@@ -158,16 +158,51 @@ html.js .reveal-entry.active {
   animation: zoomIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* ── Accesibilidad: movimiento reducido ──────────────────────────────────────
+   Quien tiene activado "reducir movimiento" en su sistema no ve el fondo que se
+   desplaza, ni el aviso que parpadea, ni las animaciones de entrada. */
+@media (prefers-reduced-motion: reduce) {
+  html, html.scroll-smooth { scroll-behavior: auto; }
+  body { animation: none; background: var(--bg-cream); }
+  html.js .reveal-entry { opacity: 1; transform: none; transition: none; }
+  .animate-pulse, .animate-fade-in, .animate-zoom-in { animation: none; }
+}
+
+/* ── Enlace "Saltar al contenido" ────────────────────────────────────────────
+   Invisible hasta que se llega a él con la tecla Tab; permite a quien navega con
+   teclado o lector de pantalla saltarse el vídeo e ir directo al perfil. */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 60;
+  padding: 0.6rem 1rem;
+  border-radius: 0.75rem;
+  background: var(--brand-green);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+.skip-link:focus { transform: translateY(0); }
+
 /* ── Vídeo CV: controles e iconos ────────────────────────────────────────────
    El script (main.ts) pone/quita data-playing y data-muted en #hero; aquí se
    decide qué icono y qué aviso se ven. Los controles aparecen al pasar el ratón
    o al navegar con teclado; en táctil (html[data-touch]) se ven siempre. */
-.hero-controls {
+.hero-controls,
+.hero-scroll {
   opacity: 0;
   pointer-events: none;
+  transition: opacity 0.3s;
 }
+/* "Ver perfil" (solo escritorio) no tapa el vídeo mientras se reproduce: aparece
+   igual que los controles (ratón encima o teclado) y también si está en pausa. */
+#hero:not([data-playing]) .hero-scroll,
 #hero:hover .hero-controls,
+#hero:hover .hero-scroll,
 #hero:has(:focus-visible) .hero-controls,
+#hero:has(:focus-visible) .hero-scroll,
 html[data-touch] .hero-controls {
   opacity: 1;
   pointer-events: auto;

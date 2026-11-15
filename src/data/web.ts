@@ -54,6 +54,8 @@ export const ui = {
     contactText:
       "Busco proyectos de comunicación científica, divulgación, producción audiovisual o gestión de proyectos en empresas y clusters de Galicia. Escríbeme y lo hablamos.",
     soundHint: "Pulsa para escuchar con sonido",
+    scrollHint: "Ver perfil",
+    skip: "Saltar al contenido",
     pause: "Pausar",
     play: "Reproducir",
     unmute: "Activar sonido",
@@ -83,6 +85,8 @@ export const ui = {
     contactText:
       "Busco proxectos de comunicación científica, divulgación, produción audiovisual ou xestión de proxectos en empresas e clústeres de Galicia. Escríbeme e falámolo.",
     soundHint: "Preme para escoitar con son",
+    scrollHint: "Ver perfil",
+    skip: "Saltar ao contido",
     pause: "Pausar",
     play: "Reproducir",
     unmute: "Activar o son",
