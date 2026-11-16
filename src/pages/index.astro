@@ -11,13 +11,13 @@ import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
 import Content from "../components/Content.astro";
 import Lightbox from "../components/Lightbox.astro";
-import { ui, galleryItems } from "../data/web";
+import { ui, cv, galleryItems } from "../data/web";
 
 const year = new Date().getFullYear();
 // Datos que necesita el script del navegador (textos de botones y proyectos).
 const pick = (l: "es" | "gl") => {
   const { soundHint, scrollHint, pause, play, unmute, mute, close } = ui[l];
-  return { soundHint, scrollHint, pause, play, unmute, mute, close };
+  return { titular: cv[l].titular, soundHint, scrollHint, pause, play, unmute, mute, close };
 };
 const clientData = { ui: { es: pick("es"), gl: pick("gl") }, gallery: galleryItems };
 ---

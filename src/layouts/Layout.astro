@@ -41,7 +41,7 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#FAF8F5" />
+    <meta name="theme-color" content="#EFF2EE" />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <!-- Las imágenes y vídeos externos (archivos.thundershoot.com) se piden sin Referer
          para que su protección anti-hotlinking no los bloquee. -->
@@ -78,7 +78,7 @@ const jsonLd = {
       })();
     </script>
   </head>
-  <body class="min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-[#2C5E43] selection:text-white">
+  <body class="min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-[#1F5A45] selection:text-white">
     <slot />
   </body>
 </html>

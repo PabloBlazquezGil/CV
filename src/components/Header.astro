@@ -3,7 +3,7 @@
 // Oculto mientras se ve el vídeo; aparece al bajar con el nombre, el menú de
 // secciones (solo escritorio) y el selector ES/GL. El script le pone data-scrolled.
 import LangSwitch from "./LangSwitch.astro";
-import { Mail } from "@lucide/astro";
+import { Mail, Download } from "@lucide/astro";
 import { ui, links, type Lang } from "../data/web";
 
 interface Props { lang: Lang }
@@ -15,31 +15,32 @@ const sfx = lang === "es" ? "" : "-gl"; // los ids de ancla del bloque gallego l
 <div data-panel={lang} class="contents">
   <header
     data-header
-    class="fixed top-0 left-0 right-0 z-40 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-[#2C5E43]/10 shadow-sm transition-all duration-500 opacity-0 invisible -translate-y-full pointer-events-none data-[scrolled]:visible data-[scrolled]:opacity-100 data-[scrolled]:translate-y-0 data-[scrolled]:pointer-events-auto"
+    class="fixed top-0 left-0 right-0 z-40 bg-[#EFF2EE]/90 backdrop-blur-md border-b border-[#14241E]/15 transition-all duration-500 opacity-0 invisible -translate-y-full pointer-events-none data-[scrolled]:visible data-[scrolled]:opacity-100 data-[scrolled]:translate-y-0 data-[scrolled]:pointer-events-auto"
   >
     <div class="max-w-6xl mx-auto px-4 md:px-12 py-3 flex items-center justify-between gap-4">
-      <a href="#hero" class="text-xs min-[380px]:text-sm md:text-base font-bold tracking-[0.15em] md:tracking-[0.25em] uppercase text-[#2C5E43]">
+      <a href="#hero" class="text-xs min-[380px]:text-sm md:text-base font-extrabold tracking-tight font-display text-[#1F5A45]">
         Pablo Blázquez Gil
       </a>
       <nav class="flex items-center gap-6">
-        <ul class="hidden md:flex items-center gap-6 text-sm text-[#53645A]">
-          <li><a href={`#about${sfx}`} class="hover:text-[#2C5E43] transition-colors">{t.nav.about}</a></li>
-          <li><a href={`#experience${sfx}`} class="hover:text-[#2C5E43] transition-colors">{t.nav.experience}</a></li>
-          <li><a href={`#portfolio${sfx}`} class="hover:text-[#2C5E43] transition-colors">{t.nav.projects}</a></li>
-          <li><a href={`#contact${sfx}`} class="hover:text-[#2C5E43] transition-colors">{t.nav.contact}</a></li>
+        <ul class="hidden md:flex items-center gap-6 text-sm text-[#4B5E55]">
+          <li><a href={`#about${sfx}`} class="hover:text-[#1F5A45] transition-colors">{t.nav.about}</a></li>
+          <li><a href={`#experience${sfx}`} class="hover:text-[#1F5A45] transition-colors">{t.nav.experience}</a></li>
+          <li><a href={`#portfolio${sfx}`} class="hover:text-[#1F5A45] transition-colors">{t.nav.projects}</a></li>
+          <li><a href={`#contact${sfx}`} class="hover:text-[#1F5A45] transition-colors">{t.nav.contact}</a></li>
         </ul>
         <LangSwitch label={t.langLabel} />
-        <!-- Contacto siempre a mano: en móvil no hay menú de secciones, así que el
-             correo va como botón de icono. En escritorio basta el enlace "Contacto". -->
-        <a
-          href={`mailto:${links.email}`}
-          aria-label={t.contactCta}
-          title={t.contactCta}
-          class="md:hidden -ml-2 w-10 h-10 shrink-0 inline-flex items-center justify-center rounded-full bg-[#2C5E43] text-white"
-        >
-          <Mail class="w-4 h-4" aria-hidden="true" />
-        </a>
       </nav>
     </div>
   </header>
+
+  <!-- Barra de contacto fija (solo móvil): correo y CV siempre a un toque. Aparece
+       al dejar atrás el vídeo, con el mismo data-scrolled que el header. -->
+  <div data-header class="contact-bar md:hidden fixed bottom-0 inset-x-0 z-40 flex gap-2 p-3 bg-[#EFF2EE]/95 backdrop-blur-md border-t border-[#14241E]/15 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+    <a href={`mailto:${links.email}`} class="flex-1 inline-flex items-center justify-center gap-2 min-h-12 rounded-lg bg-[#1F5A45] text-white text-sm font-semibold">
+      <Mail class="w-4 h-4" aria-hidden="true" />{t.contactCta}
+    </a>
+    <a href={links.cvPdf[lang]} download class="flex-1 inline-flex items-center justify-center gap-2 min-h-12 rounded-lg border border-[#1F5A45]/50 text-[#1F5A45] text-sm font-semibold">
+      <Download class="w-4 h-4" aria-hidden="true" />{t.downloadCvShort}
+    </a>
+  </div>
 </div>

@@ -7,7 +7,7 @@
 //   4. Visor de proyectos (lightbox)
 // ─────────────────────────────────────────────────────────────────────────────
 type Lang = "es" | "gl";
-type UiText = { soundHint: string; scrollHint: string; pause: string; play: string; unmute: string; mute: string; close: string };
+type UiText = { titular: string; soundHint: string; scrollHint: string; pause: string; play: string; unmute: string; mute: string; close: string };
 type GalleryItem = {
   type: "video" | "soon";
   src?: string;
@@ -89,19 +89,26 @@ const onScroll = () => {
 onScroll();
 window.addEventListener("scroll", onScroll, { passive: true });
 
-// Los elementos con clase "reveal-entry" aparecen con una animación al entrar en pantalla.
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("active");
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
-);
-document.querySelectorAll(".reveal-entry").forEach((el) => observer.observe(el));
+// El titular sobre el vídeo se ve unos segundos al entrar y luego deja el vídeo libre.
+// (Con "reducir movimiento" no hay desvanecimiento, pero sí se oculta igual.)
+setTimeout(() => hero.removeAttribute("data-intro"), 6000);
+
+// "Expandir todo": abre o cierra todos los puestos de la experiencia a la vez.
+document.querySelectorAll<HTMLButtonElement>("[data-expand-all]").forEach((btn) => {
+  const jobs = btn.closest("section")!.querySelectorAll<HTMLDetailsElement>("details[data-job]");
+  const label = btn.querySelector("span")!;
+  const refresh = () => {
+    const allOpen = [...jobs].every((d) => d.open);
+    label.textContent = allOpen ? btn.dataset.labelCollapse! : btn.dataset.labelExpand!;
+    btn.setAttribute("aria-expanded", String(allOpen));
+  };
+  btn.addEventListener("click", () => {
+    const open = ![...jobs].every((d) => d.open);
+    jobs.forEach((d) => (d.open = open));
+    refresh();
+  });
+  jobs.forEach((d) => d.addEventListener("toggle", refresh));
+});
 
 // ── 3. VÍDEO CV CON SONIDO ───────────────────────────────────────────────────
 // Los navegadores NO dejan que un vídeo empiece con sonido si el visitante aún
@@ -237,12 +244,12 @@ function openLightbox(item: GalleryItem) {
     videosBox.className = "grid grid-cols-1 md:grid-cols-2 gap-4 w-full";
     item.srcs.forEach((s, i) => {
       const wrap = document.createElement("div");
-      wrap.className = "rounded-2xl overflow-hidden bg-black border border-[#E2ECE5] shadow-2xl";
+      wrap.className = "rounded-2xl overflow-hidden bg-black border border-[#D3DED7] shadow-2xl";
       wrap.appendChild(makeVideo(s, i === 0, i !== 0, "w-full h-full object-contain"));
       videosBox.appendChild(wrap);
     });
   } else {
-    videosBox.className = "relative w-full aspect-video rounded-2xl overflow-hidden bg-black border border-[#E2ECE5] shadow-2xl";
+    videosBox.className = "relative w-full aspect-video rounded-2xl overflow-hidden bg-black border border-[#D3DED7] shadow-2xl";
     videosBox.appendChild(makeVideo(item.src!, true, false, "w-full h-full object-contain"));
   }
   currentItem = item;

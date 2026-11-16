@@ -14,6 +14,7 @@
    Plus Jakarta Sans va alojada en la propia web (paquete @fontsource-variable),
    igual que hacía next/font: no depende de Google Fonts ni de terceros. */
 @import "@fontsource-variable/plus-jakarta-sans/wght.css";
+@import "@fontsource-variable/bricolage-grotesque/wght.css";
 
 /* ── 2. TAILWIND CSS ─────────────────────────────────────────────────────────
    Incluye todas las utilidades de Tailwind CSS v4.
@@ -25,20 +26,23 @@
    :root define variables globales accesibles en toda la app con var(--nombre).
    Para cambiar los colores del tema, modifica estos valores.
    Los colores también se usan directamente en className con valores arbitrarios
-   de Tailwind (ej: text-[#2C5E43]). */
+   de Tailwind (ej: text-[#1F5A45]). */
 :root {
   --font-primary: 'Plus Jakarta Sans Variable', sans-serif;
+  /* Titulares: Bricolage Grotesque, de trazo humano, contrasta con el texto de lectura. */
+  --font-display: 'Bricolage Grotesque Variable', 'Plus Jakarta Sans Variable', sans-serif;
+  --signal: #E0A526;            /* Ámbar de señal (el piloto REC): solo en detalles del vídeo */
 
   /* ── Paleta de colores: Verde bosque + crema ── */
-  --bg-cream: #FAF8F5;          /* Fondo principal: crema cálido */
-  --bg-cream-dark: #F3EFEB;     /* Fondo secundario: crema oscuro */
-  --bg-green-light: #E2ECE5;    /* Borde y fondo suave: verde muy claro */
-  --text-dark: #1E2D24;         /* Texto principal: verde muy oscuro (casi negro) */
-  --text-muted: #53645A;        /* Texto secundario: gris-verde apagado */
+  --bg-cream: #EFF2EE;          /* Fondo principal: crema cálido */
+  --bg-cream-dark: #E6EBE6;     /* Fondo secundario: crema oscuro */
+  --bg-green-light: #D3DED7;    /* Borde y fondo suave: verde muy claro */
+  --text-dark: #14241E;         /* Texto principal: verde muy oscuro (casi negro) */
+  --text-muted: #4B5E55;        /* Texto secundario: gris-verde apagado */
 
-  --brand-green: #2C5E43;       /* Color de acento principal: verde bosque */
-  --brand-green-hover: #1F4430; /* Variante hover del verde (más oscuro) */
-  --brand-green-glow: rgba(44, 94, 67, 0.08); /* Sombra sutil para el efecto glow */
+  --brand-green: #1F5A45;       /* Color de acento principal: verde bosque */
+  --brand-green-hover: #143D2F; /* Variante hover del verde (más oscuro) */
+  --brand-green-glow: rgba(31, 90, 69, 0.08); /* Sombra sutil para el efecto glow */
 }
 
 /* ── 4. ESTILOS BASE ─────────────────────────────────────────────────────────
@@ -73,16 +77,13 @@ html {
    background-size: 400% 400% es necesario para que la animación tenga espacio para moverse.
    Si quieres un fondo estático, borra estas reglas y pon solo background: var(--bg-cream). */
 body {
-  background: linear-gradient(-45deg, #FAF8F5, #E5EFE7, #FAF8F5, #EAE5DC);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+  background: var(--bg-cream);
 }
 
-/* Keyframe de la animación del gradiente del fondo */
-@keyframes gradientBG {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Titulares con la tipografía de display. */
+h1, h2, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
 }
 
 /* ── 5. ANIMACIONES Y UTILIDADES PERSONALIZADAS ──────────────────────────────
@@ -95,24 +96,6 @@ body {
 html[data-lang="es"] [data-panel="gl"],
 html[data-lang="gl"] [data-panel="es"] {
   display: none;
-}
-
-/* ── Scroll Reveal: animación de entrada al hacer scroll ─────────────────────
-   Los elementos con clase "reveal-entry" empiezan invisibles (opacity: 0) y
-   ligeramente desplazados hacia abajo (translateY: 20px).
-   Cuando el IntersectionObserver en el script de index.astro añade la clase "active",
-   la transición de CSS anima el elemento hasta su posición final. */
-html.js .reveal-entry {
-  opacity: 0;
-  transform: translateY(20px);
-  transition:
-    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-html.js .reveal-entry.active {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 /* ── Efecto Glow (brillo) para botones ───────────────────────────────────────
@@ -163,8 +146,6 @@ html.js .reveal-entry.active {
    desplaza, ni el aviso que parpadea, ni las animaciones de entrada. */
 @media (prefers-reduced-motion: reduce) {
   html, html.scroll-smooth { scroll-behavior: auto; }
-  body { animation: none; background: var(--bg-cream); }
-  html.js .reveal-entry { opacity: 1; transform: none; transition: none; }
   .animate-pulse, .animate-fade-in, .animate-zoom-in { animation: none; }
 }
 
@@ -213,4 +194,37 @@ html[data-touch] .hero-controls {
 #hero[data-muted] .i-sound,
 #hero:not([data-muted]) .hero-hint {
   display: none;
+}
+
+/* ── Titular sobre el vídeo ──────────────────────────────────────────────────
+   Se ve los primeros segundos (data-intro, lo quita main.ts) y vuelve al pasar el
+   ratón, al navegar con teclado o si el vídeo está en pausa. Así se presenta
+   quién es Pablo sin tapar el vídeo mientras se reproduce. */
+.hero-title {
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+#hero[data-intro] .hero-title,
+#hero:not([data-playing]) .hero-title,
+#hero:hover .hero-title,
+#hero:has(:focus-visible) .hero-title {
+  opacity: 1;
+}
+.hero-title a, .hero-title p { pointer-events: none; }
+#hero[data-intro] .hero-title a,
+#hero:not([data-playing]) .hero-title a,
+#hero:hover .hero-title a,
+#hero:has(:focus-visible) .hero-title a { pointer-events: auto; }
+
+/* Barra de contacto fija en móvil: aparece al dejar atrás el vídeo. */
+.contact-bar {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+}
+.contact-bar:not([data-scrolled]) {
+  transform: translateY(150%);
+  opacity: 0;
+  visibility: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-title, .contact-bar { transition: none; }
 }
