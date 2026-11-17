@@ -3,7 +3,10 @@
 // Sin texto encima. En escritorio ocupa toda la pantalla; en móvil mantiene la
 // proporción 16:9. Una capa invisible encima del vídeo recoge los clics (el
 // iframe de Vimeo no avisa a la página cuando se pulsa dentro).
-// El script de index.astro controla el reproductor de Vimeo y pone/quita
+// El vídeo se sirve desde archivos.thundershoot.com (Hostinger) con una etiqueta
+// <video>, que carga mucho más rápido que el reproductor de Vimeo. Si el archivo
+// falla, main.ts monta el iframe de Vimeo como plan B.
+// El script main.ts controla el reproductor y pone/quita
 // data-playing y data-muted en esta sección; el CSS (global.css) cambia los iconos.
 // Los textos (aria-label, aviso de sonido) los rellena el script según el idioma.
 import { Play, Pause, Volume2, VolumeX, ChevronDown } from "@lucide/astro";
@@ -25,16 +28,21 @@ const btn =
   <div class="absolute inset-0 w-full h-full overflow-hidden" id="hero-inner">
     <!-- Contenedor que cubre toda la sección sin franjas negras. -->
     <div
+      id="hero-video-box"
       style="position:absolute;top:50%;left:50%;width:max(100%, calc(100vh * 16 / 9));height:max(100%, calc(100vw * 9 / 16));transform:translate(-50%,-50%);"
     >
-      <iframe
-        id="hero-iframe"
-        src="https://player.vimeo.com/video/1220785662?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1"
-        style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
-        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-        referrerpolicy="strict-origin-when-cross-origin"
-        title="Vídeo CV de Pablo Blázquez Gil"
-      ></iframe>
+      <video
+        id="hero-video"
+        src="https://archivos.thundershoot.com/video-cv/video-cv-1080.mp4"
+        style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        referrerpolicy="no-referrer"
+        aria-label="Vídeo CV de Pablo Blázquez Gil"
+      ></video>
     </div>
 
     <!-- Capa invisible: el primer clic activa el sonido desde el principio;

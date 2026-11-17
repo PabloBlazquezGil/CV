@@ -17,7 +17,7 @@ npm run check      # comprueba tipos
 - `src/data/cv_es.json`, `cv_gl.json`: contenido del CV (copias de `cv-base/datos/`).
 - `src/data/web.ts`: textos de la interfaz, enlaces y galería de proyectos.
 - `src/pages/index.astro`, `src/components/`: la página.
-- `src/scripts/main.ts`: idioma, vídeo CV de Vimeo, visor de proyectos y animaciones.
+- `src/scripts/main.ts`: idioma, vídeo CV (con Vimeo de respaldo), visor de proyectos y animaciones.
 - `public/cv/`: PDF del CV en castellano y gallego. Sustitúyelos al exportar uno nuevo.
 - `astro.config.mjs`: dominio (`site`) para sitemap y metadatos.
 
