@@ -3,7 +3,7 @@
 // Todo lo interactivo de la web, sin frameworks:
 //   1. Idioma ES/GL
 //   2. Header que aparece al bajar + animaciones de entrada al hacer scroll
-//   3. Vídeo CV de Vimeo (con sonido si el navegador lo permite)
+//   3. Vídeo CV (propio, con Vimeo de respaldo; con sonido si el navegador lo permite)
 //   4. Visor de proyectos (lightbox)
 // ─────────────────────────────────────────────────────────────────────────────
 type Lang = "es" | "gl";
@@ -162,34 +162,85 @@ async function toggleMute() {
   setHeroState(heroPlaying(), !muted);
 }
 
-const vimeoScript = document.createElement("script");
-vimeoScript.src = "https://player.vimeo.com/api/player.js";
-vimeoScript.async = true;
-vimeoScript.onload = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const Vimeo = (window as any).Vimeo;
-  const iframe = document.getElementById("hero-iframe");
-  if (!iframe || !Vimeo) return;
-  player = new Vimeo.Player(iframe);
+// Los dos reproductores (el <video> propio y el de Vimeo) se manejan con los
+// mismos métodos, así que el resto del código no sabe cuál está activo.
+const heroVideo = document.getElementById("hero-video") as HTMLVideoElement;
 
-  // Paso 2: intento de sonido automático. Si el navegador lo bloquea, el vídeo
-  // se pausa o da error; entonces se vuelve a silenciar y sigue.
-  player.ready().then(async () => {
-    try {
-      await player.setVolume(1);
-      await player.setMuted(false);
-      await player.play();
-      if (!(await player.getPaused()) && !(await player.getMuted())) {
-        soundStarted = true;
-        setHeroState(true, false);
-        return;
-      }
-    } catch {}
-    await player.setMuted(true).catch(() => {});
-    await player.play().catch(() => {});
-  });
-};
-document.head.appendChild(vimeoScript);
+// Paso 2: intento de sonido automático. Si el navegador lo bloquea, el vídeo
+// se pausa o da error; entonces se vuelve a silenciar y sigue.
+async function tryAutoSound() {
+  if (!player) return;
+  try {
+    await player.setVolume(1);
+    await player.setMuted(false);
+    await player.play();
+    if (!(await player.getPaused()) && !(await player.getMuted())) {
+      soundStarted = true;
+      setHeroState(true, false);
+      return;
+    }
+  } catch {}
+  await player.setMuted(true).catch(() => {});
+  await player.play().catch(() => {});
+}
+
+// Adaptador: hace que un <video> normal responda como el reproductor de Vimeo.
+function htmlPlayer(v: HTMLVideoElement) {
+  return {
+    ready: () => Promise.resolve(),
+    setVolume: async (n: number) => void (v.volume = n),
+    setMuted: async (m: boolean) => void (v.muted = m),
+    setCurrentTime: async (t: number) => void (v.currentTime = t),
+    play: () => v.play(),
+    pause: async () => v.pause(),
+    getPaused: async () => v.paused,
+    getMuted: async () => v.muted,
+  };
+}
+
+// Plan B: si el vídeo propio no carga, se monta el iframe de Vimeo.
+function loadVimeo() {
+  heroVideo.remove();
+  const iframe = document.createElement("iframe");
+  iframe.id = "hero-iframe";
+  iframe.src =
+    "https://player.vimeo.com/video/1220785662?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1";
+  iframe.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;border:0;";
+  iframe.allow = "autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media";
+  iframe.referrerPolicy = "strict-origin-when-cross-origin";
+  iframe.title = "Vídeo CV de Pablo Blázquez Gil";
+  document.getElementById("hero-video-box")!.appendChild(iframe);
+
+  const vimeoScript = document.createElement("script");
+  vimeoScript.src = "https://player.vimeo.com/api/player.js";
+  vimeoScript.async = true;
+  vimeoScript.onload = () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const Vimeo = (window as any).Vimeo;
+    if (!Vimeo) return;
+    player = new Vimeo.Player(iframe);
+    soundStarted = false;
+    player.ready().then(tryAutoSound);
+  };
+  document.head.appendChild(vimeoScript);
+}
+
+if (heroVideo) {
+  player = htmlPlayer(heroVideo);
+  let fellBack = false;
+  const fallback = () => {
+    if (fellBack) return;
+    fellBack = true;
+    loadVimeo();
+  };
+  // Error de red o de formato: respaldo. Si en 8 s no hay ni un fotograma, también.
+  heroVideo.addEventListener("error", fallback);
+  const timer = window.setTimeout(() => {
+    if (heroVideo.readyState < 2) fallback();
+  }, 8000);
+  heroVideo.addEventListener("loadeddata", () => window.clearTimeout(timer), { once: true });
+  tryAutoSound();
+}
 
 // Paso 3: primer gesto del visitante en cualquier parte de la página. Solo si
 // el vídeo sigue a la vista: si ya ha bajado a leer, no se le pone a sonar un
